@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071e3'/%3E%3Crect x='5' y='7' width='22' height='14' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cline x1='10' y1='25' x2='22' y2='25' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='16' y1='21' x2='16' y2='25' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+    <meta name="description" content="Boost your Windows PC with proven optimization tweaks for gaming, productivity, and everyday use.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Optimization & Tweaks | PC Essentials</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="base-styles.css">
+    <style>
+        :root {
+            --bg-primary: #080503;
+            --bg-secondary: #0f0906;
+            --bg-tertiary: #1a100a;
+            --bg-card: rgba(26, 16, 10, 0.5);
+            --bg-card-solid: #150d08;
+            --text-primary: #ffffff;
+            --text-secondary: #c8a882;
+            --text-tertiary: #8a6a4a;
+            --accent: #f97316;
+            --accent-light: #fb923c;
+            --accent-hover: #ea580c;
+            --accent-glow: rgba(249, 115, 22, 0.4);
+            --border: rgba(249, 115, 22, 0.15);
+            --border-light: rgba(255, 255, 255, 0.06);
+            --card-radius: 20px;
+            --green: #22c55e;
+            --yellow: #eab308;
+            --red: #ef4444;
+            --blue: #3b82f6;
+            --orange: #f97316;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated gradient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(249, 115, 22, 0.15), transparent),
+                radial-gradient(ellipse 60% 40% at 100% 50%, rgba(249, 115, 22, 0.08), transparent),
+                radial-gradient(ellipse 60% 40% at 0% 80%, rgba(249, 115, 22, 0.05), transparent);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(8, 5, 3, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: opacity 0.2s;
+        }
+
+        .logo:hover {
+            opacity: 0.8;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-links a.active {
+            color: var(--accent-light);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lang-toggle {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 4px;
+        }
+
+        .lang-btn {
+            padding: 6px 14px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 500;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        /* Tools Sub-Navigation */
+        .tools-subnav {
+            background: rgba(15, 9, 6, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+            margin-top: 64px;
+            position: sticky;
+            top: 64px;
+            z-index: 99;
+        }
+
+        .tools-subnav-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            padding: 14px 20px;
+            overflow-x: auto;
+        }
+
+        .tools-subnav-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tools-subnav-link {
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+
+        .tools-subnav-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border-color: var(--border-light);
+        }
+
+        .tools-subnav-link.active {
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            color: white;
+            box-shadow: 0 4px 20px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.1);
+            border-color: transparent;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 80px 24px 50px;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.03em;
+            background: linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.6) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            line-height: 1.7;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 100px;
+        }
+
+        /* Section Tabs */
+        .section-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section-tab:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .section-tab.active {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-color: transparent;
+            color: #000;
+            box-shadow: 0 4px 20px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.15);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Game Cards */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 24px;
+        }
+
+        .game-card {
+            background: linear-gradient(135deg, rgba(26, 16, 10, 0.6) 0%, rgba(15, 9, 6, 0.4) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(249, 115, 22, 0.1);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .game-card:hover {
+            border-color: rgba(249, 115, 22, 0.25);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 50px rgba(249, 115, 22, 0.08);
+        }
+
+        .game-card:hover::before {
+            opacity: 1;
+        }
+
+        .game-header {
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid rgba(249, 115, 22, 0.08);
+        }
+
+        .game-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        .game-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            letter-spacing: -0.01em;
+        }
+
+        .game-genre {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+
+        .game-body {
+            padding: 22px;
+        }
+
+        .settings-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .setting-row:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .setting-name {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .setting-value {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--green);
+            text-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
+        }
+
+        .setting-value.medium { color: var(--yellow); text-shadow: 0 0 10px rgba(234, 179, 8, 0.3); }
+        .setting-value.high { color: var(--orange); text-shadow: 0 0 10px rgba(249, 115, 22, 0.3); }
+        .setting-value.off { color: var(--text-tertiary); text-shadow: none; }
+
+        .game-tip {
+            margin-top: 18px;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(249, 115, 22, 0.03) 100%);
+            border: 1px solid rgba(249, 115, 22, 0.15);
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .game-tip strong {
+            color: var(--accent-light);
+        }
+
+        /* Windows Tips */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+        }
+
+        .tip-card {
+            background: linear-gradient(135deg, rgba(26, 16, 10, 0.5) 0%, rgba(15, 9, 6, 0.3) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(249, 115, 22, 0.1);
+            border-radius: var(--card-radius);
+            padding: 26px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tip-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tip-card:hover {
+            border-color: rgba(249, 115, 22, 0.25);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 50px rgba(249, 115, 22, 0.08);
+        }
+
+        .tip-card:hover::before {
+            opacity: 1;
+        }
+
+        .tip-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .tip-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        .tip-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .tip-impact {
+            font-size: 0.7rem;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            border: 1px solid transparent;
+        }
+
+        .tip-impact.high {
+            background: rgba(34, 197, 94, 0.12);
+            border-color: rgba(34, 197, 94, 0.2);
+            color: var(--green);
+            box-shadow: 0 2px 10px rgba(34, 197, 94, 0.15);
+        }
+
+        .tip-impact.medium {
+            background: rgba(234, 179, 8, 0.12);
+            border-color: rgba(234, 179, 8, 0.2);
+            color: var(--yellow);
+            box-shadow: 0 2px 10px rgba(234, 179, 8, 0.1);
+        }
+
+        .tip-impact.low {
+            background: rgba(156, 156, 184, 0.1);
+            border-color: rgba(156, 156, 184, 0.15);
+            color: var(--text-secondary);
+        }
+
+        .tip-steps {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .tip-steps code {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-light);
+        }
+
+        /* FPS Guide */
+        .fps-guide {
+            background: linear-gradient(135deg, rgba(26, 16, 10, 0.6) 0%, rgba(15, 9, 6, 0.4) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(249, 115, 22, 0.1);
+            border-radius: 24px;
+            padding: 36px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+
+        .fps-guide h3 {
+            font-size: 1.3rem;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .fps-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .fps-table th, .fps-table td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid rgba(249, 115, 22, 0.08);
+        }
+
+        .fps-table th {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .fps-table td {
+            font-size: 0.875rem;
+        }
+
+        .fps-table tr {
+            transition: all 0.2s ease;
+        }
+
+        .fps-table tr:hover td {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .impact-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border: 1px solid transparent;
+        }
+
+        .impact-badge.major {
+            background: rgba(239, 68, 68, 0.12);
+            border-color: rgba(239, 68, 68, 0.2);
+            color: var(--red);
+            box-shadow: 0 2px 10px rgba(239, 68, 68, 0.1);
+        }
+
+        .impact-badge.moderate {
+            background: rgba(234, 179, 8, 0.12);
+            border-color: rgba(234, 179, 8, 0.2);
+            color: var(--yellow);
+            box-shadow: 0 2px 10px rgba(234, 179, 8, 0.1);
+        }
+
+        .impact-badge.minor {
+            background: rgba(34, 197, 94, 0.12);
+            border-color: rgba(34, 197, 94, 0.2);
+            color: var(--green);
+            box-shadow: 0 2px 10px rgba(34, 197, 94, 0.1);
+        }
+
+        /* Overclocking */
+        .oc-warning {
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.03) 100%);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 18px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            backdrop-filter: blur(8px);
+        }
+
+        .oc-warning-icon {
+            font-size: 1.75rem;
+        }
+
+        .oc-warning h4 {
+            color: var(--red);
+            margin-bottom: 6px;
+            font-size: 1.05rem;
+        }
+
+        .oc-warning p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .oc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .oc-card {
+            background: linear-gradient(135deg, rgba(26, 16, 10, 0.5) 0%, rgba(15, 9, 6, 0.3) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(249, 115, 22, 0.1);
+            border-radius: var(--card-radius);
+            padding: 26px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .oc-card:hover {
+            border-color: rgba(249, 115, 22, 0.25);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 50px rgba(249, 115, 22, 0.08);
+        }
+
+        .oc-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            font-size: 1.05rem;
+            letter-spacing: -0.01em;
+        }
+
+        .oc-card ul {
+            padding-left: 20px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            line-height: 1.6;
+        }
+
+        .oc-card a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 18px;
+            padding: 12px 22px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .oc-card a:hover {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-color: transparent;
+            color: #000;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 24px;
+            border-top: 1px solid rgba(249, 115, 22, 0.1);
+            text-align: center;
+            background: linear-gradient(180deg, transparent 0%, rgba(249, 115, 22, 0.02) 100%);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 36px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-light);
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .footer-copy {
+            color: var(--text-tertiary);
+            font-size: 0.8rem;
+        }
+
+        /* Mobile */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 16px 24px;
+        }
+
+        .mobile-menu.active { display: flex; }
+
+        .mobile-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .page-header h1 { font-size: 2rem; }
+            .games-grid, .tips-grid { grid-template-columns: 1fr; }
+            .fps-table { font-size: 0.75rem; }
+            .fps-table th, .fps-table td { padding: 8px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                        <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <span>PC Essentials</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                
+                <li><a href="setup-checklist.html">Setup</a></li>
+                <li><a href="software.html" data-en="Software" data-mn="Програм">Software</a></li>
+                <li><a href="peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a></li>
+                <li><a href="ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a></li>
+                
+                <li><a href="performance.html">Performance</a></li>
+                <li><a href="shortcuts.html">Shortcuts</a></li>
+                
+                <li><a href="maintenance.html" class="active" data-en="Tools" data-mn="Хэрэгслүүд">Tools</a>
+            <a href="typing-test.html">Typing Test</a>
+            <a href="pc-name-generator.html">Name Gen</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="mn">MN</button>
+                </div>
+                <button class="hamburger" id="hamburger">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" data-en="Home" data-mn="Нүүр">Home</a>
+            <a href="setup-checklist.html">Setup Guide</a>
+            <a href="software.html" data-en="Software" data-mn="Програм">Software</a>
+            <a href="peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a>
+            
+            <a href="ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a>
+            <a href="shortcuts.html">Shortcuts</a>
+            <a href="performance.html" data-en="Performance" data-mn="Гүйцэтгэл">Performance</a>
+            <a href="youtube-guide.html" data-en="Build Guide" data-mn="Угсрах Заавар">Build Guide</a>
+            <a href="maintenance.html" class="active" data-en="Tools" data-mn="Хэрэгслүүд">Tools</a>
+        </div>
+    </nav>
+
+    <!-- Tools Sub-Navigation -->
+    <div class="tools-subnav">
+        <div class="tools-subnav-container">
+            <a href="maintenance.html" class="tools-subnav-link">🔧 Maintenance</a>
+            <a href="optimization.html" class="tools-subnav-link active">⚡ Optimize</a>
+            <a href="troubleshoot.html" class="tools-subnav-link">🛠️ Troubleshoot</a>
+            <a href="upgrade-planner.html" class="tools-subnav-link">📈 Upgrade</a>
+            <a href="can-i-run-it.html" class="tools-subnav-link">🎮 Can I Run It?</a>
+        </div>
+    </div>
+
+    <header class="page-header">
+        <h1>PC Optimization & Tweaks</h1>
+        <p>Squeeze every frame out of your hardware. Game settings, Windows tweaks, and performance guides.</p>
+    </header>
+
+    <main class="main-content">
+        <div class="section-tabs">
+            <button class="section-tab active" data-section="games">🎮 Game Settings</button>
+            <button class="section-tab" data-section="windows">⊞ Windows Tweaks</button>
+            <button class="section-tab" data-section="fps">📊 FPS Guide</button>
+            <button class="section-tab" data-section="overclock">⚡ Overclocking</button>
+        </div>
+
+        <!-- Game Settings Section -->
+        <div class="content-section active" id="games">
+            <h3 style="margin-bottom: 24px; font-size: 1.1rem;">Optimal Settings for Popular Games</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 0.9rem;">Settings optimized for competitive advantage (high FPS) while maintaining visual quality. Adjust based on your hardware.</p>
+
+            <div class="games-grid">
+                <!-- Valorant -->
+                <div class="game-card">
+                    <div class="game-header">
+                        <div class="game-icon" style="background: linear-gradient(135deg, #fd4556 0%, #bd3944 100%);">🎯</div>
+                        <div>
+                            <div class="game-title">VALORANT</div>
+                            <div class="game-genre">Tactical Shooter</div>
+                        </div>
+                    </div>
+                    <div class="game-body">
+                        <div class="settings-list">
+                            <div class="setting-row">
+                                <span class="setting-name">Material Quality</span>
+                                <span class="setting-value">Low</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">Texture Quality</span>
+                                <span class="setting-value medium">Medium</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">Detail Quality</span>
+                                <span class="setting-value">Low</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">Anti-Aliasing</span>
+                                <span class="setting-value off">None</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">V-Sync</span>
+                                <span class="setting-value off">Off</span>
+                            </div>
+                        </div>
+                        <div class="game-tip">
+                            <strong>💡 Pro Tip:</strong> Cap FPS slightly below your monitor's refresh rate to reduce input lag. Enable "Multithreaded Rendering" for better CPU usage.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CS2 -->
+                <div class="game-card">
+                    <div class="game-header">
+                        <div class="game-icon" style="background: linear-gradient(135deg, #de9b35 0%, #a87828 100%);">💥</div>
+                        <div>
+                            <div class="game-title">Counter-Strike 2</div>
+                            <div class="game-genre">Tactical Shooter</div>
+                        </div>
+                    </div>
+                    <div class="game-body">
+                        <div class="settings-list">
+                            <div class="setting-row">
+                                <span class="setting-name">Global Shadow Quality</span>
+                                <span class="setting-value">Low</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">Texture Detail</span>
+                                <span class="setting-value medium">Medium</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">Shader Detail</span>
+                                <span class="setting-value">Low</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">Boost Player Contrast</span>
+                                <span class="setting-value">Enabled</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">V-Sync</span>
+                                <span class="setting-value off">Disabled</span>
+                            </div>
+                        </div>
+                        <div class="game-tip">
+                            <strong>💡 Pro Tip:</strong> Use NVIDIA Reflex (Low Latency) if available. Set fps_max to your monitor's refresh rate + 1.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fortnite -->
+                <div class="game-card">
+                    <div class="game-header">
+                        <div class="game-icon" style="background: linear-gradient(135deg, #9d4dbb 0%, #7a3a93 100%);">🏗️</div>
+                        <div>
+                            <div class="game-title">Fortnite</div>
+                            <div class="game-genre">Battle Royale</div>
+                        </div>
+                    </div>
+                    <div class="game-body">
+                        <div class="settings-list">
+                            <div class="setting-row">
+                                <span class="setting-name">Rendering Mode</span>
+                                <span class="setting-value">Performance</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">3D Resolution</span>
+                                <span class="setting-value">100%</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">View Distance</span>
+                                <span class="setting-value medium">Medium</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">Shadows</span>
+                                <span class="setting-value off">Off</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">Anti-Aliasing</span>
+                                <span class="setting-value off">Off</span>
+                            </div>
+                        </div>
+                        <div class="game-tip">
+                            <strong>💡 Pro Tip:</strong> Performance mode gives huge FPS boost. Turn off motion blur for clearer visibility during fast movements.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warzone -->
+                <div class="game-card">
+                    <div class="game-header">
+                        <div class="game-icon" style="background: linear-gradient(135deg, #4a7c3f 0%, #3a6230 100%);">🔫</div>
+                        <div>
+                            <div class="game-title">Call of Duty: Warzone</div>
+                            <div class="game-genre">Battle Royale</div>
+                        </div>
+                    </div>
+                    <div class="game-body">
+                        <div class="settings-list">
+                            <div class="setting-row">
+                                <span class="setting-name">Texture Resolution</span>
+                                <span class="setting-value medium">Normal</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">Shadow Quality</span>
+                                <span class="setting-value">Low</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">Ray Tracing</span>
+                                <span class="setting-value off">Off</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">DLSS/FSR</span>
+                                <span class="setting-value">Quality</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">Render Resolution</span>
+                                <span class="setting-value">100%</span>
+                            </div>
+                        </div>
+                        <div class="game-tip">
+                            <strong>💡 Pro Tip:</strong> Disable on-demand texture streaming if you have fast SSD. Use DLSS Quality for best balance.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apex Legends -->
+                <div class="game-card">
+                    <div class="game-header">
+                        <div class="game-icon" style="background: linear-gradient(135deg, #cd3333 0%, #a02828 100%);">🔺</div>
+                        <div>
+                            <div class="game-title">Apex Legends</div>
+                            <div class="game-genre">Battle Royale</div>
+                        </div>
+                    </div>
+                    <div class="game-body">
+                        <div class="settings-list">
+                            <div class="setting-row">
+                                <span class="setting-name">Texture Streaming</span>
+                                <span class="setting-value medium">Medium</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">Model Detail</span>
+                                <span class="setting-value">Low</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">Effects Detail</span>
+                                <span class="setting-value">Low</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">Impact Marks</span>
+                                <span class="setting-value off">Disabled</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">Ragdolls</span>
+                                <span class="setting-value">Low</span>
+                            </div>
+                        </div>
+                        <div class="game-tip">
+                            <strong>💡 Pro Tip:</strong> Add +fps_max 190 to launch options. Disable Adaptive Resolution if you have stable FPS.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Black Myth Wukong -->
+                <div class="game-card">
+                    <div class="game-header">
+                        <div class="game-icon" style="background: linear-gradient(135deg, #d4a017 0%, #a67c12 100%);">🐵</div>
+                        <div>
+                            <div class="game-title">Black Myth: Wukong</div>
+                            <div class="game-genre">Action RPG</div>
+                        </div>
+                    </div>
+                    <div class="game-body">
+                        <div class="settings-list">
+                            <div class="setting-row">
+                                <span class="setting-name">Graphics Preset</span>
+                                <span class="setting-value medium">Medium</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">DLSS/FSR</span>
+                                <span class="setting-value">Balanced</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">Frame Generation</span>
+                                <span class="setting-value">On (if RTX 40)</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">Ray Tracing</span>
+                                <span class="setting-value off">Off</span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-name">Motion Blur</span>
+                                <span class="setting-value off">Off</span>
+                            </div>
+                        </div>
+                        <div class="game-tip">
+                            <strong>💡 Pro Tip:</strong> This game is demanding! Use DLSS Frame Generation on RTX 40 series for playable framerates at high settings.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Windows Tweaks Section -->
+        <div class="content-section" id="windows">
+            <h3 style="margin-bottom: 24px; font-size: 1.1rem;">Windows Optimization Tips</h3>
+
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-header">
+                        <div class="tip-icon" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);">🎮</div>
+                        <div style="flex: 1;">
+                            <div class="tip-title">Enable Game Mode</div>
+                        </div>
+                        <span class="tip-impact high">High Impact</span>
+                    </div>
+                    <div class="tip-steps">
+                        <strong>Steps:</strong><br>
+                        1. Press <code>Win + I</code> → Gaming<br>
+                        2. Click "Game Mode"<br>
+                        3. Turn it <code>On</code><br><br>
+                        Prioritizes game processes and prevents Windows Update during gameplay.
+                    </div>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-header">
+                        <div class="tip-icon" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">⚡</div>
+                        <div style="flex: 1;">
+                            <div class="tip-title">High Performance Power Plan</div>
+                        </div>
+                        <span class="tip-impact high">High Impact</span>
+                    </div>
+                    <div class="tip-steps">
+                        <strong>Steps:</strong><br>
+                        1. Search "Power Plan" in Start<br>
+                        2. Select "High Performance"<br>
+                        3. Or run: <code>powercfg -duplicatescheme 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c</code><br><br>
+                        Prevents CPU throttling during gaming.
+                    </div>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-header">
+                        <div class="tip-icon" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">🖥️</div>
+                        <div style="flex: 1;">
+                            <div class="tip-title">Disable Hardware GPU Scheduling</div>
+                        </div>
+                        <span class="tip-impact medium">Medium Impact</span>
+                    </div>
+                    <div class="tip-steps">
+                        <strong>Steps:</strong><br>
+                        1. <code>Win + I</code> → System → Display<br>
+                        2. Click "Graphics"<br>
+                        3. "Change default graphics settings"<br>
+                        4. Toggle based on your results<br><br>
+                        Test both on/off - varies by system.
+                    </div>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-header">
+                        <div class="tip-icon" style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);">🔄</div>
+                        <div style="flex: 1;">
+                            <div class="tip-title">Disable Startup Programs</div>
+                        </div>
+                        <span class="tip-impact high">High Impact</span>
+                    </div>
+                    <div class="tip-steps">
+                        <strong>Steps:</strong><br>
+                        1. Press <code>Ctrl + Shift + Esc</code><br>
+                        2. Click "Startup apps" tab<br>
+                        3. Disable unnecessary programs<br><br>
+                        Keep: GPU drivers, audio. Disable: Spotify, Discord, etc.
+                    </div>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-header">
+                        <div class="tip-icon" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">🎨</div>
+                        <div style="flex: 1;">
+                            <div class="tip-title">Disable Visual Effects</div>
+                        </div>
+                        <span class="tip-impact low">Low Impact</span>
+                    </div>
+                    <div class="tip-steps">
+                        <strong>Steps:</strong><br>
+                        1. Search "Performance" in Start<br>
+                        2. "Adjust appearance and performance"<br>
+                        3. Select "Adjust for best performance"<br>
+                        4. Re-enable "Smooth edges of screen fonts"<br><br>
+                        Reduces desktop GPU usage slightly.
+                    </div>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-header">
+                        <div class="tip-icon" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);">🔔</div>
+                        <div style="flex: 1;">
+                            <div class="tip-title">Disable Notifications While Gaming</div>
+                        </div>
+                        <span class="tip-impact medium">Medium Impact</span>
+                    </div>
+                    <div class="tip-steps">
+                        <strong>Steps:</strong><br>
+                        1. <code>Win + I</code> → System → Focus Assist<br>
+                        2. Turn on "When I'm playing a game"<br>
+                        3. Set to "Priority only" or "Alarms only"<br><br>
+                        Prevents notification popups during games.
+                    </div>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-header">
+                        <div class="tip-icon" style="background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);">📺</div>
+                        <div style="flex: 1;">
+                            <div class="tip-title">Set Correct Monitor Refresh Rate</div>
+                        </div>
+                        <span class="tip-impact high">High Impact</span>
+                    </div>
+                    <div class="tip-steps">
+                        <strong>Steps:</strong><br>
+                        1. Right-click Desktop → Display Settings<br>
+                        2. Advanced display settings<br>
+                        3. Set refresh rate to max (144Hz, 240Hz, etc.)<br><br>
+                        Many people forget this after setup!
+                    </div>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-header">
+                        <div class="tip-icon" style="background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);">🛡️</div>
+                        <div style="flex: 1;">
+                            <div class="tip-title">Add Game Folder to Antivirus Exclusions</div>
+                        </div>
+                        <span class="tip-impact medium">Medium Impact</span>
+                    </div>
+                    <div class="tip-steps">
+                        <strong>Steps:</strong><br>
+                        1. Windows Security → Virus protection<br>
+                        2. Manage settings → Add exclusion<br>
+                        3. Add your games folder (e.g., Steam, Epic)<br><br>
+                        Reduces stuttering from real-time scans.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FPS Guide Section -->
+        <div class="content-section" id="fps">
+            <div class="fps-guide">
+                <h3>📊 Graphics Settings Impact Guide</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 0.9rem;">Which settings affect performance the most? Lower these first for maximum FPS gains.</p>
+
+                <table class="fps-table">
+                    <thead>
+                        <tr>
+                            <th>Setting</th>
+                            <th>FPS Impact</th>
+                            <th>Visual Impact</th>
+                            <th>Recommendation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Ray Tracing</strong></td>
+                            <td><span class="impact-badge major">Major (-30-50%)</span></td>
+                            <td>High</td>
+                            <td>Off for competitive, On for cinematic</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Resolution</strong></td>
+                            <td><span class="impact-badge major">Major (-30-50%)</span></td>
+                            <td>Very High</td>
+                            <td>Use DLSS/FSR instead of lowering</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Shadow Quality</strong></td>
+                            <td><span class="impact-badge major">Major (-15-25%)</span></td>
+                            <td>Medium</td>
+                            <td>Low or Medium</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Volumetric Lighting</strong></td>
+                            <td><span class="impact-badge major">Major (-10-20%)</span></td>
+                            <td>Medium</td>
+                            <td>Low or Off</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ambient Occlusion</strong></td>
+                            <td><span class="impact-badge moderate">Moderate (-5-15%)</span></td>
+                            <td>Medium</td>
+                            <td>SSAO or Off</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Anti-Aliasing</strong></td>
+                            <td><span class="impact-badge moderate">Moderate (-5-10%)</span></td>
+                            <td>Medium</td>
+                            <td>TAA or FXAA (not MSAA)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Post Processing</strong></td>
+                            <td><span class="impact-badge moderate">Moderate (-5-10%)</span></td>
+                            <td>Low</td>
+                            <td>Low</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Texture Quality</strong></td>
+                            <td><span class="impact-badge minor">Minor (-0-5%)</span></td>
+                            <td>High</td>
+                            <td>High (if enough VRAM)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>View Distance</strong></td>
+                            <td><span class="impact-badge minor">Minor (-2-8%)</span></td>
+                            <td>Medium</td>
+                            <td>Medium for competitive</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Motion Blur</strong></td>
+                            <td><span class="impact-badge minor">Minor (-1-3%)</span></td>
+                            <td>Low</td>
+                            <td>Always Off (competitive advantage)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="fps-guide">
+                <h3>🚀 Quick FPS Boost Checklist</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 16px;">
+                    <div style="padding: 16px; background: var(--bg-tertiary); border-radius: 10px;">
+                        <div style="font-weight: 600; margin-bottom: 8px; color: var(--green);">✓ In-Game</div>
+                        <ul style="font-size: 0.85rem; color: var(--text-secondary); padding-left: 20px;">
+                            <li>Turn off V-Sync</li>
+                            <li>Disable Motion Blur</li>
+                            <li>Lower Shadow Quality</li>
+                            <li>Use DLSS/FSR if available</li>
+                            <li>Cap FPS to monitor refresh rate</li>
+                        </ul>
+                    </div>
+                    <div style="padding: 16px; background: var(--bg-tertiary); border-radius: 10px;">
+                        <div style="font-weight: 600; margin-bottom: 8px; color: var(--blue);">✓ Windows</div>
+                        <ul style="font-size: 0.85rem; color: var(--text-secondary); padding-left: 20px;">
+                            <li>Enable Game Mode</li>
+                            <li>Close background apps</li>
+                            <li>Update GPU drivers</li>
+                            <li>Set High Performance power plan</li>
+                            <li>Disable Xbox Game Bar overlay</li>
+                        </ul>
+                    </div>
+                    <div style="padding: 16px; background: var(--bg-tertiary); border-radius: 10px;">
+                        <div style="font-weight: 600; margin-bottom: 8px; color: var(--orange);">✓ NVIDIA Control Panel</div>
+                        <ul style="font-size: 0.85rem; color: var(--text-secondary); padding-left: 20px;">
+                            <li>Power Management: Prefer Max Performance</li>
+                            <li>Low Latency Mode: On or Ultra</li>
+                            <li>Threaded Optimization: On</li>
+                            <li>Texture Filtering: Performance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overclocking Section -->
+        <div class="content-section" id="overclock">
+            <div class="oc-warning">
+                <div class="oc-warning-icon">⚠️</div>
+                <div>
+                    <h4>Proceed with Caution</h4>
+                    <p>Overclocking can increase performance but may void warranties, cause instability, or damage hardware if done incorrectly. Always research your specific hardware and start with small increments.</p>
+                </div>
+            </div>
+
+            <div class="oc-grid">
+                <div class="oc-card">
+                    <h4>🎮 GPU Overclocking</h4>
+                    <ul>
+                        <li>Use MSI Afterburner (works with all GPUs)</li>
+                        <li>Increase Core Clock by +50MHz, test stability</li>
+                        <li>Increase Memory Clock by +100MHz, test stability</li>
+                        <li>Monitor temperatures (stay under 85°C)</li>
+                        <li>Run benchmarks (3DMark, Unigine) to test</li>
+                        <li>Typical gains: 5-15% more FPS</li>
+                    </ul>
+                    <a href="https://www.msi.com/Landing/afterburner/" target="_blank">Get MSI Afterburner →</a>
+                </div>
+
+                <div class="oc-card">
+                    <h4>🧠 CPU Overclocking</h4>
+                    <ul>
+                        <li>Requires unlocked CPU (K/X series)</li>
+                        <li>Done through BIOS/UEFI</li>
+                        <li>Increase multiplier, not base clock</li>
+                        <li>May need to increase voltage (carefully!)</li>
+                        <li>Good cooling is essential (tower/AIO)</li>
+                        <li>Stress test with Prime95 or Cinebench</li>
+                    </ul>
+                    <a href="https://www.youtube.com/results?search_query=cpu+overclocking+guide+2024" target="_blank">Watch Guides →</a>
+                </div>
+
+                <div class="oc-card">
+                    <h4>💾 RAM Overclocking (XMP/EXPO)</h4>
+                    <ul>
+                        <li>Easiest overclock - just enable XMP/EXPO</li>
+                        <li>Enter BIOS (Del or F2 at boot)</li>
+                        <li>Find XMP (Intel) or EXPO (AMD) setting</li>
+                        <li>Enable Profile 1 (usually fastest)</li>
+                        <li>Save and exit - RAM now runs at rated speed</li>
+                        <li>Check with CPU-Z to verify</li>
+                    </ul>
+                    <a href="https://www.youtube.com/results?search_query=enable+xmp+profile" target="_blank">Watch Tutorial →</a>
+                </div>
+
+                <div class="oc-card">
+                    <h4>🔧 GPU Undervolting</h4>
+                    <ul>
+                        <li>Reduces heat AND power with same/better performance</li>
+                        <li>Use MSI Afterburner curve editor</li>
+                        <li>Lower voltage while maintaining clock speed</li>
+                        <li>Safer than overclocking</li>
+                        <li>Great for laptops or hot GPUs</li>
+                        <li>Can reduce temps by 10-20°C</li>
+                    </ul>
+                    <a href="https://www.youtube.com/results?search_query=gpu+undervolting+guide" target="_blank">Learn Undervolting →</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="software.html">Software</a>
+            <a href="maintenance.html">Maintenance</a>
+            <a href="optimization.html">Optimize</a>
+            <a href="troubleshoot.html">Troubleshoot</a>
+            <a href="upgrade-planner.html">Upgrade</a>
+        </div>
+        <p class="footer-copy">© 2026 PC Essentials. Optimize your gaming experience.</p>
+    </footer>
+
+    <script>
+        // Tab switching
+        document.querySelectorAll('.section-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.section).classList.add('active');
+            });
+        });
+
+        // Mobile menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger?.addEventListener('click', () => mobileMenu.classList.toggle('active'));
+
+        // Language toggle
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+    </script>
+    <script src="effects.js"></script>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+<script>
+    // Back to top button
+    const backToTopBtn = document.getElementById('backToTop');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            backToTopBtn.classList.toggle('visible', window.scrollY > 400);
+        });
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Active nav link
+    (function() {
+        const currentFile = location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && (href === currentFile || (currentFile === '' && href === 'index.html'))) {
+                link.classList.add('active');
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

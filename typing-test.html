@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071e3'/%3E%3Crect x='5' y='7' width='22' height='14' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cline x1='10' y1='25' x2='22' y2='25' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='16' y1='21' x2='16' y2='25' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+    <meta name="description" content="Test your typing speed and accuracy with a sleek WPM typing test. Multiple time modes available.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Speed Test - PC Essentials</title>
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: rgba(18, 18, 30, 0.8);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-tertiary: rgba(255, 255, 255, 0.4);
+            --accent: #10b981;
+            --accent-light: #34d399;
+            --accent-glow: rgba(16, 185, 129, 0.4);
+            --error: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            background-image:
+                radial-gradient(ellipse at top, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-light);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 24px 60px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .stat-item {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-light);
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .stat-label {
+            color: var(--text-tertiary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        /* Mode Selector */
+        .mode-selector {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .mode-btn {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mode-btn:hover {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .mode-btn.active {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: var(--accent);
+            color: var(--accent-light);
+        }
+
+        /* Typing Area */
+        .typing-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        .text-display {
+            font-size: 1.4rem;
+            line-height: 2;
+            margin-bottom: 30px;
+            padding: 24px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            letter-spacing: 0.5px;
+            height: 180px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            word-wrap: break-word;
+        }
+
+        .text-display .char {
+            transition: all 0.1s ease;
+        }
+
+        .text-display .char.correct {
+            color: var(--accent-light);
+        }
+
+        /* Level up flash effect */
+        .level-up-flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+            opacity: 0;
+            z-index: 999;
+            animation: flashPulse 0.5s ease-out;
+        }
+
+        @keyframes flashPulse {
+            0% { opacity: 0.6; transform: scale(0.8); }
+            100% { opacity: 0; transform: scale(1.5); }
+        }
+
+        /* Streak counter */
+        .streak-container {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            text-align: center;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .streak-container.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .streak-fire {
+            font-size: 2.5rem;
+            animation: firePulse 0.5s ease infinite;
+        }
+
+        @keyframes firePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .streak-count {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-light);
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .streak-label {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Combo message */
+        .combo-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent-light);
+            text-shadow: 0 0 30px var(--accent-glow);
+            pointer-events: none;
+            opacity: 0;
+            z-index: 1000;
+        }
+
+        .combo-message.show {
+            animation: comboPopup 1s ease-out forwards;
+        }
+
+        @keyframes comboPopup {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            20% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+            100% { opacity: 0; transform: translate(-50%, -60%) scale(1); }
+        }
+
+        /* Color phases - only affect typing card */
+        .typing-card.phase-1 { --card-accent: #10b981; --card-accent-light: #34d399; --card-accent-glow: rgba(16, 185, 129, 0.4); }
+        .typing-card.phase-2 { --card-accent: #3b82f6; --card-accent-light: #60a5fa; --card-accent-glow: rgba(59, 130, 246, 0.4); }
+        .typing-card.phase-3 { --card-accent: #8b5cf6; --card-accent-light: #a78bfa; --card-accent-glow: rgba(139, 92, 246, 0.4); }
+        .typing-card.phase-4 { --card-accent: #f59e0b; --card-accent-light: #fbbf24; --card-accent-glow: rgba(245, 158, 11, 0.4); }
+        .typing-card.phase-5 { --card-accent: #ef4444; --card-accent-light: #f87171; --card-accent-glow: rgba(239, 68, 68, 0.4); }
+
+        .typing-card[class*="phase-"] {
+            border-color: var(--card-accent-glow);
+            box-shadow: 0 0 30px var(--card-accent-glow);
+        }
+
+        .typing-card[class*="phase-"] .text-display .char.correct {
+            color: var(--card-accent-light);
+        }
+
+        .typing-card[class*="phase-"] .text-display .char.current {
+            background: var(--card-accent-glow);
+        }
+
+        .typing-card[class*="phase-"] .typing-input:focus {
+            border-color: var(--card-accent);
+            box-shadow: 0 0 30px var(--card-accent-glow);
+        }
+
+        .typing-card[class*="phase-"] .progress-fill {
+            background: linear-gradient(90deg, var(--card-accent), var(--card-accent-light));
+        }
+
+        /* Time running out warning */
+        .time-warning {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            font-weight: 900;
+            color: #ef4444;
+            text-shadow: 0 0 50px rgba(239, 68, 68, 0.8);
+            pointer-events: none;
+            opacity: 0;
+            z-index: 1001;
+            animation: warningPulse 1s ease-out forwards;
+        }
+
+        @keyframes warningPulse {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            30% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        /* Urgent mode - screen shake and red border */
+        body.urgent-mode .typing-card {
+            animation: urgentShake 0.5s ease infinite;
+            border-color: rgba(239, 68, 68, 0.5) !important;
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.3);
+        }
+
+        body.urgent-mode .stat-item:nth-child(3) {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.5);
+        }
+
+        body.urgent-mode .stat-item:nth-child(3) .stat-value {
+            color: #ef4444;
+            animation: urgentPulse 0.5s ease infinite;
+        }
+
+        @keyframes urgentShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            75% { transform: translateX(2px); }
+        }
+
+        @keyframes urgentPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .text-display .char.incorrect {
+            color: var(--error);
+            background: rgba(239, 68, 68, 0.2);
+            border-radius: 2px;
+        }
+
+        .text-display .char.current {
+            background: rgba(16, 185, 129, 0.3);
+            border-radius: 2px;
+            animation: blink 1s ease infinite;
+        }
+
+        .text-display .char.upcoming {
+            color: var(--text-tertiary);
+        }
+
+        @keyframes blink {
+            0%, 100% { background: rgba(16, 185, 129, 0.3); }
+            50% { background: rgba(16, 185, 129, 0.5); }
+        }
+
+        .typing-input {
+            width: 100%;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(16, 185, 129, 0.2);
+            border-radius: 16px;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-family: 'Consolas', 'Monaco', monospace;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .typing-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        .typing-input:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .typing-input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            border-radius: 3px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        /* Control Buttons */
+        .control-btns {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .control-btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            border: none;
+            color: #000;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px var(--accent-glow);
+        }
+
+        .reset-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+        }
+
+        .reset-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent-light);
+        }
+
+        /* Results Modal */
+        .results-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .results-overlay.show {
+            display: flex;
+        }
+
+        .results-card {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 24px;
+            padding: 50px;
+            text-align: center;
+            max-width: 500px;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .results-title {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 30px;
+        }
+
+        .results-wpm {
+            font-size: 5rem;
+            font-weight: 800;
+            color: var(--accent-light);
+            text-shadow: 0 0 50px var(--accent-glow);
+            line-height: 1;
+        }
+
+        .results-wpm-label {
+            color: var(--text-tertiary);
+            font-size: 1rem;
+            margin-bottom: 30px;
+        }
+
+        .results-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .results-stat {
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+        }
+
+        .results-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .results-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .rank-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            border-radius: 20px;
+            color: #000;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        .results-btn {
+            padding: 16px 40px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            border: none;
+            border-radius: 12px;
+            color: #000;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .results-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px var(--accent-glow);
+        }
+
+        /* High Scores */
+        .highscores-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            border-radius: 24px;
+            padding: 30px;
+        }
+
+        .highscores-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .highscores-header h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .highscores-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .highscore-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+        }
+
+        .highscore-rank {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(16, 185, 129, 0.15);
+            border-radius: 8px;
+            color: var(--accent-light);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .highscore-item:first-child .highscore-rank {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #000;
+        }
+
+        .highscore-wpm {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .highscore-info {
+            color: var(--text-tertiary);
+            font-size: 0.8rem;
+        }
+
+        .empty-scores {
+            color: var(--text-tertiary);
+            text-align: center;
+            padding: 30px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .page-header h1 { font-size: 2rem; }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .mode-selector { flex-wrap: wrap; }
+            .typing-card { padding: 24px; }
+            .text-display { font-size: 1.1rem; padding: 16px; }
+            .results-wpm { font-size: 3.5rem; }
+            .results-stats { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                        <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <span>PC Essentials</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                
+                <li><a href="setup-checklist.html">Setup</a></li>
+                <li><a href="software.html">Software</a></li>
+                <li><a href="peripherals.html">Peripherals</a></li>
+                <li><a href="ai-tools.html">AI Tools</a></li>
+                
+                <li><a href="performance.html">Performance</a></li>
+                <li><a href="shortcuts.html">Shortcuts</a></li>
+                
+                <li><a href="maintenance.html">Tools</a>
+            <a href="typing-test.html">Typing Test</a>
+            <a href="pc-name-generator.html">Name Gen</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Typing Speed Test</h1>
+            <p>Test your WPM and flex on your friends</p>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value" id="wpmDisplay">0</div>
+                <div class="stat-label">WPM</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="accuracyDisplay">100%</div>
+                <div class="stat-label">Accuracy</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="timeDisplay">60</div>
+                <div class="stat-label">Seconds</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="errorsDisplay">0</div>
+                <div class="stat-label">Errors</div>
+            </div>
+        </div>
+
+        <div class="mode-selector">
+            <button class="mode-btn" data-time="15">15s</button>
+            <button class="mode-btn" data-time="30">30s</button>
+            <button class="mode-btn active" data-time="60">60s</button>
+            <button class="mode-btn" data-time="120">2min</button>
+        </div>
+
+        <div class="typing-card">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <div class="text-display" id="textDisplay">
+                Click "Start Test" to begin...
+            </div>
+
+            <input
+                type="text"
+                class="typing-input"
+                id="typingInput"
+                placeholder="Start typing here when ready..."
+                disabled
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
+            >
+
+            <div class="control-btns">
+                <button class="control-btn start-btn" id="startBtn" onclick="startTest()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    Start Test
+                </button>
+                <button class="control-btn reset-btn" onclick="resetTest()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23 4 23 10 17 10"></polyline>
+                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                    </svg>
+                    Reset
+                </button>
+            </div>
+        </div>
+
+        <div class="highscores-card">
+            <div class="highscores-header">
+                <h3>Your Best Scores</h3>
+            </div>
+            <div class="highscores-list" id="highscoresList">
+                <div class="empty-scores">Complete a test to see your scores</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Streak Counter -->
+    <div class="streak-container" id="streakContainer">
+        <div class="streak-fire">🔥</div>
+        <div class="streak-count" id="streakCount">0</div>
+        <div class="streak-label">Streak</div>
+    </div>
+
+    <!-- Combo Message -->
+    <div class="combo-message" id="comboMessage"></div>
+
+    <!-- Results Modal -->
+    <div class="results-overlay" id="resultsOverlay">
+        <div class="results-card">
+            <div class="results-title">Test Complete!</div>
+            <div class="results-wpm" id="finalWpm">0</div>
+            <div class="results-wpm-label">Words Per Minute</div>
+            <div class="rank-badge" id="rankBadge">Beginner</div>
+            <div class="results-stats">
+                <div class="results-stat">
+                    <div class="results-stat-value" id="finalAccuracy">100%</div>
+                    <div class="results-stat-label">Accuracy</div>
+                </div>
+                <div class="results-stat">
+                    <div class="results-stat-value" id="finalChars">0</div>
+                    <div class="results-stat-label">Characters</div>
+                </div>
+                <div class="results-stat">
+                    <div class="results-stat-value" id="finalErrors">0</div>
+                    <div class="results-stat-label">Errors</div>
+                </div>
+            </div>
+            <button class="results-btn" onclick="closeResults()">Try Again</button>
+        </div>
+    </div>
+
+    <script>
+        // ===== SOUND EFFECTS =====
+        let audioContext = null;
+
+        // Initialize audio on first user interaction
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+        }
+
+        // Enable audio on any click
+        document.addEventListener('click', initAudio, { once: false });
+
+        function playSound(type) {
+            if (!audioContext) initAudio();
+            if (!audioContext) return;
+
+            try {
+                if (type === 'sentence') {
+                    // Level up sound - ascending notes
+                    const notes = [523, 659, 784];
+                    notes.forEach((freq, i) => {
+                        const osc = audioContext.createOscillator();
+                        const gain = audioContext.createGain();
+                        osc.connect(gain);
+                        gain.connect(audioContext.destination);
+                        osc.frequency.value = freq;
+                        osc.type = 'sine';
+                        gain.gain.setValueAtTime(0.2, audioContext.currentTime + i * 0.1);
+                        gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + i * 0.1 + 0.2);
+                        osc.start(audioContext.currentTime + i * 0.1);
+                        osc.stop(audioContext.currentTime + i * 0.1 + 0.25);
+                    });
+                } else if (type === 'milestone') {
+                    // Epic level up fanfare
+                    const melody = [523, 659, 784, 1047];
+                    melody.forEach((freq, i) => {
+                        const osc = audioContext.createOscillator();
+                        const gain = audioContext.createGain();
+                        osc.connect(gain);
+                        gain.connect(audioContext.destination);
+                        osc.frequency.value = freq;
+                        osc.type = 'triangle';
+                        gain.gain.setValueAtTime(0.25, audioContext.currentTime + i * 0.12);
+                        gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + i * 0.12 + 0.3);
+                        osc.start(audioContext.currentTime + i * 0.12);
+                        osc.stop(audioContext.currentTime + i * 0.12 + 0.35);
+                    });
+                } else if (type === 'streak') {
+                    // Power up sound
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    osc.frequency.setValueAtTime(400, audioContext.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.15);
+                    osc.type = 'sawtooth';
+                    gain.gain.setValueAtTime(0.15, audioContext.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.2);
+                    osc.start(audioContext.currentTime);
+                    osc.stop(audioContext.currentTime + 0.25);
+                } else if (type === 'error') {
+                    // Soft error buzz
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    osc.frequency.value = 150;
+                    osc.type = 'square';
+                    gain.gain.setValueAtTime(0.08, audioContext.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
+                    osc.start(audioContext.currentTime);
+                    osc.stop(audioContext.currentTime + 0.15);
+                }
+            } catch(e) {
+                console.log('Audio error:', e);
+            }
+        }
+
+        // ===== VISUAL EFFECTS =====
+        function showFlash() {
+            const flash = document.createElement('div');
+            flash.className = 'level-up-flash';
+            document.body.appendChild(flash);
+            setTimeout(() => flash.remove(), 500);
+        }
+
+        function showComboMessage(text) {
+            const msg = document.getElementById('comboMessage');
+            msg.textContent = text;
+            msg.classList.remove('show');
+            void msg.offsetWidth; // Trigger reflow
+            msg.classList.add('show');
+        }
+
+        function updateStreak(count) {
+            const container = document.getElementById('streakContainer');
+            const countEl = document.getElementById('streakCount');
+            countEl.textContent = count;
+
+            if (count >= 10) {
+                container.classList.add('visible');
+            } else {
+                container.classList.remove('visible');
+            }
+        }
+
+        function setColorPhase(phase) {
+            const card = document.querySelector('.typing-card');
+            card.classList.remove('phase-1', 'phase-2', 'phase-3', 'phase-4', 'phase-5');
+            card.classList.add('phase-' + phase);
+        }
+
+        function showTimeWarning() {
+            const warning = document.createElement('div');
+            warning.className = 'time-warning';
+            warning.textContent = '⏰ TIME RUNNING OUT!';
+            document.body.appendChild(warning);
+            setTimeout(() => warning.remove(), 1000);
+
+            // Play urgent alarm sound
+            if (!audioContext) return;
+            try {
+                for (let i = 0; i < 3; i++) {
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    osc.frequency.value = 880;
+                    osc.type = 'square';
+                    gain.gain.setValueAtTime(0.15, audioContext.currentTime + i * 0.2);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + i * 0.2 + 0.1);
+                    osc.start(audioContext.currentTime + i * 0.2);
+                    osc.stop(audioContext.currentTime + i * 0.2 + 0.15);
+                }
+            } catch(e) {}
+        }
+
+        function playTickSound() {
+            if (!audioContext) return;
+            try {
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                osc.connect(gain);
+                gain.connect(audioContext.destination);
+                osc.frequency.value = 600;
+                osc.type = 'sine';
+                gain.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
+                osc.start(audioContext.currentTime);
+                osc.stop(audioContext.currentTime + 0.15);
+            } catch(e) {}
+        }
+
+        const sentences = [
+            "The quick brown fox jumps over the lazy dog near the river bank.",
+            "Gaming on a powerful PC is one of the best experiences you can have.",
+            "Always keep your drivers updated for the best performance in games.",
+            "A clean desktop helps you stay organized and find files faster.",
+            "The best time to upgrade your graphics card is when prices drop.",
+            "Mechanical keyboards feel amazing and can improve your typing speed.",
+            "Remember to back up your important files to an external drive.",
+            "High refresh rate monitors make everything look smoother and faster.",
+            "Building your own PC is easier than most people think it is.",
+            "Good cable management keeps your case clean and improves airflow.",
+            "Solid state drives load games and programs much faster than hard drives.",
+            "Dual monitors can boost your productivity when working from home.",
+            "Keep your PC clean from dust to prevent overheating issues.",
+            "A comfortable gaming chair can help you play longer without back pain.",
+            "Learning keyboard shortcuts will save you a lot of time every day.",
+            "The internet has changed how we work and communicate with each other.",
+            "Online gaming brings people together from all around the world.",
+            "Your mouse sensitivity settings can make a huge difference in games.",
+            "Taking breaks while gaming is important for your health and eyes.",
+            "A good headset makes voice chat and game audio much better.",
+            "Windows updates can sometimes fix bugs and improve system stability.",
+            "Streaming your gameplay is a fun way to share your gaming moments.",
+            "RGB lighting looks cool but does not actually improve performance.",
+            "Always check system requirements before buying a new game.",
+            "A surge protector can save your PC from electrical damage.",
+            "The right desk setup can make your gaming sessions more enjoyable.",
+            "Cooling your CPU properly will help it last longer and run faster.",
+            "Many free programs work just as well as expensive paid software.",
+            "Your typing speed will improve with regular practice and patience.",
+            "Fast internet is essential for online gaming and video streaming."
+        ];
+
+        let testText = '';
+        let typedText = ''; // Store typed text here
+        let currentIndex = 0;
+        let errors = 0;
+        let correctChars = 0;
+        let totalTyped = 0;
+        let testTime = 60;
+        let timeLeft = 60;
+        let timer = null;
+        let testStarted = false;
+        let testEnded = false;
+        let highScores = JSON.parse(localStorage.getItem('typingScores') || '[]');
+
+        // Gamification variables
+        let streak = 0;
+        let lastSentenceEnd = 0;
+        let currentPhase = 1;
+        let milestones = { 25: false, 50: false, 75: false, 100: false };
+        let comboMessages = [
+            { streak: 10, msg: "Nice!" },
+            { streak: 25, msg: "On Fire! 🔥" },
+            { streak: 50, msg: "UNSTOPPABLE!" },
+            { streak: 75, msg: "GODLIKE! 💀" },
+            { streak: 100, msg: "LEGENDARY! 👑" }
+        ];
+
+        // Mode selector
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (testStarted) return;
+                document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                testTime = parseInt(btn.dataset.time);
+                timeLeft = testTime;
+                document.getElementById('timeDisplay').textContent = timeLeft;
+            });
+        });
+
+        function generateText() {
+            // Shuffle sentences and pick enough to fill the time
+            const shuffled = [...sentences].sort(() => Math.random() - 0.5);
+            let text = '';
+            let i = 0;
+            // Aim for roughly 5 words per second typing speed, so we need enough text
+            const targetLength = testTime * 30; // ~30 chars per second max
+            while (text.length < targetLength && i < shuffled.length) {
+                text += (text ? ' ' : '') + shuffled[i];
+                i++;
+            }
+            // If we need more, repeat
+            while (text.length < targetLength) {
+                const randomSentence = sentences[Math.floor(Math.random() * sentences.length)];
+                text += ' ' + randomSentence;
+            }
+            return text;
+        }
+
+        function renderText() {
+            const display = document.getElementById('textDisplay');
+            display.innerHTML = testText.split('').map((char, i) => {
+                let className = 'char ';
+                if (i < typedText.length) {
+                    // Compare using stored typedText, not DOM
+                    className += typedText[i] === testText[i] ? 'correct' : 'incorrect';
+                } else if (i === typedText.length) {
+                    className += 'current';
+                } else {
+                    className += 'upcoming';
+                }
+                return `<span class="${className}" ${i === typedText.length ? 'id="currentChar"' : ''}>${char === ' ' ? '&nbsp;' : char}</span>`;
+            }).join('');
+
+            // Auto-scroll to keep current character visible
+            const currentChar = document.getElementById('currentChar');
+            if (currentChar) {
+                currentChar.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function startTest() {
+            if (testStarted) return;
+
+            // Initialize audio on start
+            initAudio();
+
+            testText = generateText();
+            typedText = '';
+            currentIndex = 0;
+            errors = 0;
+            correctChars = 0;
+            totalTyped = 0;
+            timeLeft = testTime;
+            testStarted = true;
+            testEnded = false;
+
+            document.getElementById('typingInput').disabled = false;
+            document.getElementById('typingInput').value = '';
+            document.getElementById('typingInput').focus();
+            document.getElementById('startBtn').style.display = 'none';
+
+            renderText();
+            updateStats();
+
+            timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timeDisplay').textContent = timeLeft;
+                document.getElementById('progressFill').style.width = ((testTime - timeLeft) / testTime * 100) + '%';
+                updateStats();
+
+                // Urgent mode in last 10 seconds
+                if (timeLeft === 10) {
+                    showTimeWarning();
+                    document.body.classList.add('urgent-mode');
+                }
+
+                // Tick sound in last 5 seconds
+                if (timeLeft <= 5 && timeLeft > 0) {
+                    playTickSound();
+                }
+
+                if (timeLeft <= 0) {
+                    document.body.classList.remove('urgent-mode');
+                    endTest();
+                }
+            }, 1000);
+        }
+
+        function endTest() {
+            testStarted = false;
+            testEnded = true;
+            clearInterval(timer);
+            document.body.classList.remove('urgent-mode');
+            document.getElementById('typingInput').disabled = true;
+            document.getElementById('startBtn').style.display = 'flex';
+
+            const wpm = calculateWPM();
+            const accuracy = calculateAccuracy();
+
+            // Play completion fanfare
+            playCompletionSound(wpm);
+
+            // Save score
+            saveScore(wpm, accuracy);
+
+            // Show results
+            document.getElementById('finalWpm').textContent = wpm;
+            document.getElementById('finalAccuracy').textContent = accuracy + '%';
+            document.getElementById('finalChars').textContent = correctChars;
+            document.getElementById('finalErrors').textContent = errors;
+            document.getElementById('rankBadge').textContent = getRank(wpm);
+            document.getElementById('resultsOverlay').classList.add('show');
+        }
+
+        function playCompletionSound(wpm) {
+            if (!audioContext) return;
+            try {
+                // Epic fanfare based on performance
+                const melody = wpm >= 80
+                    ? [523, 659, 784, 1047, 1319] // Epic: C5, E5, G5, C6, E6
+                    : wpm >= 60
+                        ? [523, 659, 784, 1047] // Good: C5, E5, G5, C6
+                        : [392, 523, 659]; // Okay: G4, C5, E5
+
+                melody.forEach((freq, i) => {
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    osc.frequency.value = freq;
+                    osc.type = 'triangle';
+                    gain.gain.setValueAtTime(0.2, audioContext.currentTime + i * 0.15);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + i * 0.15 + 0.4);
+                    osc.start(audioContext.currentTime + i * 0.15);
+                    osc.stop(audioContext.currentTime + i * 0.15 + 0.45);
+                });
+            } catch(e) {}
+        }
+
+        function calculateWPM() {
+            const minutes = (testTime - timeLeft) / 60 || testTime / 60;
+            const words = correctChars / 5;
+            return Math.round(words / minutes) || 0;
+        }
+
+        function calculateAccuracy() {
+            if (totalTyped === 0) return 100;
+            return Math.round((correctChars / totalTyped) * 100);
+        }
+
+        function updateStats() {
+            document.getElementById('wpmDisplay').textContent = calculateWPM();
+            document.getElementById('accuracyDisplay').textContent = calculateAccuracy() + '%';
+            document.getElementById('errorsDisplay').textContent = errors;
+        }
+
+        function getRank(wpm) {
+            if (wpm >= 120) return 'Legendary';
+            if (wpm >= 100) return 'Master';
+            if (wpm >= 80) return 'Expert';
+            if (wpm >= 60) return 'Advanced';
+            if (wpm >= 40) return 'Intermediate';
+            if (wpm >= 20) return 'Beginner';
+            return 'Newbie';
+        }
+
+        function saveScore(wpm, accuracy) {
+            highScores.push({
+                wpm,
+                accuracy,
+                time: testTime,
+                date: new Date().toLocaleDateString()
+            });
+            highScores.sort((a, b) => b.wpm - a.wpm);
+            highScores = highScores.slice(0, 5);
+            localStorage.setItem('typingScores', JSON.stringify(highScores));
+            renderHighScores();
+        }
+
+        function renderHighScores() {
+            const list = document.getElementById('highscoresList');
+            if (highScores.length === 0) {
+                list.innerHTML = '<div class="empty-scores">Complete a test to see your scores</div>';
+                return;
+            }
+
+            list.innerHTML = highScores.map((score, i) => `
+                <div class="highscore-item">
+                    <div class="highscore-rank">${i + 1}</div>
+                    <div class="highscore-wpm">${score.wpm} WPM</div>
+                    <div class="highscore-info">${score.accuracy}% accuracy • ${score.time}s • ${score.date}</div>
+                </div>
+            `).join('');
+        }
+
+        function resetTest() {
+            clearInterval(timer);
+            testStarted = false;
+            testEnded = false;
+            typedText = '';
+            currentIndex = 0;
+            errors = 0;
+            correctChars = 0;
+            totalTyped = 0;
+            timeLeft = testTime;
+
+            // Reset gamification
+            streak = 0;
+            currentPhase = 1;
+            milestones = { 25: false, 50: false, 75: false, 100: false };
+            updateStreak(0);
+            const card = document.querySelector('.typing-card');
+            card.classList.remove('phase-1', 'phase-2', 'phase-3', 'phase-4', 'phase-5');
+            card.classList.add('phase-1');
+            document.body.classList.remove('urgent-mode');
+
+            document.getElementById('typingInput').disabled = true;
+            document.getElementById('typingInput').value = '';
+            document.getElementById('textDisplay').innerHTML = 'Click "Start Test" to begin...';
+            document.getElementById('startBtn').style.display = 'flex';
+            document.getElementById('progressFill').style.width = '0%';
+            document.getElementById('timeDisplay').textContent = testTime;
+            updateStats();
+        }
+
+        function closeResults() {
+            document.getElementById('resultsOverlay').classList.remove('show');
+            resetTest();
+        }
+
+        // Typing input handler
+        document.getElementById('typingInput').addEventListener('input', (e) => {
+            if (!testStarted || testEnded) return;
+
+            const prevTyped = typedText;
+            typedText = e.target.value;
+            totalTyped = typedText.length;
+            currentIndex = typedText.length;
+
+            // Check if this is a new character (not backspace)
+            if (typedText.length > prevTyped.length) {
+                const lastCharIndex = typedText.length - 1;
+                const isCorrect = typedText[lastCharIndex] === testText[lastCharIndex];
+
+                if (isCorrect) {
+                    streak++;
+                    updateStreak(streak);
+
+                    // Check for combo messages
+                    for (const combo of comboMessages) {
+                        if (streak === combo.streak) {
+                            showComboMessage(combo.msg);
+                            playSound('streak');
+                            break;
+                        }
+                    }
+
+                    // Check if we just completed a sentence (period followed by space or end)
+                    if (testText[lastCharIndex] === '.' ||
+                        (testText[lastCharIndex] === ' ' && lastCharIndex > 0 && testText[lastCharIndex - 1] === '.')) {
+                        playSound('sentence');
+                        showFlash();
+                    }
+                } else {
+                    streak = 0;
+                    updateStreak(0);
+                    playSound('error');
+                }
+            } else {
+                // Backspace was pressed
+                streak = 0;
+                updateStreak(0);
+            }
+
+            // Calculate correct characters and errors
+            correctChars = 0;
+            errors = 0;
+            for (let i = 0; i < typedText.length; i++) {
+                if (typedText[i] === testText[i]) {
+                    correctChars++;
+                } else {
+                    errors++;
+                }
+            }
+
+            // Update color phase based on progress
+            const progress = (typedText.length / testText.length) * 100;
+            if (progress >= 80 && currentPhase !== 5) {
+                currentPhase = 5;
+                setColorPhase(5);
+            } else if (progress >= 60 && currentPhase < 4) {
+                currentPhase = 4;
+                setColorPhase(4);
+            } else if (progress >= 40 && currentPhase < 3) {
+                currentPhase = 3;
+                setColorPhase(3);
+            } else if (progress >= 20 && currentPhase < 2) {
+                currentPhase = 2;
+                setColorPhase(2);
+            }
+
+            // Check milestones (25%, 50%, 75%)
+            if (progress >= 25 && !milestones[25]) {
+                milestones[25] = true;
+                playSound('milestone');
+                showComboMessage("25% - Keep going!");
+                showFlash();
+            } else if (progress >= 50 && !milestones[50]) {
+                milestones[50] = true;
+                playSound('milestone');
+                showComboMessage("HALFWAY! 🚀");
+                showFlash();
+            } else if (progress >= 75 && !milestones[75]) {
+                milestones[75] = true;
+                playSound('milestone');
+                showComboMessage("Almost there! 💪");
+                showFlash();
+            }
+
+            renderText();
+            updateStats();
+
+            // Check if completed all text
+            if (typedText.length >= testText.length) {
+                endTest();
+            }
+        });
+
+        // Prevent paste
+        document.getElementById('typingInput').addEventListener('paste', (e) => {
+            e.preventDefault();
+        });
+
+        // Initialize
+        renderHighScores();
+    </script>
+    <script src="effects.js"></script>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+<script>
+    // Back to top button
+    const backToTopBtn = document.getElementById('backToTop');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            backToTopBtn.classList.toggle('visible', window.scrollY > 400);
+        });
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Active nav link
+    (function() {
+        const currentFile = location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && (href === currentFile || (currentFile === '' && href === 'index.html'))) {
+                link.classList.add('active');
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

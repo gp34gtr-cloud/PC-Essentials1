@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071e3'/%3E%3Crect x='5' y='7' width='22' height='14' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cline x1='10' y1='25' x2='22' y2='25' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='16' y1='21' x2='16' y2='25' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+    <meta name="description" content="Check if your PC can run any game. Enter your specs and get instant game compatibility results.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Can I Run It? - PC Essentials</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #050508;
+            --bg-secondary: #0a0a12;
+            --bg-card: rgba(18, 18, 30, 0.5);
+            --bg-card-solid: #12121e;
+            --bg-card-hover: #1a1a2a;
+            --accent: #8b5cf6;
+            --accent-light: #a78bfa;
+            --accent-secondary: #a78bfa;
+            --accent-glow: rgba(139, 92, 246, 0.4);
+            --text-primary: #ffffff;
+            --text-secondary: #a8a8c8;
+            --text-muted: #6868a8;
+            --border-color: rgba(139, 92, 246, 0.15);
+            --border-light: rgba(255, 255, 255, 0.06);
+            --success: #22c55e;
+            --warning: #eab308;
+            --danger: #ef4444;
+            --info: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated gradient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(139, 92, 246, 0.12), transparent),
+                radial-gradient(ellipse 60% 40% at 100% 50%, rgba(139, 92, 246, 0.06), transparent),
+                radial-gradient(ellipse 60% 40% at 0% 80%, rgba(168, 85, 247, 0.05), transparent);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: opacity 0.2s;
+        }
+
+        .logo:hover {
+            opacity: 0.8;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-links a.active {
+            color: var(--accent-light);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 18, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu a.active {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--accent-light);
+        }
+
+        /* Tools Sub-Navigation */
+        .tools-subnav {
+            background: rgba(10, 10, 18, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+            margin-top: 64px;
+            position: sticky;
+            top: 64px;
+            z-index: 99;
+        }
+
+        .tools-subnav-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            padding: 14px 20px;
+            overflow-x: auto;
+        }
+
+        .tools-subnav-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tools-subnav-link {
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+
+        .tools-subnav-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border-color: var(--border-light);
+        }
+
+        .tools-subnav-link.active {
+            background: linear-gradient(135deg, var(--accent), #7c3aed);
+            color: white;
+            box-shadow: 0 4px 20px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.1);
+            border-color: transparent;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 2rem 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.03em;
+            background: linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.6) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Specs Display */
+        .specs-section {
+            background: linear-gradient(135deg, rgba(18, 18, 30, 0.6) 0%, rgba(10, 10, 18, 0.4) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+
+        .specs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.75rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .specs-header h2 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .spec-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .spec-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .spec-item label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 0.6rem;
+            font-weight: 500;
+        }
+
+        .spec-item .value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .spec-item select,
+        .spec-item input {
+            width: 100%;
+            padding: 0.875rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #12121e;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .spec-item select option {
+            background: #12121e;
+            color: #ffffff;
+            padding: 12px;
+        }
+
+        .spec-item select optgroup {
+            background: #0a0a12;
+            color: #a78bfa;
+            font-weight: 600;
+        }
+
+        .spec-item select:focus,
+        .spec-item input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
+        }
+
+        .load-specs-btn {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: white;
+            border: none;
+            padding: 0.875rem 1.75rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .load-specs-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--accent-glow);
+        }
+
+        /* Game Search */
+        .game-search-section {
+            background: linear-gradient(135deg, rgba(18, 18, 30, 0.6) 0%, rgba(10, 10, 18, 0.4) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+
+        .game-search-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 1.75rem;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1.1rem 1rem 1.1rem 3.25rem;
+            border-radius: 14px;
+            border: 2px solid rgba(139, 92, 246, 0.15);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.15);
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 1.1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            width: 20px;
+            height: 20px;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.1rem;
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 1.4rem;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .game-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(139, 92, 246, 0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .game-card.selected {
+            border-color: var(--accent);
+            background: rgba(139, 92, 246, 0.12);
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.15);
+        }
+
+        .game-card .game-icon {
+            font-size: 2.75rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .game-card .game-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .game-card .game-year {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Results Section */
+        .results-section {
+            display: none;
+        }
+
+        .results-section.active {
+            display: block;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, rgba(18, 18, 30, 0.6) 0%, rgba(10, 10, 18, 0.4) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 1.75rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .result-game-icon {
+            font-size: 4.5rem;
+        }
+
+        .result-game-info h3 {
+            font-size: 1.9rem;
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.02em;
+        }
+
+        .result-game-info p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        /* Verdict */
+        .verdict {
+            display: flex;
+            align-items: center;
+            gap: 1.75rem;
+            padding: 1.75rem;
+            border-radius: 18px;
+            margin-bottom: 2.25rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .verdict.can-run {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.12) 0%, rgba(34, 197, 94, 0.04) 100%);
+            border: 1px solid rgba(34, 197, 94, 0.25);
+            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.1);
+        }
+
+        .verdict.maybe {
+            background: linear-gradient(135deg, rgba(234, 179, 8, 0.12) 0%, rgba(234, 179, 8, 0.04) 100%);
+            border: 1px solid rgba(234, 179, 8, 0.25);
+            box-shadow: 0 4px 20px rgba(234, 179, 8, 0.1);
+        }
+
+        .verdict.cannot-run {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(239, 68, 68, 0.04) 100%);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.1);
+        }
+
+        .verdict-icon {
+            font-size: 3.25rem;
+        }
+
+        .verdict-text h4 {
+            font-size: 1.6rem;
+            margin-bottom: 0.35rem;
+            letter-spacing: -0.01em;
+        }
+
+        .verdict.can-run .verdict-text h4 { color: var(--success); text-shadow: 0 0 20px rgba(34, 197, 94, 0.3); }
+        .verdict.maybe .verdict-text h4 { color: var(--warning); text-shadow: 0 0 20px rgba(234, 179, 8, 0.3); }
+        .verdict.cannot-run .verdict-text h4 { color: var(--danger); text-shadow: 0 0 20px rgba(239, 68, 68, 0.3); }
+
+        .verdict-text p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Requirements Comparison */
+        .requirements-compare {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.25rem;
+        }
+
+        .req-column {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 1.6rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .req-column:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .req-column h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1.1rem;
+            padding-bottom: 0.85rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .req-column.your-specs h4 {
+            color: var(--accent-light);
+        }
+
+        .req-column.minimum h4 {
+            color: var(--warning);
+        }
+
+        .req-column.recommended h4 {
+            color: var(--success);
+        }
+
+        .req-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .req-row:last-child {
+            border-bottom: none;
+        }
+
+        .req-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .req-value {
+            font-weight: 500;
+            text-align: right;
+        }
+
+        .req-value.pass { color: var(--success); text-shadow: 0 0 10px rgba(34, 197, 94, 0.3); }
+        .req-value.warn { color: var(--warning); text-shadow: 0 0 10px rgba(234, 179, 8, 0.3); }
+        .req-value.fail { color: var(--danger); text-shadow: 0 0 10px rgba(239, 68, 68, 0.3); }
+
+        /* Recommended Settings */
+        .settings-section {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 1.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .settings-section h4 {
+            font-size: 1.15rem;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            letter-spacing: -0.01em;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.1rem;
+        }
+
+        .setting-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            padding: 1.1rem;
+            transition: all 0.2s ease;
+        }
+
+        .setting-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .setting-item label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 0.35rem;
+        }
+
+        .setting-item .value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .setting-item .value.high { color: var(--success); text-shadow: 0 0 10px rgba(34, 197, 94, 0.3); }
+        .setting-item .value.medium { color: var(--warning); text-shadow: 0 0 10px rgba(234, 179, 8, 0.3); }
+        .setting-item .value.low { color: var(--danger); text-shadow: 0 0 10px rgba(239, 68, 68, 0.3); }
+
+        .expected-fps {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+            border-radius: 16px;
+            padding: 1.75rem;
+            text-align: center;
+            margin-top: 1.75rem;
+            box-shadow: 0 4px 20px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        .expected-fps label {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            display: block;
+            margin-bottom: 0.6rem;
+        }
+
+        .expected-fps .fps-value {
+            font-size: 2.75rem;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .expected-fps .fps-note {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-top: 0.35rem;
+        }
+
+        /* Check Button */
+        .check-btn {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 2.5rem auto 0;
+            padding: 1.15rem 2rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .check-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .check-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.15);
+        }
+
+        .check-btn:hover::before {
+            left: 100%;
+        }
+
+        .check-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(180deg, transparent 0%, rgba(139, 92, 246, 0.02) 100%);
+            border-top: 1px solid rgba(139, 92, 246, 0.1);
+            padding: 3.5rem 2rem;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1rem;
+            margin-bottom: 1.25rem;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-light);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 2.5rem auto 0;
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(139, 92, 246, 0.1);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .specs-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .result-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .verdict {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <span>PC Essentials</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                
+                <li><a href="setup-checklist.html">Setup</a></li>
+                <li><a href="software.html" data-en="Software" data-mn="Програм">Software</a></li>
+                <li><a href="peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a></li>
+                <li><a href="ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a></li>
+                
+                <li><a href="performance.html">Performance</a></li>
+                <li><a href="shortcuts.html">Shortcuts</a></li>
+                
+                <li><a href="maintenance.html" class="active" data-en="Tools" data-mn="Хэрэгслүүд">Tools</a>
+            <a href="typing-test.html">Typing Test</a>
+            <a href="pc-name-generator.html">Name Gen</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" data-en="Home" data-mn="Нүүр">Home</a>
+            <a href="setup-checklist.html">Setup Guide</a>
+            <a href="software.html" data-en="Software" data-mn="Програм">Software</a>
+            <a href="peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a>
+            
+            <a href="ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a>
+            <a href="shortcuts.html">Shortcuts</a>
+            <a href="performance.html" data-en="Performance" data-mn="Гүйцэтгэл">Performance</a>
+            <a href="youtube-guide.html" data-en="Build Guide" data-mn="Угсрах Заавар">Build Guide</a>
+            <a href="maintenance.html" class="active" data-en="Tools" data-mn="Хэрэгслүүд">Tools</a>
+        </div>
+    </nav>
+
+    <!-- Tools Sub-Navigation -->
+    <div class="tools-subnav">
+        <div class="tools-subnav-container">
+            <a href="maintenance.html" class="tools-subnav-link">🔧 Maintenance</a>
+            <a href="optimization.html" class="tools-subnav-link">⚡ Optimize</a>
+            <a href="troubleshoot.html" class="tools-subnav-link">🛠️ Troubleshoot</a>
+            <a href="upgrade-planner.html" class="tools-subnav-link">📈 Upgrade</a>
+            <a href="can-i-run-it.html" class="tools-subnav-link active">🎮 Can I Run It?</a>
+        </div>
+    </div>
+
+    <section class="hero">
+        <h1>🎮 Can I Run It?</h1>
+        <p>Check if your PC can handle your favorite games and get optimized settings recommendations</p>
+    </section>
+
+    <div class="container">
+        <!-- Your Specs Section -->
+        <div class="specs-section">
+            <div class="specs-header">
+                <h2>💻 Your Specs</h2>
+                <button class="load-specs-btn" onclick="loadSavedSpecs()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    Load My Setup
+                </button>
+            </div>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <label>Graphics Card (GPU)</label>
+                    <select id="userGpu">
+                        <option value="">Select GPU...</option>
+                        <optgroup label="NVIDIA RTX 50 Series">
+                            <option value="rtx5090">RTX 5090</option>
+                            <option value="rtx5080">RTX 5080</option>
+                            <option value="rtx5070ti">RTX 5070 Ti</option>
+                            <option value="rtx5070">RTX 5070</option>
+                        </optgroup>
+                        <optgroup label="NVIDIA RTX 40 Series">
+                            <option value="rtx4090">RTX 4090</option>
+                            <option value="rtx4080s">RTX 4080 Super</option>
+                            <option value="rtx4080">RTX 4080</option>
+                            <option value="rtx4070tis">RTX 4070 Ti Super</option>
+                            <option value="rtx4070ti">RTX 4070 Ti</option>
+                            <option value="rtx4070s">RTX 4070 Super</option>
+                            <option value="rtx4070">RTX 4070</option>
+                            <option value="rtx4060ti">RTX 4060 Ti</option>
+                            <option value="rtx4060">RTX 4060</option>
+                        </optgroup>
+                        <optgroup label="NVIDIA RTX 30 Series">
+                            <option value="rtx3090ti">RTX 3090 Ti</option>
+                            <option value="rtx3090">RTX 3090</option>
+                            <option value="rtx3080ti">RTX 3080 Ti</option>
+                            <option value="rtx3080">RTX 3080</option>
+                            <option value="rtx3070ti">RTX 3070 Ti</option>
+                            <option value="rtx3070">RTX 3070</option>
+                            <option value="rtx3060ti">RTX 3060 Ti</option>
+                            <option value="rtx3060">RTX 3060</option>
+                            <option value="rtx3050">RTX 3050</option>
+                        </optgroup>
+                        <optgroup label="NVIDIA GTX 16 Series">
+                            <option value="gtx1660s">GTX 1660 Super</option>
+                            <option value="gtx1660ti">GTX 1660 Ti</option>
+                            <option value="gtx1660">GTX 1660</option>
+                            <option value="gtx1650s">GTX 1650 Super</option>
+                            <option value="gtx1650">GTX 1650</option>
+                        </optgroup>
+                        <optgroup label="AMD RX 9000 Series">
+                            <option value="rx9070xt">RX 9070 XT</option>
+                            <option value="rx9070">RX 9070</option>
+                        </optgroup>
+                        <optgroup label="AMD RX 7000 Series">
+                            <option value="rx7900xtx">RX 7900 XTX</option>
+                            <option value="rx7900xt">RX 7900 XT</option>
+                            <option value="rx7900gre">RX 7900 GRE</option>
+                            <option value="rx7800xt">RX 7800 XT</option>
+                            <option value="rx7700xt">RX 7700 XT</option>
+                            <option value="rx7600xt">RX 7600 XT</option>
+                            <option value="rx7600">RX 7600</option>
+                        </optgroup>
+                        <optgroup label="AMD RX 6000 Series">
+                            <option value="rx6950xt">RX 6950 XT</option>
+                            <option value="rx6900xt">RX 6900 XT</option>
+                            <option value="rx6800xt">RX 6800 XT</option>
+                            <option value="rx6800">RX 6800</option>
+                            <option value="rx6700xt">RX 6700 XT</option>
+                            <option value="rx6600xt">RX 6600 XT</option>
+                            <option value="rx6600">RX 6600</option>
+                        </optgroup>
+                        <optgroup label="Intel Arc">
+                            <option value="arcb580">Arc B580</option>
+                            <option value="arca770">Arc A770</option>
+                            <option value="arca750">Arc A750</option>
+                            <option value="arca580">Arc A580</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="spec-item">
+                    <label>Processor (CPU)</label>
+                    <select id="userCpu">
+                        <option value="">Select CPU...</option>
+                        <optgroup label="Intel Core Ultra 200">
+                            <option value="ultra9285k">Core Ultra 9 285K</option>
+                            <option value="ultra7265k">Core Ultra 7 265K</option>
+                            <option value="ultra5245k">Core Ultra 5 245K</option>
+                        </optgroup>
+                        <optgroup label="Intel 14th Gen">
+                            <option value="i914900k">i9-14900K</option>
+                            <option value="i714700k">i7-14700K</option>
+                            <option value="i514600k">i5-14600K</option>
+                            <option value="i514400">i5-14400</option>
+                        </optgroup>
+                        <optgroup label="Intel 13th Gen">
+                            <option value="i913900k">i9-13900K</option>
+                            <option value="i713700k">i7-13700K</option>
+                            <option value="i513600k">i5-13600K</option>
+                            <option value="i513400">i5-13400</option>
+                        </optgroup>
+                        <optgroup label="Intel 12th Gen">
+                            <option value="i912900k">i9-12900K</option>
+                            <option value="i712700k">i7-12700K</option>
+                            <option value="i512600k">i5-12600K</option>
+                            <option value="i512400">i5-12400</option>
+                        </optgroup>
+                        <optgroup label="AMD Ryzen 9000">
+                            <option value="r99950x">Ryzen 9 9950X</option>
+                            <option value="r99900x">Ryzen 9 9900X</option>
+                            <option value="r79700x">Ryzen 7 9700X</option>
+                            <option value="r59600x">Ryzen 5 9600X</option>
+                        </optgroup>
+                        <optgroup label="AMD Ryzen 7000">
+                            <option value="r97950x">Ryzen 9 7950X</option>
+                            <option value="r97900x">Ryzen 9 7900X</option>
+                            <option value="r77700x">Ryzen 7 7700X</option>
+                            <option value="r57600x">Ryzen 5 7600X</option>
+                            <option value="r57600">Ryzen 5 7600</option>
+                        </optgroup>
+                        <optgroup label="AMD Ryzen 5000">
+                            <option value="r95950x">Ryzen 9 5950X</option>
+                            <option value="r95900x">Ryzen 9 5900X</option>
+                            <option value="r75800x">Ryzen 7 5800X</option>
+                            <option value="r75800x3d">Ryzen 7 5800X3D</option>
+                            <option value="r55600x">Ryzen 5 5600X</option>
+                            <option value="r55600">Ryzen 5 5600</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="spec-item">
+                    <label>RAM (GB)</label>
+                    <select id="userRam">
+                        <option value="">Select RAM...</option>
+                        <option value="8">8 GB</option>
+                        <option value="16">16 GB</option>
+                        <option value="32">32 GB</option>
+                        <option value="64">64 GB</option>
+                        <option value="128">128 GB</option>
+                    </select>
+                </div>
+                <div class="spec-item">
+                    <label>Target Resolution</label>
+                    <select id="userResolution">
+                        <option value="1080p">1080p (Full HD)</option>
+                        <option value="1440p">1440p (2K)</option>
+                        <option value="4k">4K (Ultra HD)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Selection Section -->
+        <div class="game-search-section">
+            <h2>🎯 Select a Game</h2>
+            <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" id="gameSearch" placeholder="Search for a game...">
+            </div>
+            <div class="game-grid" id="gameGrid">
+                <!-- Games will be populated here -->
+            </div>
+        </div>
+
+        <button class="check-btn" id="checkBtn" onclick="checkCompatibility()" disabled>
+            🔍 Check Compatibility
+        </button>
+
+        <!-- Results Section -->
+        <div class="results-section" id="resultsSection">
+            <div class="result-card">
+                <div class="result-header">
+                    <div class="result-game-icon" id="resultGameIcon">🎮</div>
+                    <div class="result-game-info">
+                        <h3 id="resultGameName">Game Name</h3>
+                        <p id="resultGameMeta">2024 • AAA Title</p>
+                    </div>
+                </div>
+
+                <div class="verdict" id="verdictBox">
+                    <div class="verdict-icon" id="verdictIcon">✅</div>
+                    <div class="verdict-text">
+                        <h4 id="verdictTitle">You Can Run It!</h4>
+                        <p id="verdictDesc">Your PC meets the recommended requirements</p>
+                    </div>
+                </div>
+
+                <div class="requirements-compare">
+                    <div class="req-column your-specs">
+                        <h4>💻 Your Specs</h4>
+                        <div class="req-row">
+                            <span class="req-label">GPU</span>
+                            <span class="req-value" id="yourGpuDisplay">-</span>
+                        </div>
+                        <div class="req-row">
+                            <span class="req-label">CPU</span>
+                            <span class="req-value" id="yourCpuDisplay">-</span>
+                        </div>
+                        <div class="req-row">
+                            <span class="req-label">RAM</span>
+                            <span class="req-value" id="yourRamDisplay">-</span>
+                        </div>
+                    </div>
+                    <div class="req-column minimum">
+                        <h4>⚠️ Minimum</h4>
+                        <div class="req-row">
+                            <span class="req-label">GPU</span>
+                            <span class="req-value" id="minGpu">-</span>
+                        </div>
+                        <div class="req-row">
+                            <span class="req-label">CPU</span>
+                            <span class="req-value" id="minCpu">-</span>
+                        </div>
+                        <div class="req-row">
+                            <span class="req-label">RAM</span>
+                            <span class="req-value" id="minRam">-</span>
+                        </div>
+                    </div>
+                    <div class="req-column recommended">
+                        <h4>✅ Recommended</h4>
+                        <div class="req-row">
+                            <span class="req-label">GPU</span>
+                            <span class="req-value" id="recGpu">-</span>
+                        </div>
+                        <div class="req-row">
+                            <span class="req-label">CPU</span>
+                            <span class="req-value" id="recCpu">-</span>
+                        </div>
+                        <div class="req-row">
+                            <span class="req-label">RAM</span>
+                            <span class="req-value" id="recRam">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h4>⚙️ Recommended Settings for Your PC</h4>
+                    <div class="settings-grid" id="settingsGrid">
+                        <!-- Settings will be populated here -->
+                    </div>
+                    <div class="expected-fps" id="expectedFps">
+                        <label>Expected FPS at <span id="fpsResolution">1080p</span></label>
+                        <div class="fps-value" id="fpsValue">60-80</div>
+                        <div class="fps-note">With recommended settings</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="software.html">Essential Software</a></li>
+                    <li><a href="peripherals.html">Peripherals</a></li>
+                    <li><a href="ai-tools.html">AI Tools</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Performance</h3>
+                <ul class="footer-links">
+                    <li><a href="performance.html">FPS Data</a></li>
+                    <li><a href="build-guide.html">Build Guide</a></li>
+                    <li><a href="can-i-run-it.html">Can I Run It?</a></li>
+                    <li><a href="youtube-guide.html">Video Guide</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Tools</h3>
+                <ul class="footer-links">
+                    <li><a href="maintenance.html">Maintenance</a></li>
+                    <li><a href="optimization.html">Optimization</a></li>
+                    <li><a href="troubleshoot.html">Troubleshoot</a></li>
+                    <li><a href="upgrade-planner.html">Upgrade Planner</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 PC Essentials. Built for gamers, by gamers.</p>
+        </div>
+    </footer>
+
+    <script>
+        // GPU Performance Scores (relative scale)
+        const gpuScores = {
+            // RTX 50 Series
+            rtx5090: 420, rtx5080: 340, rtx5070ti: 290, rtx5070: 250,
+            // RTX 40 Series
+            rtx4090: 295, rtx4080s: 250, rtx4080: 240, rtx4070tis: 215, rtx4070ti: 200,
+            rtx4070s: 185, rtx4070: 170, rtx4060ti: 140, rtx4060: 120,
+            // RTX 30 Series
+            rtx3090ti: 210, rtx3090: 200, rtx3080ti: 190, rtx3080: 175,
+            rtx3070ti: 155, rtx3070: 145, rtx3060ti: 125, rtx3060: 100, rtx3050: 70,
+            // GTX 16 Series
+            gtx1660s: 60, gtx1660ti: 58, gtx1660: 52, gtx1650s: 45, gtx1650: 38,
+            // AMD RX 9000
+            rx9070xt: 260, rx9070: 220,
+            // AMD RX 7000
+            rx7900xtx: 255, rx7900xt: 225, rx7900gre: 185, rx7800xt: 175,
+            rx7700xt: 155, rx7600xt: 125, rx7600: 110,
+            // AMD RX 6000
+            rx6950xt: 195, rx6900xt: 185, rx6800xt: 170, rx6800: 150,
+            rx6700xt: 120, rx6600xt: 95, rx6600: 80,
+            // Intel Arc
+            arcb580: 115, arca770: 125, arca750: 105, arca580: 75
+        };
+
+        // CPU Performance Scores
+        const cpuScores = {
+            // Intel Ultra 200
+            ultra9285k: 210, ultra7265k: 192, ultra5245k: 172,
+            // Intel 14th Gen
+            i914900k: 198, i714700k: 185, i514600k: 168, i514400: 145,
+            // Intel 13th Gen
+            i913900k: 195, i713700k: 180, i513600k: 165, i513400: 142,
+            // Intel 12th Gen
+            i912900k: 175, i712700k: 162, i512600k: 150, i512400: 130,
+            // AMD Ryzen 9000
+            r99950x: 205, r99900x: 190, r79700x: 175, r59600x: 158,
+            // AMD Ryzen 7000
+            r97950x: 188, r97900x: 178, r77700x: 162, r57600x: 148, r57600: 140,
+            // AMD Ryzen 5000
+            r95950x: 165, r95900x: 155, r75800x: 145, r75800x3d: 172, r55600x: 135, r55600: 128
+        };
+
+        // GPU Display Names
+        const gpuNames = {
+            rtx5090: 'RTX 5090', rtx5080: 'RTX 5080', rtx5070ti: 'RTX 5070 Ti', rtx5070: 'RTX 5070',
+            rtx4090: 'RTX 4090', rtx4080s: 'RTX 4080 Super', rtx4080: 'RTX 4080',
+            rtx4070tis: 'RTX 4070 Ti Super', rtx4070ti: 'RTX 4070 Ti', rtx4070s: 'RTX 4070 Super',
+            rtx4070: 'RTX 4070', rtx4060ti: 'RTX 4060 Ti', rtx4060: 'RTX 4060',
+            rtx3090ti: 'RTX 3090 Ti', rtx3090: 'RTX 3090', rtx3080ti: 'RTX 3080 Ti', rtx3080: 'RTX 3080',
+            rtx3070ti: 'RTX 3070 Ti', rtx3070: 'RTX 3070', rtx3060ti: 'RTX 3060 Ti', rtx3060: 'RTX 3060',
+            rtx3050: 'RTX 3050', gtx1660s: 'GTX 1660 Super', gtx1660ti: 'GTX 1660 Ti',
+            gtx1660: 'GTX 1660', gtx1650s: 'GTX 1650 Super', gtx1650: 'GTX 1650',
+            rx9070xt: 'RX 9070 XT', rx9070: 'RX 9070',
+            rx7900xtx: 'RX 7900 XTX', rx7900xt: 'RX 7900 XT', rx7900gre: 'RX 7900 GRE',
+            rx7800xt: 'RX 7800 XT', rx7700xt: 'RX 7700 XT', rx7600xt: 'RX 7600 XT', rx7600: 'RX 7600',
+            rx6950xt: 'RX 6950 XT', rx6900xt: 'RX 6900 XT', rx6800xt: 'RX 6800 XT', rx6800: 'RX 6800',
+            rx6700xt: 'RX 6700 XT', rx6600xt: 'RX 6600 XT', rx6600: 'RX 6600',
+            arcb580: 'Arc B580', arca770: 'Arc A770', arca750: 'Arc A750', arca580: 'Arc A580'
+        };
+
+        // CPU Display Names
+        const cpuNames = {
+            ultra9285k: 'Core Ultra 9 285K', ultra7265k: 'Core Ultra 7 265K', ultra5245k: 'Core Ultra 5 245K',
+            i914900k: 'i9-14900K', i714700k: 'i7-14700K', i514600k: 'i5-14600K', i514400: 'i5-14400',
+            i913900k: 'i9-13900K', i713700k: 'i7-13700K', i513600k: 'i5-13600K', i513400: 'i5-13400',
+            i912900k: 'i9-12900K', i712700k: 'i7-12700K', i512600k: 'i5-12600K', i512400: 'i5-12400',
+            r99950x: 'Ryzen 9 9950X', r99900x: 'Ryzen 9 9900X', r79700x: 'Ryzen 7 9700X', r59600x: 'Ryzen 5 9600X',
+            r97950x: 'Ryzen 9 7950X', r97900x: 'Ryzen 9 7900X', r77700x: 'Ryzen 7 7700X',
+            r57600x: 'Ryzen 5 7600X', r57600: 'Ryzen 5 7600',
+            r95950x: 'Ryzen 9 5950X', r95900x: 'Ryzen 9 5900X', r75800x: 'Ryzen 7 5800X',
+            r75800x3d: 'Ryzen 7 5800X3D', r55600x: 'Ryzen 5 5600X', r55600: 'Ryzen 5 5600'
+        };
+
+        // Game Database with requirements
+        const games = [
+            {
+                id: 'cyberpunk',
+                name: 'Cyberpunk 2077',
+                icon: '🌆',
+                year: 2020,
+                category: 'AAA',
+                minGpuScore: 70, recGpuScore: 145, minCpuScore: 130, recCpuScore: 155,
+                minRam: 12, recRam: 16,
+                minGpuName: 'GTX 1060 / RX 580', recGpuName: 'RTX 3070 / RX 6800 XT',
+                minCpuName: 'i7-6700 / Ryzen 5 1600', recCpuName: 'i7-12700 / Ryzen 5 5600X',
+                baseFps1080: { low: 90, rec: 60 }, baseFps1440: { low: 55, rec: 40 }, baseFps4k: { low: 30, rec: 25 }
+            },
+            {
+                id: 'blackmyth',
+                name: 'Black Myth: Wukong',
+                icon: '🐒',
+                year: 2024,
+                category: 'AAA',
+                minGpuScore: 70, recGpuScore: 170, minCpuScore: 130, recCpuScore: 148,
+                minRam: 16, recRam: 16,
+                minGpuName: 'GTX 1060 / RX 580', recGpuName: 'RTX 4070 / RX 7800 XT',
+                minCpuName: 'i5-8400 / Ryzen 5 1600', recCpuName: 'i7-12700 / Ryzen 7 5700X',
+                baseFps1080: { low: 75, rec: 50 }, baseFps1440: { low: 50, rec: 35 }, baseFps4k: { low: 28, rec: 22 }
+            },
+            {
+                id: 'alanwake2',
+                name: 'Alan Wake 2',
+                icon: '🔦',
+                year: 2023,
+                category: 'AAA',
+                minGpuScore: 100, recGpuScore: 200, minCpuScore: 135, recCpuScore: 162,
+                minRam: 16, recRam: 32,
+                minGpuName: 'RTX 2060 / RX 6600', recGpuName: 'RTX 4070 / RX 7800 XT',
+                minCpuName: 'i5-9600K / Ryzen 5 3600', recCpuName: 'i7-12700K / Ryzen 7 5800X',
+                baseFps1080: { low: 65, rec: 45 }, baseFps1440: { low: 45, rec: 32 }, baseFps4k: { low: 25, rec: 20 }
+            },
+            {
+                id: 'bg3',
+                name: "Baldur's Gate 3",
+                icon: '⚔️',
+                year: 2023,
+                category: 'AAA',
+                minGpuScore: 50, recGpuScore: 125, minCpuScore: 120, recCpuScore: 145,
+                minRam: 8, recRam: 16,
+                minGpuName: 'GTX 970 / RX 480', recGpuName: 'RTX 3060 Ti / RX 6700 XT',
+                minCpuName: 'i5-4690 / Ryzen 5 2400G', recCpuName: 'i7-8700K / Ryzen 5 3600',
+                baseFps1080: { low: 85, rec: 60 }, baseFps1440: { low: 60, rec: 45 }, baseFps4k: { low: 35, rec: 28 }
+            },
+            {
+                id: 'hogwarts',
+                name: 'Hogwarts Legacy',
+                icon: '🧙',
+                year: 2023,
+                category: 'AAA',
+                minGpuScore: 60, recGpuScore: 145, minCpuScore: 130, recCpuScore: 150,
+                minRam: 16, recRam: 32,
+                minGpuName: 'GTX 1070 / RX 5700', recGpuName: 'RTX 3080 / RX 6800 XT',
+                minCpuName: 'i5-8400 / Ryzen 5 2600', recCpuName: 'i7-10700 / Ryzen 7 3800X',
+                baseFps1080: { low: 75, rec: 55 }, baseFps1440: { low: 50, rec: 38 }, baseFps4k: { low: 28, rec: 22 }
+            },
+            {
+                id: 'valorant',
+                name: 'Valorant',
+                icon: '🎯',
+                year: 2020,
+                category: 'Esports',
+                minGpuScore: 20, recGpuScore: 45, minCpuScore: 80, recCpuScore: 130,
+                minRam: 4, recRam: 8,
+                minGpuName: 'Intel HD 4000', recGpuName: 'GTX 1050 Ti',
+                minCpuName: 'i3-4150 / Ryzen 3 1200', recCpuName: 'i5-9400 / Ryzen 5 2600',
+                baseFps1080: { low: 250, rec: 144 }, baseFps1440: { low: 180, rec: 120 }, baseFps4k: { low: 100, rec: 80 }
+            },
+            {
+                id: 'cs2',
+                name: 'Counter-Strike 2',
+                icon: '💣',
+                year: 2023,
+                category: 'Esports',
+                minGpuScore: 30, recGpuScore: 70, minCpuScore: 100, recCpuScore: 145,
+                minRam: 8, recRam: 16,
+                minGpuName: 'GTX 1050 Ti / RX 560', recGpuName: 'RTX 3060 / RX 6600 XT',
+                minCpuName: 'i5-7500 / Ryzen 3 3100', recCpuName: 'i5-12400 / Ryzen 5 5600X',
+                baseFps1080: { low: 200, rec: 144 }, baseFps1440: { low: 140, rec: 100 }, baseFps4k: { low: 80, rec: 60 }
+            },
+            {
+                id: 'fortnite',
+                name: 'Fortnite',
+                icon: '🏗️',
+                year: 2017,
+                category: 'Battle Royale',
+                minGpuScore: 30, recGpuScore: 70, minCpuScore: 100, recCpuScore: 140,
+                minRam: 8, recRam: 16,
+                minGpuName: 'GTX 960 / RX 560', recGpuName: 'RTX 3060 / RX 6600 XT',
+                minCpuName: 'i5-7300U / Ryzen 3 3300U', recCpuName: 'i7-8700 / Ryzen 5 3600',
+                baseFps1080: { low: 180, rec: 120 }, baseFps1440: { low: 120, rec: 80 }, baseFps4k: { low: 70, rec: 50 }
+            },
+            {
+                id: 'warzone',
+                name: 'Call of Duty: Warzone',
+                icon: '🎖️',
+                year: 2020,
+                category: 'Battle Royale',
+                minGpuScore: 50, recGpuScore: 125, minCpuScore: 110, recCpuScore: 150,
+                minRam: 12, recRam: 16,
+                minGpuName: 'GTX 1060 / RX 580', recGpuName: 'RTX 3060 Ti / RX 6700 XT',
+                minCpuName: 'i5-6600K / Ryzen 5 1600', recCpuName: 'i7-9700K / Ryzen 7 3700X',
+                baseFps1080: { low: 120, rec: 90 }, baseFps1440: { low: 85, rec: 65 }, baseFps4k: { low: 50, rec: 40 }
+            },
+            {
+                id: 'apex',
+                name: 'Apex Legends',
+                icon: '🦅',
+                year: 2019,
+                category: 'Battle Royale',
+                minGpuScore: 35, recGpuScore: 80, minCpuScore: 100, recCpuScore: 140,
+                minRam: 6, recRam: 8,
+                minGpuName: 'GT 640 / Radeon HD 7730', recGpuName: 'GTX 970 / RX 580',
+                minCpuName: 'i3-6300 / Ryzen 3 1200', recCpuName: 'i5-8400 / Ryzen 5 2600',
+                baseFps1080: { low: 160, rec: 100 }, baseFps1440: { low: 110, rec: 70 }, baseFps4k: { low: 60, rec: 45 }
+            },
+            {
+                id: 'eldenring',
+                name: 'Elden Ring',
+                icon: '⚔️',
+                year: 2022,
+                category: 'AAA',
+                minGpuScore: 55, recGpuScore: 100, minCpuScore: 120, recCpuScore: 145,
+                minRam: 12, recRam: 16,
+                minGpuName: 'GTX 1060 / RX 580', recGpuName: 'RTX 3060 / RX 6600 XT',
+                minCpuName: 'i5-8400 / Ryzen 3 3300X', recCpuName: 'i7-8700K / Ryzen 5 3600X',
+                baseFps1080: { low: 60, rec: 60 }, baseFps1440: { low: 50, rec: 50 }, baseFps4k: { low: 35, rec: 35 }
+            },
+            {
+                id: 'rdr2',
+                name: 'Red Dead Redemption 2',
+                icon: '🤠',
+                year: 2019,
+                category: 'AAA',
+                minGpuScore: 50, recGpuScore: 145, minCpuScore: 120, recCpuScore: 150,
+                minRam: 12, recRam: 16,
+                minGpuName: 'GTX 770 / RX 570', recGpuName: 'RTX 3070 / RX 6800',
+                minCpuName: 'i5-2500K / Ryzen 5 1500X', recCpuName: 'i7-9700K / Ryzen 7 3700X',
+                baseFps1080: { low: 80, rec: 55 }, baseFps1440: { low: 55, rec: 40 }, baseFps4k: { low: 32, rec: 25 }
+            },
+            {
+                id: 'starfield',
+                name: 'Starfield',
+                icon: '🚀',
+                year: 2023,
+                category: 'AAA',
+                minGpuScore: 100, recGpuScore: 175, minCpuScore: 140, recCpuScore: 165,
+                minRam: 16, recRam: 32,
+                minGpuName: 'GTX 1070 Ti / RX 5700', recGpuName: 'RTX 3080 / RX 6800 XT',
+                minCpuName: 'i7-10700 / Ryzen 5 3600X', recCpuName: 'i5-12600K / Ryzen 7 5800X',
+                baseFps1080: { low: 60, rec: 50 }, baseFps1440: { low: 45, rec: 38 }, baseFps4k: { low: 28, rec: 22 }
+            },
+            {
+                id: 'minecraft',
+                name: 'Minecraft',
+                icon: '⛏️',
+                year: 2011,
+                category: 'Casual',
+                minGpuScore: 15, recGpuScore: 40, minCpuScore: 60, recCpuScore: 100,
+                minRam: 4, recRam: 8,
+                minGpuName: 'Intel HD 4000', recGpuName: 'GTX 950 / RX 560',
+                minCpuName: 'i3-3210 / AMD Athlon II', recCpuName: 'i5-4690 / Ryzen 3 3200G',
+                baseFps1080: { low: 120, rec: 90 }, baseFps1440: { low: 90, rec: 70 }, baseFps4k: { low: 60, rec: 45 }
+            },
+            {
+                id: 'gta5',
+                name: 'GTA V',
+                icon: '🚗',
+                year: 2015,
+                category: 'AAA',
+                minGpuScore: 25, recGpuScore: 60, minCpuScore: 80, recCpuScore: 120,
+                minRam: 8, recRam: 16,
+                minGpuName: 'GTX 660 / HD 7870', recGpuName: 'GTX 1060 / RX 580',
+                minCpuName: 'i5-3470 / FX-8350', recCpuName: 'i7-6700 / Ryzen 5 2600',
+                baseFps1080: { low: 120, rec: 80 }, baseFps1440: { low: 85, rec: 55 }, baseFps4k: { low: 50, rec: 35 }
+            },
+            {
+                id: 'lol',
+                name: 'League of Legends',
+                icon: '⚡',
+                year: 2009,
+                category: 'Esports',
+                minGpuScore: 10, recGpuScore: 30, minCpuScore: 50, recCpuScore: 90,
+                minRam: 4, recRam: 8,
+                minGpuName: 'Intel HD 4600', recGpuName: 'GTX 560 / HD 6950',
+                minCpuName: 'i3-530 / Phenom II X4', recCpuName: 'i5-3300 / Ryzen 3 1200',
+                baseFps1080: { low: 240, rec: 144 }, baseFps1440: { low: 180, rec: 120 }, baseFps4k: { low: 100, rec: 80 }
+            },
+            {
+                id: 'fc25',
+                name: 'EA FC 25',
+                icon: '⚽',
+                year: 2024,
+                category: 'Sports',
+                minGpuScore: 50, recGpuScore: 100, minCpuScore: 120, recCpuScore: 145,
+                minRam: 8, recRam: 16,
+                minGpuName: 'GTX 1050 Ti / RX 570', recGpuName: 'RTX 3060 / RX 6600',
+                minCpuName: 'i5-6600K / Ryzen 5 1600', recCpuName: 'i7-10700K / Ryzen 7 3700X',
+                baseFps1080: { low: 120, rec: 90 }, baseFps1440: { low: 90, rec: 70 }, baseFps4k: { low: 60, rec: 50 }
+            },
+            {
+                id: 'spiderman2',
+                name: "Marvel's Spider-Man 2",
+                icon: '🕷️',
+                year: 2025,
+                category: 'AAA',
+                minGpuScore: 100, recGpuScore: 175, minCpuScore: 140, recCpuScore: 160,
+                minRam: 16, recRam: 32,
+                minGpuName: 'RTX 3060 / RX 6700 XT', recGpuName: 'RTX 4070 / RX 7800 XT',
+                minCpuName: 'i5-10600K / Ryzen 5 5600X', recCpuName: 'i7-12700K / Ryzen 7 5800X3D',
+                baseFps1080: { low: 60, rec: 45 }, baseFps1440: { low: 45, rec: 35 }, baseFps4k: { low: 30, rec: 22 }
+            },
+            {
+                id: 'deadspace',
+                name: 'Dead Space Remake',
+                icon: '👽',
+                year: 2023,
+                category: 'AAA',
+                minGpuScore: 65, recGpuScore: 145, minCpuScore: 130, recCpuScore: 155,
+                minRam: 16, recRam: 16,
+                minGpuName: 'GTX 1070 / RX 5700', recGpuName: 'RTX 3070 / RX 6800 XT',
+                minCpuName: 'i5-8600 / Ryzen 5 2600X', recCpuName: 'i5-11600K / Ryzen 7 5800X',
+                baseFps1080: { low: 80, rec: 60 }, baseFps1440: { low: 55, rec: 45 }, baseFps4k: { low: 35, rec: 28 }
+            },
+            {
+                id: 'poe2',
+                name: 'Path of Exile 2',
+                icon: '⚔️',
+                year: 2024,
+                category: 'ARPG',
+                minGpuScore: 70, recGpuScore: 120, minCpuScore: 125, recCpuScore: 150,
+                minRam: 16, recRam: 32,
+                minGpuName: 'GTX 1650 / RX 5500 XT', recGpuName: 'RTX 3060 Ti / RX 6700 XT',
+                minCpuName: 'i5-8400 / Ryzen 5 2600', recCpuName: 'i7-10700 / Ryzen 7 5700X',
+                baseFps1080: { low: 90, rec: 60 }, baseFps1440: { low: 60, rec: 45 }, baseFps4k: { low: 35, rec: 28 }
+            }
+        ];
+
+        let selectedGame = null;
+
+        // Initialize
+        function init() {
+            populateGames();
+            setupEventListeners();
+        }
+
+        function populateGames() {
+            const grid = document.getElementById('gameGrid');
+            grid.innerHTML = games.map(game => `
+                <div class="game-card" data-id="${game.id}" onclick="selectGame('${game.id}')">
+                    <div class="game-icon">${game.icon}</div>
+                    <div class="game-name">${game.name}</div>
+                    <div class="game-year">${game.year} • ${game.category}</div>
+                </div>
+            `).join('');
+        }
+
+        function setupEventListeners() {
+            const search = document.getElementById('gameSearch');
+            search.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                document.querySelectorAll('.game-card').forEach(card => {
+                    const name = card.querySelector('.game-name').textContent.toLowerCase();
+                    card.style.display = name.includes(query) ? 'block' : 'none';
+                });
+            });
+
+            // Enable check button when specs and game selected
+            ['userGpu', 'userCpu', 'userRam'].forEach(id => {
+                document.getElementById(id).addEventListener('change', updateCheckButton);
+            });
+        }
+
+        function selectGame(id) {
+            selectedGame = games.find(g => g.id === id);
+            document.querySelectorAll('.game-card').forEach(card => {
+                card.classList.toggle('selected', card.dataset.id === id);
+            });
+            updateCheckButton();
+        }
+
+        function updateCheckButton() {
+            const gpu = document.getElementById('userGpu').value;
+            const cpu = document.getElementById('userCpu').value;
+            const ram = document.getElementById('userRam').value;
+            document.getElementById('checkBtn').disabled = !(gpu && cpu && ram && selectedGame);
+        }
+
+        function loadSavedSpecs() {
+            const setup = localStorage.getItem('mySetup');
+            if (setup) {
+                try {
+                    const data = JSON.parse(setup);
+                    // Try to match GPU
+                    if (data.gpu) {
+                        const gpuLower = data.gpu.toLowerCase();
+                        for (const [key, name] of Object.entries(gpuNames)) {
+                            if (gpuLower.includes(name.toLowerCase()) || name.toLowerCase().includes(gpuLower)) {
+                                document.getElementById('userGpu').value = key;
+                                break;
+                            }
+                        }
+                    }
+                    // Try to match CPU
+                    if (data.cpu) {
+                        const cpuLower = data.cpu.toLowerCase();
+                        for (const [key, name] of Object.entries(cpuNames)) {
+                            if (cpuLower.includes(name.toLowerCase()) || name.toLowerCase().includes(cpuLower)) {
+                                document.getElementById('userCpu').value = key;
+                                break;
+                            }
+                        }
+                    }
+                    // RAM
+                    if (data.ram) {
+                        const ramNum = parseInt(data.ram);
+                        if (ramNum) {
+                            document.getElementById('userRam').value = ramNum.toString();
+                        }
+                    }
+                    updateCheckButton();
+                    alert('Specs loaded from My Setup!');
+                } catch (e) {
+                    alert('Could not parse saved specs');
+                }
+            } else {
+                alert('No saved setup found. Go to Home page to save your specs!');
+            }
+        }
+
+        function checkCompatibility() {
+            if (!selectedGame) return;
+
+            const gpu = document.getElementById('userGpu').value;
+            const cpu = document.getElementById('userCpu').value;
+            const ram = parseInt(document.getElementById('userRam').value);
+            const resolution = document.getElementById('userResolution').value;
+
+            const userGpuScore = gpuScores[gpu] || 0;
+            const userCpuScore = cpuScores[cpu] || 0;
+
+            // Resolution multiplier for requirements
+            const resMult = resolution === '4k' ? 2.0 : resolution === '1440p' ? 1.4 : 1.0;
+
+            const adjustedMinGpu = selectedGame.minGpuScore * resMult;
+            const adjustedRecGpu = selectedGame.recGpuScore * resMult;
+
+            // Determine verdict
+            const meetsMinGpu = userGpuScore >= adjustedMinGpu;
+            const meetsRecGpu = userGpuScore >= adjustedRecGpu;
+            const meetsMinCpu = userCpuScore >= selectedGame.minCpuScore;
+            const meetsRecCpu = userCpuScore >= selectedGame.recCpuScore;
+            const meetsMinRam = ram >= selectedGame.minRam;
+            const meetsRecRam = ram >= selectedGame.recRam;
+
+            let verdict, verdictTitle, verdictDesc, verdictIcon;
+
+            if (meetsRecGpu && meetsRecCpu && meetsRecRam) {
+                verdict = 'can-run';
+                verdictIcon = '✅';
+                verdictTitle = 'You Can Run It!';
+                verdictDesc = `Your PC exceeds the recommended requirements for ${resolution}. Enjoy high settings!`;
+            } else if (meetsMinGpu && meetsMinCpu && meetsMinRam) {
+                verdict = 'maybe';
+                verdictIcon = '⚠️';
+                verdictTitle = 'Playable with Adjustments';
+                verdictDesc = `Your PC meets minimum requirements. You may need to lower some settings at ${resolution}.`;
+            } else {
+                verdict = 'cannot-run';
+                verdictIcon = '❌';
+                verdictTitle = 'Below Requirements';
+                verdictDesc = `Your PC doesn't meet the minimum requirements for ${resolution}. Consider upgrading or lowering resolution.`;
+            }
+
+            // Update UI
+            document.getElementById('resultGameIcon').textContent = selectedGame.icon;
+            document.getElementById('resultGameName').textContent = selectedGame.name;
+            document.getElementById('resultGameMeta').textContent = `${selectedGame.year} • ${selectedGame.category}`;
+
+            const verdictBox = document.getElementById('verdictBox');
+            verdictBox.className = `verdict ${verdict}`;
+            document.getElementById('verdictIcon').textContent = verdictIcon;
+            document.getElementById('verdictTitle').textContent = verdictTitle;
+            document.getElementById('verdictDesc').textContent = verdictDesc;
+
+            // Your specs display with color coding
+            const gpuClass = meetsRecGpu ? 'pass' : meetsMinGpu ? 'warn' : 'fail';
+            const cpuClass = meetsRecCpu ? 'pass' : meetsMinCpu ? 'warn' : 'fail';
+            const ramClass = meetsRecRam ? 'pass' : meetsMinRam ? 'warn' : 'fail';
+
+            document.getElementById('yourGpuDisplay').textContent = gpuNames[gpu];
+            document.getElementById('yourGpuDisplay').className = `req-value ${gpuClass}`;
+            document.getElementById('yourCpuDisplay').textContent = cpuNames[cpu];
+            document.getElementById('yourCpuDisplay').className = `req-value ${cpuClass}`;
+            document.getElementById('yourRamDisplay').textContent = `${ram} GB`;
+            document.getElementById('yourRamDisplay').className = `req-value ${ramClass}`;
+
+            // Requirements
+            document.getElementById('minGpu').textContent = selectedGame.minGpuName;
+            document.getElementById('minCpu').textContent = selectedGame.minCpuName;
+            document.getElementById('minRam').textContent = `${selectedGame.minRam} GB`;
+            document.getElementById('recGpu').textContent = selectedGame.recGpuName;
+            document.getElementById('recCpu').textContent = selectedGame.recCpuName;
+            document.getElementById('recRam').textContent = `${selectedGame.recRam} GB`;
+
+            // Calculate recommended settings
+            const performanceRatio = (userGpuScore + userCpuScore * 0.3) / (adjustedRecGpu + selectedGame.recCpuScore * 0.3);
+            const settings = calculateSettings(performanceRatio);
+
+            const settingsGrid = document.getElementById('settingsGrid');
+            settingsGrid.innerHTML = Object.entries(settings).map(([key, val]) => `
+                <div class="setting-item">
+                    <label>${key}</label>
+                    <span class="value ${val.class}">${val.value}</span>
+                </div>
+            `).join('');
+
+            // Calculate FPS
+            const baseFps = resolution === '4k' ? selectedGame.baseFps4k :
+                           resolution === '1440p' ? selectedGame.baseFps1440 :
+                           selectedGame.baseFps1080;
+
+            let estimatedFps;
+            if (performanceRatio >= 1.5) {
+                estimatedFps = baseFps.rec * 1.4;
+            } else if (performanceRatio >= 1.0) {
+                estimatedFps = baseFps.rec * (0.9 + performanceRatio * 0.3);
+            } else if (performanceRatio >= 0.7) {
+                estimatedFps = baseFps.low * performanceRatio;
+            } else {
+                estimatedFps = baseFps.low * 0.5;
+            }
+
+            const fpsLow = Math.round(estimatedFps * 0.85);
+            const fpsHigh = Math.round(estimatedFps * 1.15);
+
+            document.getElementById('fpsResolution').textContent = resolution;
+            document.getElementById('fpsValue').textContent = `${fpsLow}-${fpsHigh} FPS`;
+
+            // Show results
+            document.getElementById('resultsSection').classList.add('active');
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function calculateSettings(ratio) {
+            if (ratio >= 1.5) {
+                return {
+                    'Overall Quality': { value: 'Ultra', class: 'high' },
+                    'Textures': { value: 'Ultra', class: 'high' },
+                    'Shadows': { value: 'High', class: 'high' },
+                    'Anti-Aliasing': { value: 'TAA/DLAA', class: 'high' },
+                    'Ray Tracing': { value: 'On', class: 'high' },
+                    'View Distance': { value: 'Ultra', class: 'high' }
+                };
+            } else if (ratio >= 1.0) {
+                return {
+                    'Overall Quality': { value: 'High', class: 'high' },
+                    'Textures': { value: 'High', class: 'high' },
+                    'Shadows': { value: 'Medium', class: 'medium' },
+                    'Anti-Aliasing': { value: 'FXAA', class: 'medium' },
+                    'Ray Tracing': { value: 'Off', class: 'low' },
+                    'View Distance': { value: 'High', class: 'high' }
+                };
+            } else if (ratio >= 0.7) {
+                return {
+                    'Overall Quality': { value: 'Medium', class: 'medium' },
+                    'Textures': { value: 'Medium', class: 'medium' },
+                    'Shadows': { value: 'Low', class: 'low' },
+                    'Anti-Aliasing': { value: 'Off/Low', class: 'low' },
+                    'Ray Tracing': { value: 'Off', class: 'low' },
+                    'View Distance': { value: 'Medium', class: 'medium' }
+                };
+            } else {
+                return {
+                    'Overall Quality': { value: 'Low', class: 'low' },
+                    'Textures': { value: 'Low', class: 'low' },
+                    'Shadows': { value: 'Off', class: 'low' },
+                    'Anti-Aliasing': { value: 'Off', class: 'low' },
+                    'Ray Tracing': { value: 'Off', class: 'low' },
+                    'View Distance': { value: 'Low', class: 'low' }
+                };
+            }
+        }
+
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+
+        // Initialize on load
+        init();
+    </script>
+    <script src="effects.js"></script>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+<script>
+    // Back to top button
+    const backToTopBtn = document.getElementById('backToTop');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            backToTopBtn.classList.toggle('visible', window.scrollY > 400);
+        });
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Active nav link
+    (function() {
+        const currentFile = location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && (href === currentFile || (currentFile === '' && href === 'index.html'))) {
+                link.classList.add('active');
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

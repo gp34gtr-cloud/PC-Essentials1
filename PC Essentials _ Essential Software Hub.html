@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)file:///C:/Users/elite/.claude/pc-essentials/index.html -->
+<html lang="en" style="--bg-primary: #000000; --bg-secondary: #1c1c1e; --bg-tertiary: #2c2c2e; --bg-card: #1c1c1e; --text-primary: #f5f5f7; --text-secondary: #a1a1a6; --text-tertiary: #6e6e73; --accent: #0071e3; --accent-hover: #0077ed; --accent-glow: rgba(0, 113, 227, 0.15); --border: rgba(255, 255, 255, 0.1); --card-radius: 20px; --card-padding: 32px; --card-shadow: none; --card-hover-transform: translateY(-4px); --card-hover-border: rgba(255, 255, 255, 0.2); --anim-speed: 0.3s; --anim-easing: cubic-bezier(0.25, 0.1, 0.25, 1); --hover-scale: 1.02;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Essentials | Essential Software Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="./PC Essentials _ Essential Software Hub_files/css2" rel="stylesheet">
+    <link rel="stylesheet" href="./PC Essentials _ Essential Software Hub_files/base-styles.css">
+    <style>
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #1c1c1e;
+            --bg-tertiary: #2c2c2e;
+            --bg-card: #1c1c1e;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1a6;
+            --text-tertiary: #6e6e73;
+            --accent: #0071e3;
+            --accent-hover: #0077ed;
+            --border: rgba(255, 255, 255, 0.1);
+            --shadow: rgba(0, 0, 0, 0.3);
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --gradient-6: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 52px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--gradient-3);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 400;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .lang-toggle {
+            display: flex;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1000px;
+            height: 600px;
+            background: radial-gradient(ellipse at center, rgba(0, 113, 227, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: #30d158;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 48px;
+            font-weight: 400;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: scale(1.02);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-tertiary);
+            transform: scale(1.02);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 80px 24px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 48px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: var(--gradient-3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-top: 8px;
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 120px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .category-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .category-card:nth-child(1)::before { background: var(--gradient-1); }
+        .category-card:nth-child(2)::before { background: var(--gradient-2); }
+        .category-card:nth-child(3)::before { background: var(--gradient-3); }
+        .category-card:nth-child(4)::before { background: var(--gradient-4); }
+        .category-card:nth-child(5)::before { background: var(--gradient-5); }
+        .category-card:nth-child(6)::before { background: var(--gradient-6); }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .category-card:hover::before {
+            opacity: 1;
+        }
+
+        .category-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .category-card:nth-child(1) .category-icon { background: var(--gradient-1); }
+        .category-card:nth-child(2) .category-icon { background: var(--gradient-2); }
+        .category-card:nth-child(3) .category-icon { background: var(--gradient-3); }
+        .category-card:nth-child(4) .category-icon { background: var(--gradient-4); }
+        .category-card:nth-child(5) .category-icon { background: var(--gradient-5); }
+        .category-card:nth-child(6) .category-icon { background: var(--gradient-6); }
+
+        .category-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .category-desc {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 16px;
+        }
+
+        .category-count {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+
+        /* Software Grid */
+        .software-section {
+            padding: 120px 24px;
+            background: var(--bg-secondary);
+        }
+
+        .software-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .software-category {
+            margin-bottom: 80px;
+        }
+
+        .software-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .category-header-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .category-header h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .software-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .software-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.2s ease;
+        }
+
+        .software-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .software-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .software-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .software-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .software-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .software-vendor {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+
+        .software-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .software-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .software-tag {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .software-tag.essential {
+            background: rgba(0, 113, 227, 0.2);
+            color: #5ac8fa;
+        }
+
+        .software-tag.recommended {
+            background: rgba(48, 209, 88, 0.2);
+            color: #30d158;
+        }
+
+        .download-btn {
+            width: 100%;
+            padding: 12px 20px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .download-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .download-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 120px 24px;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 40px 32px;
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 48px 24px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-copy {
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Smooth reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body data-page="home">
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <span data-en="PC Essentials" data-mn="PC Зайлшгүй">PC Essentials</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="file:///C:/Users/elite/.claude/pc-essentials/index.html" class="active" data-en="Home" data-mn="Нүүр">Home</a></li>
+                <li><a href="file:///C:/Users/elite/.claude/pc-essentials/software.html" data-en="Software" data-mn="Програм">Software</a></li>
+                <li><a href="file:///C:/Users/elite/.claude/pc-essentials/peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a></li>
+                <li><a href="file:///C:/Users/elite/.claude/pc-essentials/ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="theme-toggle active" id="themeToggle" title="Toggle unique page themes">
+                    <div class="theme-toggle-switch"></div>
+                    <span class="theme-toggle-label">Themes</span>
+                </div>
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="mn">MN</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            <span data-en="Updated for 2025" data-mn="2025 онд шинэчлэгдсэн">Updated for 2025</span>
+        </div>
+        <h1 data-en="Essential Software for Your New PC" data-mn="Шинэ компьютерийн зайлшгүй програмууд">Essential Software for Your New PC</h1>
+        <p data-en="Everything you need to get started. Curated collection of drivers, utilities, and applications — all from official sources, completely free." data-mn="Эхлэхэд хэрэгтэй бүх зүйл. Драйвер, хэрэгслүүд болон програмуудын сонголт — бүгд албан ёсны эх сурвалжаас, бүрэн үнэгүй.">Everything you need to get started. Curated collection of drivers, utilities, and applications — all from official sources, completely free.</p>
+        <div class="hero-cta">
+            <a href="file:///C:/Users/elite/.claude/pc-essentials/index.html#software" class="btn btn-primary">
+                <span data-en="Browse Software" data-mn="Програм үзэх">Browse Software</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+            <a href="file:///C:/Users/elite/.claude/pc-essentials/index.html#categories" class="btn btn-secondary">
+                <span data-en="View Categories" data-mn="Ангилал үзэх">View Categories</span>
+            </a>
+        </div>
+        <div class="scroll-indicator">
+            <span data-en="Scroll to explore" data-mn="Гүйлгэж үзнэ үү">Scroll to explore</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item reveal" style="transition-delay: 0s;">
+                <div class="stat-number">50+</div>
+                <div class="stat-label" data-en="Essential Apps" data-mn="Зайлшгүй програм">Essential Apps</div>
+            </div>
+            <div class="stat-item reveal" style="transition-delay: 0.1s;">
+                <div class="stat-number">6</div>
+                <div class="stat-label" data-en="Categories" data-mn="Ангилал">Categories</div>
+            </div>
+            <div class="stat-item reveal" style="transition-delay: 0.2s;">
+                <div class="stat-number">100%</div>
+                <div class="stat-label" data-en="Official Sources" data-mn="Албан ёсны эх">Official Sources</div>
+            </div>
+            <div class="stat-item reveal" style="transition-delay: 0.3s;">
+                <div class="stat-number">Free</div>
+                <div class="stat-label" data-en="Always Free" data-mn="Үргэлж үнэгүй">Always Free</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <div class="section-header">
+            <div class="section-label" data-en="Categories" data-mn="Ангилал">Categories</div>
+            <h2 class="section-title" data-en="Everything Organized" data-mn="Бүгдийг цэгцэлсэн">Everything Organized</h2>
+            <p class="section-desc" data-en="Find exactly what you need. We&#39;ve organized essential software into intuitive categories for quick access." data-mn="Хэрэгтэй зүйлээ олоорой. Бид зайлшгүй програмуудыг хялбар хандах боломжтойгоор ангилсан.">Find exactly what you need. We've organized essential software into intuitive categories for quick access.</p>
+        </div>
+        <div class="category-grid">
+            <div class="category-card reveal" onclick="scrollToCategory(&#39;gpu&#39;)" style="transition-delay: 0.4s;">
+                <div class="category-icon">🎮</div>
+                <h3 class="category-title" data-en="GPU Drivers" data-mn="GPU Драйвер">GPU Drivers</h3>
+                <p class="category-desc" data-en="Graphics card drivers and control panels for NVIDIA, AMD, and Intel." data-mn="NVIDIA, AMD, Intel график картны драйверууд.">Graphics card drivers and control panels for NVIDIA, AMD, and Intel.</p>
+                <span class="category-count" data-en="6 items" data-mn="6 зүйл">6 items</span>
+            </div>
+            <div class="category-card reveal" onclick="scrollToCategory(&#39;peripherals&#39;)" style="transition-delay: 0.5s;">
+                <div class="category-icon">🖱️</div>
+                <h3 class="category-title" data-en="Peripherals" data-mn="Дагалдах төхөөрөмж">Peripherals</h3>
+                <p class="category-desc" data-en="Mouse, keyboard, and headset software for all major brands." data-mn="Хулгана, гар, чихэвчний програмууд.">Mouse, keyboard, and headset software for all major brands.</p>
+                <span class="category-count" data-en="12 items" data-mn="12 зүйл">12 items</span>
+            </div>
+            <div class="category-card reveal" onclick="scrollToCategory(&#39;system&#39;)" style="transition-delay: 0s;">
+                <div class="category-icon">⚙️</div>
+                <h3 class="category-title" data-en="System Utilities" data-mn="Системийн хэрэгсэл">System Utilities</h3>
+                <p class="category-desc" data-en="Essential tools for system monitoring, cleaning, and optimization." data-mn="Системийг хянах, цэвэрлэх, оновчлох хэрэгслүүд.">Essential tools for system monitoring, cleaning, and optimization.</p>
+                <span class="category-count" data-en="8 items" data-mn="8 зүйл">8 items</span>
+            </div>
+            <div class="category-card reveal" onclick="scrollToCategory(&#39;browsers&#39;)" style="transition-delay: 0.1s;">
+                <div class="category-icon">🌐</div>
+                <h3 class="category-title" data-en="Web Browsers" data-mn="Вэб хөтөч">Web Browsers</h3>
+                <p class="category-desc" data-en="Fast, secure browsers for everyday web browsing." data-mn="Өдөр тутмын хэрэглээнд хурдан, аюулгүй хөтчүүд.">Fast, secure browsers for everyday web browsing.</p>
+                <span class="category-count" data-en="5 items" data-mn="5 зүйл">5 items</span>
+            </div>
+            <div class="category-card reveal" onclick="scrollToCategory(&#39;productivity&#39;)" style="transition-delay: 0.2s;">
+                <div class="category-icon">📝</div>
+                <h3 class="category-title" data-en="Productivity" data-mn="Бүтээмж">Productivity</h3>
+                <p class="category-desc" data-en="Office suites, note-taking apps, and productivity tools." data-mn="Оффисын програм, тэмдэглэл, бүтээмжийн хэрэгслүүд.">Office suites, note-taking apps, and productivity tools.</p>
+                <span class="category-count" data-en="10 items" data-mn="10 зүйл">10 items</span>
+            </div>
+            <div class="category-card reveal" onclick="scrollToCategory(&#39;media&#39;)" style="transition-delay: 0.3s;">
+                <div class="category-icon">🎬</div>
+                <h3 class="category-title" data-en="Media &amp; Entertainment" data-mn="Медиа &amp; Зугаа">Media &amp; Entertainment</h3>
+                <p class="category-desc" data-en="Video players, music apps, and streaming services." data-mn="Видео тоглуулагч, хөгжим, стриминг үйлчилгээ.">Video players, music apps, and streaming services.</p>
+                <span class="category-count" data-en="8 items" data-mn="8 зүйл">8 items</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Software Section -->
+    <section class="software-section" id="software">
+        <div class="software-container">
+            <div class="section-header">
+                <div class="section-label" data-en="Software Library" data-mn="Програмын сан">Software Library</div>
+                <h2 class="section-title" data-en="Download Center" data-mn="Татаж авах төв">Download Center</h2>
+                <p class="section-desc" data-en="All links direct to official websites. Safe, verified, and always up-to-date." data-mn="Бүх холбоосууд албан ёсны вэбсайт руу чиглэнэ. Аюулгүй, баталгаажсан.">All links direct to official websites. Safe, verified, and always up-to-date.</p>
+            </div>
+
+            <!-- GPU Drivers -->
+            <div class="software-category" id="gpu">
+                <div class="category-header">
+                    <div class="category-header-icon" style="background: var(--gradient-1);">🎮</div>
+                    <h3 data-en="GPU Drivers" data-mn="GPU Драйвер">GPU Drivers</h3>
+                </div>
+                <div class="software-grid">
+                    <div class="software-card reveal" style="transition-delay: 0.4s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #76b900 0%, #8bc34a 100%);">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                                </svg>
+                            </div>
+                            <div class="software-info">
+                                <div class="software-name">NVIDIA GeForce Experience</div>
+                                <div class="software-vendor">NVIDIA Corporation</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Automatically updates drivers and optimizes game settings for NVIDIA GPUs." data-mn="NVIDIA GPU-д зориулсан драйверийг автоматаар шинэчилж, тоглоомын тохиргоог оновчилно.">Automatically updates drivers and optimizes game settings for NVIDIA GPUs.</p>
+                        <div class="software-meta">
+                            <span class="software-tag essential" data-en="Essential" data-mn="Зайлшгүй">Essential</span>
+                        </div>
+                        <a href="https://www.nvidia.com/en-us/geforce/geforce-experience/" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.5s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #ed1c24 0%, #ff5722 100%);">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                    <polygon points="12,2 22,8.5 22,15.5 12,22 2,15.5 2,8.5"></polygon>
+                                </svg>
+                            </div>
+                            <div class="software-info">
+                                <div class="software-name">AMD Radeon Software</div>
+                                <div class="software-vendor">Advanced Micro Devices</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Complete driver package with Adrenalin Edition for AMD graphics cards." data-mn="AMD график картны бүрэн драйвер багц Adrenalin Edition-тай.">Complete driver package with Adrenalin Edition for AMD graphics cards.</p>
+                        <div class="software-meta">
+                            <span class="software-tag essential" data-en="Essential" data-mn="Зайлшгүй">Essential</span>
+                        </div>
+                        <a href="https://www.amd.com/en/support" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #0071c5 0%, #00aeef 100%);">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                    <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                                </svg>
+                            </div>
+                            <div class="software-info">
+                                <div class="software-name">Intel Arc &amp; Graphics Driver</div>
+                                <div class="software-vendor">Intel Corporation</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Graphics drivers for Intel Arc and integrated graphics solutions." data-mn="Intel Arc болон нэгдсэн график шийдэлд зориулсан драйверууд.">Graphics drivers for Intel Arc and integrated graphics solutions.</p>
+                        <div class="software-meta">
+                            <span class="software-tag essential" data-en="Essential" data-mn="Зайлшгүй">Essential</span>
+                        </div>
+                        <a href="https://www.intel.com/content/www/us/en/download-center/home.html" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Peripherals -->
+            <div class="software-category" id="peripherals">
+                <div class="category-header">
+                    <div class="category-header-icon" style="background: var(--gradient-2);">🖱️</div>
+                    <h3 data-en="Peripherals Software" data-mn="Дагалдах төхөөрөмжийн програм">Peripherals Software</h3>
+                </div>
+                <div class="software-grid">
+                    <div class="software-card reveal" style="transition-delay: 0.1s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #00b140 0%, #00d166 100%);">🐍</div>
+                            <div class="software-info">
+                                <div class="software-name">Razer Synapse</div>
+                                <div class="software-vendor">Razer Inc.</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Configure Razer peripherals with RGB lighting, macros, and profiles." data-mn="Razer төхөөрөмжийг RGB гэрэлтүүлэг, макро, профайлтай тохируулах.">Configure Razer peripherals with RGB lighting, macros, and profiles.</p>
+                        <div class="software-meta">
+                            <span class="software-tag recommended" data-en="Recommended" data-mn="Санал болгох">Recommended</span>
+                        </div>
+                        <a href="https://www.razer.com/synapse-3" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.2s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #00b4ff 0%, #00d4ff 100%);">⌨️</div>
+                            <div class="software-info">
+                                <div class="software-name">Logitech G HUB</div>
+                                <div class="software-vendor">Logitech</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Control Logitech G gaming gear with advanced customization options." data-mn="Logitech G тоглоомын төхөөрөмжийг тохируулах.">Control Logitech G gaming gear with advanced customization options.</p>
+                        <div class="software-meta">
+                            <span class="software-tag recommended" data-en="Recommended" data-mn="Санал болгох">Recommended</span>
+                        </div>
+                        <a href="https://www.logitechg.com/en-us/innovation/g-hub.html" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.3s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #ffcc00 0%, #ff9900 100%);">🎧</div>
+                            <div class="software-info">
+                                <div class="software-name">Corsair iCUE</div>
+                                <div class="software-vendor">Corsair</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Unified software for all Corsair RGB peripherals and components." data-mn="Corsair RGB төхөөрөмж болон эд ангиудыг удирдах нэгдсэн програм.">Unified software for all Corsair RGB peripherals and components.</p>
+                        <div class="software-meta">
+                            <span class="software-tag recommended" data-en="Recommended" data-mn="Санал болгох">Recommended</span>
+                        </div>
+                        <a href="https://www.corsair.com/us/en/s/icue" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.4s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #ff4500 0%, #ff6a00 100%);">🎮</div>
+                            <div class="software-info">
+                                <div class="software-name">SteelSeries GG</div>
+                                <div class="software-vendor">SteelSeries</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Configure SteelSeries peripherals with Engine and Moments integration." data-mn="SteelSeries төхөөрөмжийг Engine болон Moments-тай тохируулах.">Configure SteelSeries peripherals with Engine and Moments integration.</p>
+                        <div class="software-meta">
+                            <span class="software-tag recommended" data-en="Recommended" data-mn="Санал болгох">Recommended</span>
+                        </div>
+                        <a href="https://steelseries.com/gg" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.5s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #e91e63 0%, #9c27b0 100%);">🖥️</div>
+                            <div class="software-info">
+                                <div class="software-name">HyperX NGENUITY</div>
+                                <div class="software-vendor">HP / HyperX</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Customize HyperX gaming peripherals with lighting and macros." data-mn="HyperX тоглоомын төхөөрөмжийг гэрэлтүүлэг, макротой тохируулах.">Customize HyperX gaming peripherals with lighting and macros.</p>
+                        <div class="software-meta">
+                            <span class="software-tag">Optional</span>
+                        </div>
+                        <a href="https://hyperx.com/pages/ngenuity" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #2196f3 0%, #03a9f4 100%);">🔊</div>
+                            <div class="software-info">
+                                <div class="software-name">Realtek Audio Console</div>
+                                <div class="software-vendor">Realtek</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Audio management for Realtek HD Audio devices with equalizer." data-mn="Realtek HD Audio төхөөрөмжийн аудио удирдлага.">Audio management for Realtek HD Audio devices with equalizer.</p>
+                        <div class="software-meta">
+                            <span class="software-tag essential" data-en="Essential" data-mn="Зайлшгүй">Essential</span>
+                        </div>
+                        <a href="https://www.realtek.com/en/downloads" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Utilities -->
+            <div class="software-category" id="system">
+                <div class="category-header">
+                    <div class="category-header-icon" style="background: var(--gradient-3);">⚙️</div>
+                    <h3 data-en="System Utilities" data-mn="Системийн хэрэгсэл">System Utilities</h3>
+                </div>
+                <div class="software-grid">
+                    <div class="software-card reveal" style="transition-delay: 0.1s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #7b1fa2 0%, #9c27b0 100%);">📊</div>
+                            <div class="software-info">
+                                <div class="software-name">CPU-Z</div>
+                                <div class="software-vendor">CPUID</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="System information utility showing CPU, motherboard, and memory details." data-mn="CPU, эх хавтан, санах ойн мэдээллийг харуулах хэрэгсэл.">System information utility showing CPU, motherboard, and memory details.</p>
+                        <div class="software-meta">
+                            <span class="software-tag recommended" data-en="Recommended" data-mn="Санал болгох">Recommended</span>
+                        </div>
+                        <a href="https://www.cpuid.com/softwares/cpu-z.html" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.2s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #ff5722 0%, #ff9800 100%);">🌡️</div>
+                            <div class="software-info">
+                                <div class="software-name">HWiNFO</div>
+                                <div class="software-vendor">REALiX</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Professional hardware analysis and monitoring with detailed sensor readings." data-mn="Мэргэжлийн техник хангамжийн шинжилгээ болон хяналтын хэрэгсэл.">Professional hardware analysis and monitoring with detailed sensor readings.</p>
+                        <div class="software-meta">
+                            <span class="software-tag recommended" data-en="Recommended" data-mn="Санал болгох">Recommended</span>
+                        </div>
+                        <a href="https://www.hwinfo.com/download/" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.3s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #4caf50 0%, #8bc34a 100%);">📁</div>
+                            <div class="software-info">
+                                <div class="software-name">7-Zip</div>
+                                <div class="software-vendor">Igor Pavlov</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Free file archiver with high compression ratio supporting many formats." data-mn="Олон форматыг дэмждэг үнэгүй файл шахагч.">Free file archiver with high compression ratio supporting many formats.</p>
+                        <div class="software-meta">
+                            <span class="software-tag essential" data-en="Essential" data-mn="Зайлшгүй">Essential</span>
+                        </div>
+                        <a href="https://www.7-zip.org/download.html" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.4s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #2196f3 0%, #64b5f6 100%);">🔧</div>
+                            <div class="software-info">
+                                <div class="software-name">Microsoft PowerToys</div>
+                                <div class="software-vendor">Microsoft</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Set of utilities for power users to tune and streamline Windows." data-mn="Windows-ийг тохируулах эрчимтэй хэрэглэгчдэд зориулсан хэрэгслүүд.">Set of utilities for power users to tune and streamline Windows.</p>
+                        <div class="software-meta">
+                            <span class="software-tag recommended" data-en="Recommended" data-mn="Санал болгох">Recommended</span>
+                        </div>
+                        <a href="https://github.com/microsoft/PowerToys/releases" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.5s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #e91e63 0%, #f44336 100%);">🛡️</div>
+                            <div class="software-info">
+                                <div class="software-name">Malwarebytes</div>
+                                <div class="software-vendor">Malwarebytes Inc.</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Anti-malware protection that works alongside your existing antivirus." data-mn="Одоо байгаа антивирустай хамт ажилладаг хортой програмын эсрэг хамгаалалт.">Anti-malware protection that works alongside your existing antivirus.</p>
+                        <div class="software-meta">
+                            <span class="software-tag recommended" data-en="Recommended" data-mn="Санал болгох">Recommended</span>
+                        </div>
+                        <a href="https://www.malwarebytes.com/mwb-download" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #009688 0%, #4db6ac 100%);">💾</div>
+                            <div class="software-info">
+                                <div class="software-name">CrystalDiskInfo</div>
+                                <div class="software-vendor">Crystal Dew World</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Disk health monitoring utility showing S.M.A.R.T. information." data-mn="S.M.A.R.T. мэдээллийг харуулах дискний эрүүл мэндийг хянах хэрэгсэл.">Disk health monitoring utility showing S.M.A.R.T. information.</p>
+                        <div class="software-meta">
+                            <span class="software-tag recommended" data-en="Recommended" data-mn="Санал болгох">Recommended</span>
+                        </div>
+                        <a href="https://crystalmark.info/en/software/crystaldiskinfo/" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Web Browsers -->
+            <div class="software-category" id="browsers">
+                <div class="category-header">
+                    <div class="category-header-icon" style="background: var(--gradient-4);">🌐</div>
+                    <h3 data-en="Web Browsers" data-mn="Вэб хөтөч">Web Browsers</h3>
+                </div>
+                <div class="software-grid">
+                    <div class="software-card reveal" style="transition-delay: 0.1s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #4285f4 0%, #34a853 50%, #fbbc05 75%, #ea4335 100%);">🌐</div>
+                            <div class="software-info">
+                                <div class="software-name">Google Chrome</div>
+                                <div class="software-vendor">Google</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Fast, secure browser with seamless Google ecosystem integration." data-mn="Google экосистемтэй нэгтгэсэн хурдан, аюулгүй хөтөч.">Fast, secure browser with seamless Google ecosystem integration.</p>
+                        <div class="software-meta">
+                            <span class="software-tag essential" data-en="Essential" data-mn="Зайлшгүй">Essential</span>
+                        </div>
+                        <a href="https://www.google.com/chrome/" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.2s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #ff7139 0%, #ff9500 100%);">🦊</div>
+                            <div class="software-info">
+                                <div class="software-name">Mozilla Firefox</div>
+                                <div class="software-vendor">Mozilla Foundation</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Privacy-focused browser with strong customization options." data-mn="Нууцлалд анхаарсан, өргөн тохируулгатай хөтөч.">Privacy-focused browser with strong customization options.</p>
+                        <div class="software-meta">
+                            <span class="software-tag recommended" data-en="Recommended" data-mn="Санал болгох">Recommended</span>
+                        </div>
+                        <a href="https://www.mozilla.org/en-US/firefox/new/" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.3s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #0078d4 0%, #00bcf2 100%);">🌊</div>
+                            <div class="software-info">
+                                <div class="software-name">Microsoft Edge</div>
+                                <div class="software-vendor">Microsoft</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Chromium-based browser with excellent Windows integration." data-mn="Windows-тай нэгтгэсэн Chromium дээр суурилсан хөтөч.">Chromium-based browser with excellent Windows integration.</p>
+                        <div class="software-meta">
+                            <span class="software-tag">Pre-installed</span>
+                        </div>
+                        <a href="https://www.microsoft.com/en-us/edge" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.4s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #fb542b 0%, #ff7654 100%);">🦁</div>
+                            <div class="software-info">
+                                <div class="software-name">Brave Browser</div>
+                                <div class="software-vendor">Brave Software</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Privacy-first browser with built-in ad and tracker blocking." data-mn="Зар болон хянагчийг хориглодог нууцлалд анхаарсан хөтөч.">Privacy-first browser with built-in ad and tracker blocking.</p>
+                        <div class="software-meta">
+                            <span class="software-tag">Privacy</span>
+                        </div>
+                        <a href="https://brave.com/download/" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Productivity -->
+            <div class="software-category" id="productivity">
+                <div class="category-header">
+                    <div class="category-header-icon" style="background: var(--gradient-5);">📝</div>
+                    <h3 data-en="Productivity" data-mn="Бүтээмж">Productivity</h3>
+                </div>
+                <div class="software-grid">
+                    <div class="software-card reveal" style="transition-delay: 0.5s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #d83b01 0%, #ff6f00 100%);">📄</div>
+                            <div class="software-info">
+                                <div class="software-name">Microsoft Office</div>
+                                <div class="software-vendor">Microsoft</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Industry-standard suite: Word, Excel, PowerPoint, and more." data-mn="Салбарын стандарт: Word, Excel, PowerPoint болон бусад.">Industry-standard suite: Word, Excel, PowerPoint, and more.</p>
+                        <div class="software-meta">
+                            <span class="software-tag essential" data-en="Essential" data-mn="Зайлшгүй">Essential</span>
+                        </div>
+                        <a href="https://www.office.com/" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #18a090 0%, #00d084 100%);">📒</div>
+                            <div class="software-info">
+                                <div class="software-name">Notion</div>
+                                <div class="software-vendor">Notion Labs</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="All-in-one workspace for notes, docs, and project management." data-mn="Тэмдэглэл, баримт бичиг, төсөл удирдахад зориулсан нэгдсэн ажлын орон зай.">All-in-one workspace for notes, docs, and project management.</p>
+                        <div class="software-meta">
+                            <span class="software-tag recommended" data-en="Recommended" data-mn="Санал болгох">Recommended</span>
+                        </div>
+                        <a href="https://www.notion.so/desktop" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.1s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #007acc 0%, #1a9ce0 100%);">💻</div>
+                            <div class="software-info">
+                                <div class="software-name">Visual Studio Code</div>
+                                <div class="software-vendor">Microsoft</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Lightweight but powerful code editor with extensive extensions." data-mn="Өргөтгөлүүдтэй хөнгөн боловч хүчирхэг код засварлагч.">Lightweight but powerful code editor with extensive extensions.</p>
+                        <div class="software-meta">
+                            <span class="software-tag recommended" data-en="Recommended" data-mn="Санал болгох">Recommended</span>
+                        </div>
+                        <a href="https://code.visualstudio.com/" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.2s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #611f69 0%, #89203f 100%);">💬</div>
+                            <div class="software-info">
+                                <div class="software-name">Slack</div>
+                                <div class="software-vendor">Salesforce</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Team communication platform for workplace collaboration." data-mn="Ажлын байрны хамтын ажиллагааны багийн харилцааны платформ.">Team communication platform for workplace collaboration.</p>
+                        <div class="software-meta">
+                            <span class="software-tag">Communication</span>
+                        </div>
+                        <a href="https://slack.com/downloads/windows" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.3s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #5865f2 0%, #7289da 100%);">🎮</div>
+                            <div class="software-info">
+                                <div class="software-name">Discord</div>
+                                <div class="software-vendor">Discord Inc.</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Voice, video, and text communication for communities and gaming." data-mn="Нийгэмлэг болон тоглоомын дуу, видео, текст харилцаа.">Voice, video, and text communication for communities and gaming.</p>
+                        <div class="software-meta">
+                            <span class="software-tag essential" data-en="Essential" data-mn="Зайлшгүй">Essential</span>
+                        </div>
+                        <a href="https://discord.com/download" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.4s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #2d8cff 0%, #0e71eb 100%);">📹</div>
+                            <div class="software-info">
+                                <div class="software-name">Zoom</div>
+                                <div class="software-vendor">Zoom Video Communications</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Video conferencing for meetings, webinars, and online classes." data-mn="Уулзалт, вебинар, онлайн хичээлд зориулсан видео хурал.">Video conferencing for meetings, webinars, and online classes.</p>
+                        <div class="software-meta">
+                            <span class="software-tag essential" data-en="Essential" data-mn="Зайлшгүй">Essential</span>
+                        </div>
+                        <a href="https://zoom.us/download" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Media & Entertainment -->
+            <div class="software-category" id="media">
+                <div class="category-header">
+                    <div class="category-header-icon" style="background: var(--gradient-6);">🎬</div>
+                    <h3 data-en="Media &amp; Entertainment" data-mn="Медиа &amp; Зугаа">Media &amp; Entertainment</h3>
+                </div>
+                <div class="software-grid">
+                    <div class="software-card reveal" style="transition-delay: 0.5s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #ff6600 0%, #ff8c00 100%);">▶️</div>
+                            <div class="software-info">
+                                <div class="software-name">VLC Media Player</div>
+                                <div class="software-vendor">VideoLAN</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Free, open-source media player supporting virtually all formats." data-mn="Бараг бүх форматыг дэмждэг үнэгүй, нээлттэй эхийн медиа тоглуулагч.">Free, open-source media player supporting virtually all formats.</p>
+                        <div class="software-meta">
+                            <span class="software-tag essential" data-en="Essential" data-mn="Зайлшгүй">Essential</span>
+                        </div>
+                        <a href="https://www.videolan.org/vlc/" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #1db954 0%, #1ed760 100%);">🎵</div>
+                            <div class="software-info">
+                                <div class="software-name">Spotify</div>
+                                <div class="software-vendor">Spotify AB</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Stream millions of songs and podcasts with personalized recommendations." data-mn="Сая сая дуу, подкастыг хувийн санал болголттой стрим хийх.">Stream millions of songs and podcasts with personalized recommendations.</p>
+                        <div class="software-meta">
+                            <span class="software-tag recommended" data-en="Recommended" data-mn="Санал болгох">Recommended</span>
+                        </div>
+                        <a href="https://www.spotify.com/download/windows/" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.1s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #171a21 0%, #1b2838 100%);">🎮</div>
+                            <div class="software-info">
+                                <div class="software-name">Steam</div>
+                                <div class="software-vendor">Valve Corporation</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="The largest PC gaming platform with thousands of games and community features." data-mn="Мянга мянган тоглоом, нийгэмлэгийн онцлогтой хамгийн том PC тоглоомын платформ.">The largest PC gaming platform with thousands of games and community features.</p>
+                        <div class="software-meta">
+                            <span class="software-tag essential" data-en="Essential" data-mn="Зайлшгүй">Essential</span>
+                        </div>
+                        <a href="https://store.steampowered.com/about/" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.2s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #9146ff 0%, #772ce8 100%);">📺</div>
+                            <div class="software-info">
+                                <div class="software-name">OBS Studio</div>
+                                <div class="software-vendor">OBS Project</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Free streaming and recording software used by professionals worldwide." data-mn="Дэлхий даяарх мэргэжилтнүүдийн ашигладаг үнэгүй стриминг, бичлэг хийх програм.">Free streaming and recording software used by professionals worldwide.</p>
+                        <div class="software-meta">
+                            <span class="software-tag recommended" data-en="Recommended" data-mn="Санал болгох">Recommended</span>
+                        </div>
+                        <a href="https://obsproject.com/" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.3s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #00c8ff 0%, #0080ff 100%);">🎬</div>
+                            <div class="software-info">
+                                <div class="software-name">HandBrake</div>
+                                <div class="software-vendor">HandBrake Team</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Open-source video transcoder for converting video formats." data-mn="Видео форматыг хөрвүүлэх нээлттэй эхийн видео хөрвүүлэгч.">Open-source video transcoder for converting video formats.</p>
+                        <div class="software-meta">
+                            <span class="software-tag">Utility</span>
+                        </div>
+                        <a href="https://handbrake.fr/" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+
+                    <div class="software-card reveal" style="transition-delay: 0.4s;">
+                        <div class="software-header">
+                            <div class="software-icon" style="background: linear-gradient(135deg, #f7df1e 0%, #f0db4f 100%);">🖼️</div>
+                            <div class="software-info">
+                                <div class="software-name">ShareX</div>
+                                <div class="software-vendor">ShareX Team</div>
+                            </div>
+                        </div>
+                        <p class="software-desc" data-en="Powerful screenshot and screen recording tool with quick sharing." data-mn="Дэлгэцийн зураг авах, бичлэг хийх хүчирхэг хэрэгсэл.">Powerful screenshot and screen recording tool with quick sharing.</p>
+                        <div class="software-meta">
+                            <span class="software-tag recommended" data-en="Recommended" data-mn="Санал болгох">Recommended</span>
+                        </div>
+                        <a href="https://getsharex.com/" target="_blank" rel="noopener" class="download-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span data-en="Download" data-mn="Татах">Download</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-container">
+            <div class="section-header">
+                <div class="section-label" data-en="Why Choose Us" data-mn="Яагаад биднийг сонгох вэ">Why Choose Us</div>
+                <h2 class="section-title" data-en="Built for Simplicity" data-mn="Энгийн болгоход зориулсан">Built for Simplicity</h2>
+                <p class="section-desc" data-en="We believe getting your new PC ready shouldn&#39;t be complicated." data-mn="Шинэ компьютерээ бэлтгэх нь хэцүү байх ёсгүй гэж бид итгэдэг.">We believe getting your new PC ready shouldn't be complicated.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal" style="transition-delay: 0.5s;">
+                    <div class="feature-icon">✓</div>
+                    <h3 class="feature-title" data-en="Verified Sources" data-mn="Баталгаажсан эх сурвалж">Verified Sources</h3>
+                    <p class="feature-desc" data-en="Every link goes directly to official websites. No third-party downloads, ever." data-mn="Бүх холбоос шууд албан ёсны вэбсайт руу чиглэнэ. Гуравдагч талын татаж авалт байхгүй.">Every link goes directly to official websites. No third-party downloads, ever.</p>
+                </div>
+                <div class="feature-card reveal" style="transition-delay: 0s;">
+                    <div class="feature-icon">🔄</div>
+                    <h3 class="feature-title" data-en="Always Updated" data-mn="Байнга шинэчлэгддэг">Always Updated</h3>
+                    <p class="feature-desc" data-en="Our catalog is regularly reviewed to ensure all links are current and working." data-mn="Бидний каталогийг тогтмол шалгаж бүх холбоосууд хүчинтэй байхыг баталгаажуулдаг.">Our catalog is regularly reviewed to ensure all links are current and working.</p>
+                </div>
+                <div class="feature-card reveal" style="transition-delay: 0.1s;">
+                    <div class="feature-icon">🆓</div>
+                    <h3 class="feature-title" data-en="Completely Free" data-mn="Бүрэн үнэгүй">Completely Free</h3>
+                    <p class="feature-desc" data-en="No registration, no fees, no catch. Just helpful software recommendations." data-mn="Бүртгэл байхгүй, төлбөр байхгүй. Зөвхөн хэрэгтэй програмын зөвлөмж.">No registration, no fees, no catch. Just helpful software recommendations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="file:///C:/Users/elite/.claude/pc-essentials/index.html" data-en="Home" data-mn="Нүүр">Home</a>
+                <a href="file:///C:/Users/elite/.claude/pc-essentials/software.html" data-en="Software" data-mn="Програм">Software</a>
+                <a href="file:///C:/Users/elite/.claude/pc-essentials/peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a>
+                <a href="file:///C:/Users/elite/.claude/pc-essentials/ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a>
+            </div>
+            <p class="footer-copy" data-en="© 2025 PC Essentials. All software trademarks belong to their respective owners." data-mn="© 2025 PC Essentials. Бүх програмын худалдааны тэмдэг тус тусын эзэмшигчдэд хамаарна.">© 2025 PC Essentials. All software trademarks belong to their respective owners.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language Toggle
+        const langBtns = document.querySelectorAll('.lang-btn');
+        let currentLang = 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+
+            langBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            document.querySelectorAll('[data-en]').forEach(el => {
+                const text = el.getAttribute(`data-${lang}`);
+                if (text) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = text;
+                    } else {
+                        el.textContent = text;
+                    }
+                }
+            });
+
+            document.documentElement.lang = lang;
+        }
+
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+        });
+
+        // Scroll to category
+        function scrollToCategory(categoryId) {
+            const element = document.getElementById(categoryId);
+            if (element) {
+                const navHeight = 52;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - navHeight - 20;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Reveal on scroll animation
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            const windowHeight = window.innerHeight;
+
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const revealPoint = 100;
+
+                if (elementTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', reveal);
+        reveal(); // Initial check
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const target = document.getElementById(targetId);
+
+                if (target) {
+                    const navHeight = 52;
+                    const targetPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = targetPosition + window.pageYOffset - navHeight;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add staggered animation delay to cards
+        document.querySelectorAll('.software-card, .category-card, .stat-item, .feature-card').forEach((card, index) => {
+            card.style.transitionDelay = `${(index % 6) * 0.1}s`;
+        });
+    </script>
+    <script src="./PC Essentials _ Essential Software Hub_files/themes.js"></script>
+    <script>
+        // Initialize page theme
+        autoApplyPageTheme('home');
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.classList.toggle('active', getThemeState());
+
+        themeToggle.addEventListener('click', () => {
+            const newState = toggleUniqueThemes(!getThemeState());
+            themeToggle.classList.toggle('active', newState);
+        });
+    </script>
+
+
+</body></html>

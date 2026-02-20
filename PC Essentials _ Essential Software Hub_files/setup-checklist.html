@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071e3'/%3E%3Crect x='5' y='7' width='22' height='14' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cline x1='10' y1='25' x2='22' y2='25' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='16' y1='21' x2='16' y2='25' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+    <meta name="description" content="Step-by-step interactive checklist for setting up a new Windows PC. Track your progress with checkboxes saved automatically to your browser.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New PC Setup Checklist | PC Essentials</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="base-styles.css">
+    <style>
+        :root {
+            --bg-primary: #020905;
+            --bg-secondary: #071410;
+            --bg-tertiary: #0d1f17;
+            --bg-card: #071410;
+            --text-primary: #edfaf2;
+            --text-secondary: #7aaa8a;
+            --text-tertiary: #4a7a5a;
+            --accent: #30d158;
+            --accent-hover: #3ae063;
+            --accent-glow: rgba(48, 209, 88, 0.2);
+            --border: rgba(48, 209, 88, 0.15);
+            --card-radius: 14px;
+            --card-padding: 20px;
+            --card-shadow: none;
+            --card-hover-transform: translateY(-2px);
+            --card-hover-border: rgba(48, 209, 88, 0.3);
+            --anim-speed: 0.25s;
+            --anim-easing: cubic-bezier(0.25, 0.1, 0.25, 1);
+            --hover-scale: 1.01;
+        }
+
+        /* Progress banner */
+        .progress-banner {
+            position: sticky;
+            top: 60px;
+            z-index: 90;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 24px;
+        }
+
+        .progress-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .progress-label {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            min-width: 110px;
+        }
+
+        .progress-track {
+            flex: 1;
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .progress-pct {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--accent);
+            min-width: 36px;
+            text-align: right;
+        }
+
+        .reset-btn {
+            padding: 6px 14px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .reset-btn:hover {
+            border-color: #ff453a;
+            color: #ff453a;
+        }
+
+        .reset-btn.confirm {
+            border-color: #ff453a;
+            color: #ff453a;
+            background: rgba(255, 69, 58, 0.1);
+        }
+
+        /* Main content */
+        .checklist-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 48px 24px 80px;
+        }
+
+        /* Category section */
+        .category-section {
+            margin-bottom: 40px;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
+            flex-shrink: 0;
+        }
+
+        .cat-info {
+            flex: 1;
+        }
+
+        .cat-title {
+            font-size: 1.0625rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .cat-badge {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            margin-top: 2px;
+        }
+
+        .cat-badge.all-done {
+            color: var(--accent);
+        }
+
+        /* Checklist items */
+        .checklist-items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 18px;
+            cursor: pointer;
+            transition: border-color 0.2s ease, background 0.2s ease, opacity 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        .checklist-item:hover {
+            border-color: var(--card-hover-border);
+        }
+
+        .checklist-item.done {
+            opacity: 0.55;
+        }
+
+        .checklist-item.done .item-title {
+            text-decoration: line-through;
+            color: var(--text-tertiary);
+        }
+
+        /* Custom checkbox */
+        .item-check {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            flex-shrink: 0;
+            margin-top: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            background: transparent;
+        }
+
+        .checklist-item.done .item-check {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .item-check svg {
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .checklist-item.done .item-check svg {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .item-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .item-title {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            transition: color 0.2s ease;
+        }
+
+        .item-desc {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .item-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.75rem;
+            color: var(--accent);
+            text-decoration: none;
+            margin-top: 6px;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+
+        .item-link:hover {
+            opacity: 0.75;
+        }
+
+        /* Completion banner */
+        .completion-banner {
+            display: none;
+            text-align: center;
+            padding: 40px 24px;
+            background: linear-gradient(135deg, rgba(48, 209, 88, 0.1) 0%, rgba(48, 209, 88, 0.05) 100%);
+            border: 1px solid rgba(48, 209, 88, 0.3);
+            border-radius: 20px;
+            margin-bottom: 40px;
+        }
+
+        .completion-banner.visible {
+            display: block;
+        }
+
+        .completion-emoji {
+            font-size: 3rem;
+            margin-bottom: 12px;
+        }
+
+        .completion-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .completion-desc {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .checklist-container {
+                padding: 32px 16px 64px;
+            }
+
+            .progress-banner {
+                padding: 10px 16px;
+            }
+
+            .progress-inner {
+                gap: 10px;
+            }
+
+            .progress-label {
+                min-width: auto;
+                font-size: 0.75rem;
+            }
+
+            .reset-btn {
+                display: none;
+            }
+
+            .checklist-item {
+                padding: 14px 14px;
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cat-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+
+            .cat-title {
+                font-size: 1rem;
+            }
+
+            .item-title {
+                font-size: 0.875rem;
+            }
+
+            .item-desc {
+                font-size: 0.775rem;
+            }
+        }
+    </style>
+</head>
+<body data-page="setup">
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <span>PC Essentials</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="setup-checklist.html" class="active">Setup</a></li>
+                <li><a href="software.html">Software</a></li>
+                <li><a href="peripherals.html">Peripherals</a></li>
+                <li><a href="ai-tools.html">AI Tools</a></li>
+                <li><a href="performance.html">Performance</a></li>
+                <li><a href="shortcuts.html">Shortcuts</a></li>
+                <li><a href="maintenance.html">Tools</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="theme-toggle active" id="themeToggle" title="Toggle unique page themes">
+                    <div class="theme-toggle-switch"></div>
+                    <span class="theme-toggle-label">Themes</span>
+                </div>
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="mn">MN</button>
+                </div>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html">Home</a>
+            <a href="setup-checklist.html" class="active">Setup Guide</a>
+            <a href="software.html">Software</a>
+            <a href="peripherals.html">Peripherals</a>
+            <a href="ai-tools.html">AI Tools</a>
+            <a href="shortcuts.html">Shortcuts</a>
+            <a href="performance.html">Performance</a>
+            <a href="youtube-guide.html">Build Guide</a>
+            <a href="maintenance.html">Tools</a>
+            <a href="typing-test.html">Typing Test</a>
+            <a href="pc-name-generator.html">Name Gen</a>
+        </div>
+    </nav>
+
+    <!-- Sticky Progress Banner -->
+    <div class="progress-banner">
+        <div class="progress-inner">
+            <span class="progress-label" id="progressLabel">0 / 34 done</span>
+            <div class="progress-track">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <span class="progress-pct" id="progressPct">0%</span>
+            <button class="reset-btn" id="resetBtn">Reset</button>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="section-label">Start Here</div>
+        <h1>New PC Setup Guide</h1>
+        <p>Everything you need to do after getting a new PC — in order. Check off each step as you go. Your progress saves automatically.</p>
+    </div>
+
+    <!-- Checklist -->
+    <div class="checklist-container">
+        <div class="completion-banner" id="completionBanner">
+            <div class="completion-emoji">🎉</div>
+            <div class="completion-title">Your PC is ready!</div>
+            <p class="completion-desc">You've completed every step. Go enjoy your new setup.</p>
+        </div>
+        <div id="checklistRoot"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="software.html">Software</a>
+                <a href="peripherals.html">Peripherals</a>
+                <a href="ai-tools.html">AI Tools</a>
+                <a href="performance.html">Performance</a>
+                <a href="shortcuts.html">Shortcuts</a>
+                <a href="maintenance.html">Tools</a>
+                <a href="optimization.html">Optimize</a>
+                <a href="troubleshoot.html">Troubleshoot</a>
+            </div>
+            <p class="footer-copy">© 2026 PC Essentials. All software trademarks belong to their respective owners.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <script>
+        // ── Checklist Data ──────────────────────────────────────────────
+        const CHECKLIST = [
+            {
+                id: 'first-boot', icon: '🚀', title: 'First Boot',
+                gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                items: [
+                    { id: 'boot-1', title: 'Activate Windows', desc: 'Settings → System → Activation. Verify Windows is activated before doing anything else.' },
+                    { id: 'boot-2', title: 'Run Windows Update', desc: 'Settings → Windows Update → Check for updates. Install all updates and restart when prompted.' },
+                    { id: 'boot-3', title: 'Set Date, Time & Region', desc: 'Settings → Time & Language. Set your correct timezone and region.' },
+                    { id: 'boot-4', title: 'Connect to the Internet', desc: 'Settings → Network & Internet → Wi-Fi, or plug in an Ethernet cable for a faster connection.' },
+                    { id: 'boot-5', title: 'Sign in to Microsoft Account', desc: 'Settings → Accounts → Your info. Links your account for syncing settings and the Microsoft Store.' }
+                ]
+            },
+            {
+                id: 'drivers', icon: '🖥️', title: 'Drivers',
+                gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                items: [
+                    { id: 'drv-1', title: 'Install GPU Drivers', desc: 'Download from NVIDIA, AMD, or Intel directly — do not rely on Windows Update for GPU drivers.', link: 'software.html' },
+                    { id: 'drv-2', title: 'Install Chipset Drivers', desc: 'Download from your motherboard maker (ASUS, MSI, Gigabyte, ASRock). Hugely important for system stability.' },
+                    { id: 'drv-3', title: 'Install Audio Drivers', desc: 'Realtek or your motherboard audio driver. Get it from the motherboard support page.', link: 'software.html' },
+                    { id: 'drv-4', title: 'Install LAN / Wi-Fi Drivers', desc: 'If your network wasn\'t detected, download drivers from your motherboard or Wi-Fi card manufacturer.' },
+                    { id: 'drv-5', title: 'Check Device Manager', desc: 'Right-click Start → Device Manager. All devices should show without yellow (!) warning icons.' }
+                ]
+            },
+            {
+                id: 'security', icon: '🛡️', title: 'Security',
+                gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                items: [
+                    { id: 'sec-1', title: 'Confirm Windows Defender is Active', desc: 'Windows Security → Virus & threat protection. Real-time protection must be enabled.' },
+                    { id: 'sec-2', title: 'Set a Strong PIN or Password', desc: 'Settings → Accounts → Sign-in options. Use a PIN of at least 6 digits or a strong password.' },
+                    { id: 'sec-3', title: 'Enable Windows Firewall', desc: 'Windows Security → Firewall & network protection. Domain, Private, and Public should all show On.' },
+                    { id: 'sec-4', title: 'Turn On Automatic Updates', desc: 'Settings → Windows Update → Advanced options → Automatic updates. Stay protected automatically.' }
+                ]
+            },
+            {
+                id: 'software', icon: '📦', title: 'Essential Software',
+                gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                items: [
+                    { id: 'sw-1', title: 'Install a Browser', desc: 'Chrome, Firefox, or Brave. Edge is pre-installed if that works for you.', link: 'software.html' },
+                    { id: 'sw-2', title: 'Install 7-Zip', desc: 'The best free file archiver. Handles ZIP, RAR, 7Z and many more formats.', link: 'software.html' },
+                    { id: 'sw-3', title: 'Install VLC Media Player', desc: 'Plays every video and audio format without needing extra codecs.', link: 'software.html' },
+                    { id: 'sw-4', title: 'Install Discord', desc: 'If you game with friends, Discord is essential for voice and text chat.', link: 'software.html' },
+                    { id: 'sw-5', title: 'Install a Game Launcher', desc: 'Steam, Epic Games, or EA App depending on where your games are.', link: 'software.html' },
+                    { id: 'sw-6', title: 'Install Peripheral Software', desc: 'Logitech G HUB, Razer Synapse, or whichever app your mouse/keyboard needs.', link: 'software.html' }
+                ]
+            },
+            {
+                id: 'performance', icon: '⚡', title: 'Performance',
+                gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+                items: [
+                    { id: 'perf-1', title: 'Set Your Power Plan', desc: 'Control Panel → Power Options. Choose Balanced or High Performance. Never leave it on Power Saver.', link: 'performance.html' },
+                    { id: 'perf-2', title: 'Disable Startup Apps', desc: 'Task Manager (Ctrl+Shift+Esc) → Startup apps. Disable anything you don\'t need launching at boot.', link: 'optimization.html' },
+                    { id: 'perf-3', title: 'Enable Game Mode', desc: 'Settings → Gaming → Game Mode → On. Helps Windows prioritize CPU and GPU resources for games.', link: 'performance.html' },
+                    { id: 'perf-4', title: 'Enable GPU Scheduling (HAGS)', desc: 'Settings → Display → Graphics → Default graphics settings → Hardware-accelerated GPU scheduling → On.', link: 'performance.html' },
+                    { id: 'perf-5', title: 'Enable XMP / EXPO for RAM', desc: 'Restart and enter BIOS (usually Del or F2). Enable XMP (Intel) or EXPO (AMD) to run RAM at rated speed.' }
+                ]
+            },
+            {
+                id: 'gaming', icon: '🎮', title: 'Gaming Setup',
+                gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+                items: [
+                    { id: 'game-1', title: 'Set Up Your Peripherals', desc: 'Install mouse, keyboard, and headset software. Configure DPI, lighting, and macros.', link: 'peripherals.html' },
+                    { id: 'game-2', title: 'Calibrate Your Monitor', desc: 'Adjust brightness, contrast, and color temperature. Enable G-Sync or FreeSync in your GPU control panel.' },
+                    { id: 'game-3', title: 'Configure GPU Control Panel', desc: 'Open NVIDIA Control Panel or AMD Software. Set your preferred image quality and performance settings.', link: 'performance.html' },
+                    { id: 'game-4', title: 'Download & Test Your Games', desc: 'Install your games and launch them to verify performance and settings look correct.' },
+                    { id: 'game-5', title: 'Set Up Controller (Optional)', desc: 'Xbox controllers work plug-and-play on Windows. PS5 DualSense works natively or with DS4Windows.' }
+                ]
+            },
+            {
+                id: 'personalize', icon: '🎨', title: 'Personalization',
+                gradient: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)',
+                items: [
+                    { id: 'pers-1', title: 'Set Your Wallpaper', desc: 'Right-click desktop → Personalize → Background. Or use Wallpaper Engine for animated wallpapers.' },
+                    { id: 'pers-2', title: 'Enable Dark Mode', desc: 'Settings → Personalization → Colors → Choose your mode → Dark.' },
+                    { id: 'pers-3', title: 'Adjust Display Scaling', desc: 'Settings → Display → Scale. Use 100% for 1080p, 125–150% for 1440p/4K for sharper UI.' },
+                    { id: 'pers-4', title: 'Customize Your Taskbar', desc: 'Right-click the taskbar → Taskbar settings. Pin your most-used apps for quick access.' }
+                ]
+            }
+        ];
+
+        // ── Render ──────────────────────────────────────────────────────
+        const root = document.getElementById('checklistRoot');
+        CHECKLIST.forEach(cat => {
+            const section = document.createElement('div');
+            section.className = 'category-section';
+            section.id = 'cat-' + cat.id;
+
+            section.innerHTML = `
+                <div class="category-header">
+                    <div class="cat-icon" style="background:${cat.gradient}">${cat.icon}</div>
+                    <div class="cat-info">
+                        <div class="cat-title">${cat.title}</div>
+                        <div class="cat-badge" data-cat="${cat.id}">0 / ${cat.items.length} completed</div>
+                    </div>
+                </div>
+                <div class="checklist-items">
+                    ${cat.items.map(item => `
+                        <div class="checklist-item" id="item-${item.id}" role="button" tabindex="0" aria-pressed="false">
+                            <div class="item-check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <div class="item-body">
+                                <div class="item-title">${item.title}</div>
+                                <div class="item-desc">${item.desc}</div>
+                                ${item.link ? `<a class="item-link" href="${item.link}" onclick="event.stopPropagation()">View guide <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>` : ''}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>`;
+
+            root.appendChild(section);
+        });
+
+        // ── State ───────────────────────────────────────────────────────
+        const STORAGE_KEY = 'pc-setup-checklist-v1';
+        const totalItems = CHECKLIST.reduce((n, c) => n + c.items.length, 0);
+        let checkedIds = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
+
+        function save() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify([...checkedIds]));
+        }
+
+        function updateProgress() {
+            const count = checkedIds.size;
+            const pct = Math.round((count / totalItems) * 100);
+            document.getElementById('progressFill').style.width = pct + '%';
+            document.getElementById('progressLabel').textContent = count + ' / ' + totalItems + ' done';
+            document.getElementById('progressPct').textContent = pct + '%';
+            document.getElementById('completionBanner').classList.toggle('visible', count === totalItems);
+
+            // Per-category badges
+            CHECKLIST.forEach(cat => {
+                const done = cat.items.filter(i => checkedIds.has(i.id)).length;
+                const badge = document.querySelector(`.cat-badge[data-cat="${cat.id}"]`);
+                if (badge) {
+                    badge.textContent = done + ' / ' + cat.items.length + ' completed';
+                    badge.classList.toggle('all-done', done === cat.items.length);
+                }
+            });
+        }
+
+        function applyState() {
+            document.querySelectorAll('.checklist-item').forEach(el => {
+                const id = el.id.replace('item-', '');
+                const done = checkedIds.has(id);
+                el.classList.toggle('done', done);
+                el.setAttribute('aria-pressed', done);
+            });
+            updateProgress();
+        }
+
+        function toggleItem(el) {
+            const id = el.id.replace('item-', '');
+            if (checkedIds.has(id)) {
+                checkedIds.delete(id);
+            } else {
+                checkedIds.add(id);
+            }
+            save();
+            applyState();
+        }
+
+        // Click and keyboard
+        document.querySelectorAll('.checklist-item').forEach(el => {
+            el.addEventListener('click', () => toggleItem(el));
+            el.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleItem(el); }
+            });
+        });
+
+        applyState();
+
+        // ── Reset ───────────────────────────────────────────────────────
+        const resetBtn = document.getElementById('resetBtn');
+        let resetPending = false;
+        let resetTimer;
+
+        resetBtn.addEventListener('click', () => {
+            if (!resetPending) {
+                resetPending = true;
+                resetBtn.textContent = 'Tap again to reset';
+                resetBtn.classList.add('confirm');
+                resetTimer = setTimeout(() => {
+                    resetPending = false;
+                    resetBtn.textContent = 'Reset';
+                    resetBtn.classList.remove('confirm');
+                }, 3000);
+            } else {
+                clearTimeout(resetTimer);
+                resetPending = false;
+                resetBtn.textContent = 'Reset';
+                resetBtn.classList.remove('confirm');
+                checkedIds.clear();
+                localStorage.removeItem(STORAGE_KEY);
+                applyState();
+            }
+        });
+
+        // ── Nav: hamburger ───────────────────────────────────────────────
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (hamburger && mobileMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+            document.addEventListener('click', e => {
+                if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        }
+
+        // ── Back to top ──────────────────────────────────────────────────
+        const btt = document.getElementById('backToTop');
+        if (btt) {
+            window.addEventListener('scroll', () => btt.classList.toggle('visible', window.scrollY > 400));
+            btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        }
+    </script>
+
+    <script src="themes.js"></script>
+    <script src="effects.js"></script>
+    <script>
+        autoApplyPageTheme('setup');
+
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.classList.toggle('active', getThemeState());
+        themeToggle.addEventListener('click', () => {
+            const s = toggleUniqueThemes(!getThemeState());
+            themeToggle.classList.toggle('active', s);
+        });
+
+        // Lang toggle
+        const langBtns = document.querySelectorAll('.lang-btn');
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                langBtns.forEach(b => b.classList.toggle('active', b === btn));
+            });
+        });
+    </script>
+</body>
+</html>

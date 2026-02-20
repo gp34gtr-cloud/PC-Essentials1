@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071e3'/%3E%3Crect x='5' y='7' width='22' height='14' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cline x1='10' y1='25' x2='22' y2='25' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='16' y1='21' x2='16' y2='25' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+    <meta name="description" content="Plan your PC upgrade with compatibility guides, part recommendations, and budget build advice.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade Planner | PC Essentials</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="base-styles.css">
+    <style>
+        :root {
+            --bg-primary: #050508;
+            --bg-secondary: #0a0a12;
+            --bg-tertiary: #12121e;
+            --bg-card: rgba(18, 18, 30, 0.5);
+            --bg-card-solid: #0c0c18;
+            --text-primary: #ffffff;
+            --text-secondary: #a8a8c8;
+            --text-tertiary: #6868a8;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --accent-hover: #2563eb;
+            --accent-glow: rgba(59, 130, 246, 0.4);
+            --border: rgba(59, 130, 246, 0.15);
+            --border-light: rgba(255, 255, 255, 0.06);
+            --card-radius: 20px;
+            --green: #22c55e;
+            --yellow: #eab308;
+            --red: #ef4444;
+            --orange: #f97316;
+            --purple: #8b5cf6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated gradient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.12), transparent),
+                radial-gradient(ellipse 60% 40% at 100% 50%, rgba(59, 130, 246, 0.06), transparent),
+                radial-gradient(ellipse 60% 40% at 0% 80%, rgba(139, 92, 246, 0.05), transparent);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: opacity 0.2s;
+        }
+
+        .logo:hover {
+            opacity: 0.8;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-links a.active {
+            color: var(--accent-light);
+        }
+
+        .nav-right { display: flex; align-items: center; gap: 12px; }
+
+        .lang-toggle {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 4px;
+        }
+
+        .lang-btn {
+            padding: 6px 14px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 500;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        /* Tools Sub-Navigation */
+        .tools-subnav {
+            background: rgba(10, 10, 18, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+            margin-top: 64px;
+            position: sticky;
+            top: 64px;
+            z-index: 99;
+        }
+
+        .tools-subnav-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            padding: 14px 20px;
+            overflow-x: auto;
+        }
+
+        .tools-subnav-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tools-subnav-link {
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+
+        .tools-subnav-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border-color: var(--border-light);
+        }
+
+        .tools-subnav-link.active {
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            color: white;
+            box-shadow: 0 4px 20px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.1);
+            border-color: transparent;
+        }
+
+        .page-header {
+            padding: 80px 24px 50px;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.03em;
+            background: linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.6) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            line-height: 1.7;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 100px;
+        }
+
+        /* Tabs */
+        .section-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section-tab:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .section-tab.active {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 4px 20px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.15);
+        }
+
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+
+        /* Bottleneck Calculator */
+        .calc-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+        }
+
+        .calc-panel {
+            background: linear-gradient(135deg, rgba(18, 18, 30, 0.6) 0%, rgba(10, 10, 18, 0.4) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+
+        .calc-panel h3 {
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.01em;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 14px 18px;
+            background: #12121e;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-select option {
+            background: #12121e;
+            color: #ffffff;
+            padding: 12px;
+        }
+
+        .form-select optgroup {
+            background: #0a0a12;
+            color: #60a5fa;
+            font-weight: 600;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
+        }
+
+        /* Results */
+        .result-card {
+            background: linear-gradient(135deg, rgba(18, 18, 30, 0.6) 0%, rgba(10, 10, 18, 0.4) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 24px;
+            padding: 36px;
+            text-align: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+
+        .bottleneck-meter {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 24px;
+            position: relative;
+        }
+
+        .bottleneck-meter svg {
+            transform: rotate(-90deg);
+        }
+
+        .bottleneck-meter circle {
+            fill: none;
+            stroke-width: 12;
+        }
+
+        .bottleneck-meter .bg { stroke: var(--bg-tertiary); }
+
+        .bottleneck-meter .cpu-bar { stroke: var(--orange); }
+        .bottleneck-meter .gpu-bar { stroke: var(--green); }
+
+        .bottleneck-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .bottleneck-value .percent {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .bottleneck-value .label {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+
+        .result-status {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .result-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+        }
+
+        .result-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .bar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bar-label {
+            width: 60px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .bar-track {
+            flex: 1;
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .bar-value {
+            width: 40px;
+            font-size: 0.8rem;
+            text-align: right;
+        }
+
+        /* Upgrade Recommendations */
+        .upgrade-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .upgrade-card {
+            background: linear-gradient(135deg, rgba(18, 18, 30, 0.5) 0%, rgba(10, 10, 18, 0.3) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: var(--card-radius);
+            padding: 26px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upgrade-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .upgrade-card:hover {
+            border-color: rgba(59, 130, 246, 0.25);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 50px rgba(59, 130, 246, 0.08);
+        }
+
+        .upgrade-card:hover::before {
+            opacity: 1;
+        }
+
+        .upgrade-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .upgrade-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        .upgrade-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .upgrade-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            margin-top: 2px;
+        }
+
+        .upgrade-body {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 18px;
+            line-height: 1.7;
+        }
+
+        .upgrade-path {
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            font-size: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .upgrade-path strong {
+            color: var(--accent-light);
+        }
+
+        .upgrade-price {
+            margin-top: 14px;
+            padding: 10px 14px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.15);
+            border-radius: 10px;
+            font-size: 0.8rem;
+            color: var(--green);
+            display: inline-block;
+        }
+
+        /* Priority Cards */
+        .priority-section {
+            margin-bottom: 36px;
+        }
+
+        .priority-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .priority-badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid transparent;
+        }
+
+        .priority-badge.high {
+            background: rgba(239, 68, 68, 0.12);
+            border-color: rgba(239, 68, 68, 0.2);
+            color: var(--red);
+            box-shadow: 0 2px 10px rgba(239, 68, 68, 0.1);
+        }
+
+        .priority-badge.medium {
+            background: rgba(234, 179, 8, 0.12);
+            border-color: rgba(234, 179, 8, 0.2);
+            color: var(--yellow);
+            box-shadow: 0 2px 10px rgba(234, 179, 8, 0.1);
+        }
+
+        .priority-badge.low {
+            background: rgba(34, 197, 94, 0.12);
+            border-color: rgba(34, 197, 94, 0.2);
+            color: var(--green);
+            box-shadow: 0 2px 10px rgba(34, 197, 94, 0.1);
+        }
+
+        /* Upgrade Paths */
+        .path-card {
+            background: linear-gradient(135deg, rgba(18, 18, 30, 0.5) 0%, rgba(10, 10, 18, 0.3) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 22px;
+            padding: 28px;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .path-card:hover {
+            border-color: rgba(59, 130, 246, 0.2);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .path-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .path-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .path-budget {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .path-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .path-step {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .path-step:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: 0 3px 12px var(--accent-glow);
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-action {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+
+        .step-detail {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .step-price {
+            font-size: 0.9rem;
+            color: var(--green);
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 24px;
+            border-top: 1px solid rgba(59, 130, 246, 0.1);
+            text-align: center;
+            background: linear-gradient(180deg, transparent 0%, rgba(59, 130, 246, 0.02) 100%);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 36px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-light);
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .footer-copy {
+            color: var(--text-tertiary);
+            font-size: 0.8rem;
+        }
+
+        /* Mobile */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hamburger span { width: 24px; height: 2px; background: var(--text-primary); }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            background: var(--bg-secondary);
+            padding: 16px 24px;
+        }
+
+        .mobile-menu.active { display: flex; }
+
+        .mobile-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        @media (max-width: 900px) {
+            .calc-container { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .page-header h1 { font-size: 2rem; }
+            .upgrade-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                        <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <span>PC Essentials</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                
+                <li><a href="setup-checklist.html">Setup</a></li>
+                <li><a href="software.html" data-en="Software" data-mn="Програм">Software</a></li>
+                <li><a href="peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a></li>
+                <li><a href="ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a></li>
+                
+                <li><a href="performance.html">Performance</a></li>
+                <li><a href="shortcuts.html">Shortcuts</a></li>
+                
+                <li><a href="maintenance.html" class="active" data-en="Tools" data-mn="Хэрэгслүүд">Tools</a>
+            <a href="typing-test.html">Typing Test</a>
+            <a href="pc-name-generator.html">Name Gen</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="lang-toggle">
+                    <button class="lang-btn active">EN</button>
+                    <button class="lang-btn">MN</button>
+                </div>
+                <button class="hamburger" id="hamburger">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" data-en="Home" data-mn="Нүүр">Home</a>
+            <a href="setup-checklist.html">Setup Guide</a>
+            <a href="software.html" data-en="Software" data-mn="Програм">Software</a>
+            <a href="peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a>
+            
+            <a href="ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a>
+            <a href="shortcuts.html">Shortcuts</a>
+            <a href="performance.html" data-en="Performance" data-mn="Гүйцэтгэл">Performance</a>
+            <a href="youtube-guide.html" data-en="Build Guide" data-mn="Угсрах Заавар">Build Guide</a>
+            <a href="maintenance.html" class="active" data-en="Tools" data-mn="Хэрэгслүүд">Tools</a>
+        </div>
+    </nav>
+
+    <!-- Tools Sub-Navigation -->
+    <div class="tools-subnav">
+        <div class="tools-subnav-container">
+            <a href="maintenance.html" class="tools-subnav-link">🔧 Maintenance</a>
+            <a href="optimization.html" class="tools-subnav-link">⚡ Optimize</a>
+            <a href="troubleshoot.html" class="tools-subnav-link">🛠️ Troubleshoot</a>
+            <a href="upgrade-planner.html" class="tools-subnav-link active">📈 Upgrade</a>
+            <a href="can-i-run-it.html" class="tools-subnav-link">🎮 Can I Run It?</a>
+        </div>
+    </div>
+
+    <header class="page-header">
+        <h1>📈 Upgrade Planner</h1>
+        <p>Find your bottleneck, plan your upgrade path, and make smart decisions about when to upgrade.</p>
+    </header>
+
+    <main class="main-content">
+        <div class="section-tabs">
+            <button class="section-tab active" data-section="bottleneck">🔍 Bottleneck Checker</button>
+            <button class="section-tab" data-section="paths">📊 Upgrade Paths</button>
+            <button class="section-tab" data-section="when">⏰ When to Upgrade</button>
+        </div>
+
+        <!-- Bottleneck Checker -->
+        <div class="content-section active" id="bottleneck">
+            <div class="calc-container">
+                <div class="calc-panel">
+                    <h3>🖥️ Enter Your Specs</h3>
+
+                    <div class="form-group">
+                        <label class="form-label">Graphics Card (GPU)</label>
+                        <select class="form-select" id="gpuSelect">
+                            <optgroup label="NVIDIA RTX 50 Series">
+                                <option value="rtx5090">RTX 5090</option>
+                                <option value="rtx5080">RTX 5080</option>
+                                <option value="rtx5070ti">RTX 5070 Ti</option>
+                                <option value="rtx5070">RTX 5070</option>
+                            </optgroup>
+                            <optgroup label="NVIDIA RTX 40 Series">
+                                <option value="rtx4090">RTX 4090</option>
+                                <option value="rtx4080s">RTX 4080 Super</option>
+                                <option value="rtx4080">RTX 4080</option>
+                                <option value="rtx4070tis">RTX 4070 Ti Super</option>
+                                <option value="rtx4070ti">RTX 4070 Ti</option>
+                                <option value="rtx4070s">RTX 4070 Super</option>
+                                <option value="rtx4070" selected>RTX 4070</option>
+                                <option value="rtx4060ti">RTX 4060 Ti</option>
+                                <option value="rtx4060">RTX 4060</option>
+                            </optgroup>
+                            <optgroup label="NVIDIA RTX 30 Series">
+                                <option value="rtx3090">RTX 3090</option>
+                                <option value="rtx3080">RTX 3080</option>
+                                <option value="rtx3070">RTX 3070</option>
+                                <option value="rtx3060ti">RTX 3060 Ti</option>
+                                <option value="rtx3060">RTX 3060</option>
+                            </optgroup>
+                            <optgroup label="AMD RX 7000 Series">
+                                <option value="rx7900xtx">RX 7900 XTX</option>
+                                <option value="rx7900xt">RX 7900 XT</option>
+                                <option value="rx7800xt">RX 7800 XT</option>
+                                <option value="rx7700xt">RX 7700 XT</option>
+                                <option value="rx7600">RX 7600</option>
+                            </optgroup>
+                            <optgroup label="Older GPUs">
+                                <option value="rtx2080">RTX 2080</option>
+                                <option value="rtx2070">RTX 2070</option>
+                                <option value="rtx2060">RTX 2060</option>
+                                <option value="gtx1080">GTX 1080</option>
+                                <option value="gtx1070">GTX 1070</option>
+                                <option value="gtx1060">GTX 1060</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Processor (CPU)</label>
+                        <select class="form-select" id="cpuSelect">
+                            <optgroup label="Intel Core Ultra 200">
+                                <option value="ultra9285k">Core Ultra 9 285K</option>
+                                <option value="ultra7265k">Core Ultra 7 265K</option>
+                                <option value="ultra5245k">Core Ultra 5 245K</option>
+                            </optgroup>
+                            <optgroup label="Intel 14th Gen">
+                                <option value="i914900k">i9-14900K</option>
+                                <option value="i714700k">i7-14700K</option>
+                                <option value="i514600k" selected>i5-14600K</option>
+                                <option value="i514400f">i5-14400F</option>
+                            </optgroup>
+                            <optgroup label="Intel 13th Gen">
+                                <option value="i913900k">i9-13900K</option>
+                                <option value="i713700k">i7-13700K</option>
+                                <option value="i513600k">i5-13600K</option>
+                                <option value="i513400f">i5-13400F</option>
+                            </optgroup>
+                            <optgroup label="AMD Ryzen 9000">
+                                <option value="r99950x">Ryzen 9 9950X</option>
+                                <option value="r79800x3d">Ryzen 7 9800X3D</option>
+                                <option value="r79700x">Ryzen 7 9700X</option>
+                                <option value="r59600x">Ryzen 5 9600X</option>
+                            </optgroup>
+                            <optgroup label="AMD Ryzen 7000">
+                                <option value="r97950x3d">Ryzen 9 7950X3D</option>
+                                <option value="r77800x3d">Ryzen 7 7800X3D</option>
+                                <option value="r77700x">Ryzen 7 7700X</option>
+                                <option value="r57600x">Ryzen 5 7600X</option>
+                                <option value="r57600">Ryzen 5 7600</option>
+                            </optgroup>
+                            <optgroup label="Older CPUs">
+                                <option value="r75800x3d">Ryzen 7 5800X3D</option>
+                                <option value="r55600x">Ryzen 5 5600X</option>
+                                <option value="i512400f">i5-12400F</option>
+                                <option value="i310100">i3-10100</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Resolution</label>
+                        <select class="form-select" id="resSelect">
+                            <option value="1080p">1080p (1920x1080)</option>
+                            <option value="1440p" selected>1440p (2560x1440)</option>
+                            <option value="4k">4K (3840x2160)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Game Type</label>
+                        <select class="form-select" id="gameSelect">
+                            <option value="esports">Esports (Valorant, CS2)</option>
+                            <option value="aaa" selected>AAA Games (Cyberpunk, etc.)</option>
+                            <option value="demanding">Very Demanding (RT On)</option>
+                        </select>
+                    </div>
+
+                    <button onclick="calculateBottleneck()" style="width: 100%; padding: 14px; background: var(--accent); border: none; border-radius: 10px; color: #fff; font-weight: 600; font-size: 0.9rem; cursor: pointer; margin-top: 8px;">
+                        Calculate Bottleneck
+                    </button>
+                </div>
+
+                <div class="calc-panel">
+                    <div class="result-card" id="resultCard">
+                        <div class="bottleneck-meter">
+                            <svg viewBox="0 0 200 200" width="200" height="200">
+                                <circle class="bg" cx="100" cy="100" r="85"/>
+                                <circle class="cpu-bar" cx="100" cy="100" r="85"
+                                    stroke-dasharray="534"
+                                    stroke-dashoffset="267"
+                                    id="cpuArc"/>
+                                <circle class="gpu-bar" cx="100" cy="100" r="70"
+                                    stroke-dasharray="440"
+                                    stroke-dashoffset="220"
+                                    id="gpuArc"/>
+                            </svg>
+                            <div class="bottleneck-value">
+                                <div class="percent" id="bottleneckPercent">5%</div>
+                                <div class="label">Bottleneck</div>
+                            </div>
+                        </div>
+
+                        <div class="result-status" id="resultStatus">✅ Well Balanced</div>
+                        <div class="result-desc" id="resultDesc">Your CPU and GPU are well matched for 1440p AAA gaming. No significant bottleneck detected.</div>
+
+                        <div class="result-bars">
+                            <div class="bar-item">
+                                <span class="bar-label">CPU</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill" id="cpuBar" style="width: 70%; background: var(--orange);"></div>
+                                </div>
+                                <span class="bar-value" id="cpuValue">70%</span>
+                            </div>
+                            <div class="bar-item">
+                                <span class="bar-label">GPU</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill" id="gpuBar" style="width: 95%; background: var(--green);"></div>
+                                </div>
+                                <span class="bar-value" id="gpuValue">95%</span>
+                            </div>
+                        </div>
+
+                        <div id="recommendation" style="margin-top: 24px; padding: 16px; background: var(--bg-tertiary); border-radius: 10px; text-align: left; font-size: 0.85rem;">
+                            <strong style="color: var(--green);">💡 Recommendation:</strong>
+                            <span id="recText">Your system is well balanced. Focus on other upgrades like faster RAM or an SSD if you don't have one.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upgrade Paths -->
+        <div class="content-section" id="paths">
+            <div class="priority-section">
+                <div class="priority-header">
+                    <h3>Budget Upgrade Paths</h3>
+                </div>
+
+                <div class="path-card">
+                    <div class="path-header">
+                        <div class="path-title">💰 Budget Build Refresh (~$300-400)</div>
+                        <span class="path-budget">Best Value</span>
+                    </div>
+                    <div class="path-steps">
+                        <div class="path-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-action">Add SSD (if still on HDD)</div>
+                                <div class="step-detail">1TB NVMe SSD - Biggest single upgrade for system responsiveness</div>
+                            </div>
+                            <div class="step-price">~$70</div>
+                        </div>
+                        <div class="path-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-action">Upgrade RAM to 32GB</div>
+                                <div class="step-detail">DDR4 3200MHz or DDR5 5600MHz kit</div>
+                            </div>
+                            <div class="step-price">~$80</div>
+                        </div>
+                        <div class="path-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-action">GPU: RTX 4060 or RX 7600</div>
+                                <div class="step-detail">Great 1080p gaming, decent 1440p</div>
+                            </div>
+                            <div class="step-price">~$250</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="path-card">
+                    <div class="path-header">
+                        <div class="path-title">🎮 Mid-Range Gaming (~$600-800)</div>
+                        <span class="path-budget">Sweet Spot</span>
+                    </div>
+                    <div class="path-steps">
+                        <div class="path-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-action">GPU: RTX 4070 Super or RX 7800 XT</div>
+                                <div class="step-detail">Excellent 1440p, good 4K gaming</div>
+                            </div>
+                            <div class="step-price">~$500</div>
+                        </div>
+                        <div class="path-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-action">CPU: Ryzen 5 7600 or i5-14400F</div>
+                                <div class="step-detail">If on older platform (pre-2020)</div>
+                            </div>
+                            <div class="step-price">~$180</div>
+                        </div>
+                        <div class="path-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-action">New B650 or B760 Motherboard</div>
+                                <div class="step-detail">Required for new CPU platform</div>
+                            </div>
+                            <div class="step-price">~$130</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="path-card">
+                    <div class="path-header">
+                        <div class="path-title">🚀 High-End Gaming (~$1200-1500)</div>
+                        <span class="path-budget">Enthusiast</span>
+                    </div>
+                    <div class="path-steps">
+                        <div class="path-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-action">GPU: RTX 4080 Super or RTX 5070</div>
+                                <div class="step-detail">4K gaming, RT performance</div>
+                            </div>
+                            <div class="step-price">~$900</div>
+                        </div>
+                        <div class="path-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-action">CPU: Ryzen 7 9800X3D or i7-14700K</div>
+                                <div class="step-detail">Best gaming CPUs available</div>
+                            </div>
+                            <div class="step-price">~$450</div>
+                        </div>
+                        <div class="path-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-action">32GB DDR5 6000MHz</div>
+                                <div class="step-detail">Fast memory for best performance</div>
+                            </div>
+                            <div class="step-price">~$120</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- When to Upgrade -->
+        <div class="content-section" id="when">
+            <h3 style="margin-bottom: 24px;">⏰ When Should You Upgrade?</h3>
+
+            <div class="upgrade-grid">
+                <div class="upgrade-card">
+                    <div class="upgrade-header">
+                        <div class="upgrade-icon" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);">✅</div>
+                        <div>
+                            <div class="upgrade-title">Upgrade NOW</div>
+                            <div class="upgrade-subtitle">High priority</div>
+                        </div>
+                    </div>
+                    <div class="upgrade-body">
+                        <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+                            <li>Still using HDD as main drive</li>
+                            <li>Less than 16GB RAM</li>
+                            <li>GPU older than GTX 1060/RX 580</li>
+                            <li>Can't maintain 60fps in games you play</li>
+                            <li>CPU from 2017 or earlier (7th gen Intel, Ryzen 1000)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="upgrade-card">
+                    <div class="upgrade-header">
+                        <div class="upgrade-icon" style="background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);">⏳</div>
+                        <div>
+                            <div class="upgrade-title">Consider Upgrading</div>
+                            <div class="upgrade-subtitle">Medium priority</div>
+                        </div>
+                    </div>
+                    <div class="upgrade-body">
+                        <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+                            <li>GPU 2-3 generations old (RTX 20/30, RX 5000/6000)</li>
+                            <li>Want to play at higher resolution</li>
+                            <li>CPU bottleneck in esports titles</li>
+                            <li>16GB RAM feels limiting (many tabs, multitasking)</li>
+                            <li>Want newer features (DLSS 3, better RT)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="upgrade-card">
+                    <div class="upgrade-header">
+                        <div class="upgrade-icon" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">🛑</div>
+                        <div>
+                            <div class="upgrade-title">Wait / Not Worth It</div>
+                            <div class="upgrade-subtitle">Low priority</div>
+                        </div>
+                    </div>
+                    <div class="upgrade-body">
+                        <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+                            <li>Already hitting your monitor's refresh rate</li>
+                            <li>Current gen GPU (RTX 40/RX 7000)</li>
+                            <li>Upgrading within same generation (4070 → 4070 Ti)</li>
+                            <li>No games that need more power</li>
+                            <li>New platform launching soon (wait for reviews)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="upgrade-card">
+                    <div class="upgrade-header">
+                        <div class="upgrade-icon" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">💡</div>
+                        <div>
+                            <div class="upgrade-title">Smart Upgrade Tips</div>
+                            <div class="upgrade-subtitle">Save money</div>
+                        </div>
+                    </div>
+                    <div class="upgrade-body">
+                        <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+                            <li>Wait for sales (Black Friday, Prime Day)</li>
+                            <li>Buy last-gen at discount when new releases</li>
+                            <li>Sell old parts to offset cost</li>
+                            <li>Don't upgrade for future games (upgrade when needed)</li>
+                            <li>More GPU > More CPU for gaming</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px; padding: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;">
+                <h4 style="margin-bottom: 16px;">🔮 Upgrade Timeline Suggestions</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div>
+                        <div style="font-weight: 600; color: var(--accent); margin-bottom: 8px;">GPU Upgrade Cycle</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary);">Every 2-3 generations (4-6 years) gives meaningful improvements. Upgrading every gen is usually not worth it.</div>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; color: var(--orange); margin-bottom: 8px;">CPU Upgrade Cycle</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary);">Every 3-5 generations (5-7 years). CPUs age slower than GPUs for gaming.</div>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; color: var(--green); margin-bottom: 8px;">RAM Upgrade</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary);">When changing platforms or when 16GB becomes limiting. 32GB is now the sweet spot.</div>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; color: var(--purple); margin-bottom: 8px;">Storage Upgrade</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary);">When you run out of space. 2TB NVMe is the new standard for gamers.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="software.html">Software</a>
+            <a href="maintenance.html">Maintenance</a>
+            <a href="optimization.html">Optimize</a>
+            <a href="troubleshoot.html">Troubleshoot</a>
+            <a href="upgrade-planner.html">Upgrade</a>
+        </div>
+        <p class="footer-copy">© 2026 PC Essentials. Plan your upgrades wisely.</p>
+    </footer>
+
+    <script>
+        // Component scores (relative performance)
+        const gpuScores = {
+            rtx5090: 420, rtx5080: 340, rtx5070ti: 290, rtx5070: 250,
+            rtx4090: 295, rtx4080s: 250, rtx4080: 240, rtx4070tis: 210,
+            rtx4070ti: 195, rtx4070s: 180, rtx4070: 160, rtx4060ti: 135, rtx4060: 115,
+            rtx3090: 185, rtx3080: 165, rtx3070: 140, rtx3060ti: 125, rtx3060: 105,
+            rx7900xtx: 255, rx7900xt: 220, rx7800xt: 165, rx7700xt: 145, rx7600: 110,
+            rtx2080: 130, rtx2070: 115, rtx2060: 100,
+            gtx1080: 95, gtx1070: 80, gtx1060: 55
+        };
+
+        const cpuScores = {
+            ultra9285k: 210, ultra7265k: 192, ultra5245k: 172,
+            i914900k: 198, i714700k: 185, i514600k: 165, i514400f: 140,
+            i913900k: 192, i713700k: 175, i513600k: 160, i513400f: 132,
+            r99950x: 215, r79800x3d: 220, r79700x: 178, r59600x: 165,
+            r97950x3d: 205, r77800x3d: 195, r77700x: 162, r57600x: 148, r57600: 142,
+            r75800x3d: 175, r55600x: 125, i512400f: 130, i310100: 85
+        };
+
+        const resolutionMultiplier = { '1080p': 1.0, '1440p': 0.75, '4k': 0.45 };
+        const gameTypeMultiplier = { esports: 1.3, aaa: 1.0, demanding: 0.7 };
+
+        function calculateBottleneck() {
+            const gpu = document.getElementById('gpuSelect').value;
+            const cpu = document.getElementById('cpuSelect').value;
+            const res = document.getElementById('resSelect').value;
+            const game = document.getElementById('gameSelect').value;
+
+            const gpuScore = gpuScores[gpu] || 100;
+            const cpuScore = cpuScores[cpu] || 100;
+
+            // At higher res, GPU matters more. At lower res, CPU matters more.
+            const resMult = resolutionMultiplier[res];
+            const gameMult = gameTypeMultiplier[game];
+
+            // Effective scores considering resolution and game type
+            const effectiveGpu = gpuScore * resMult * gameMult;
+            const effectiveCpu = cpuScore * (game === 'esports' ? 1.2 : 1.0);
+
+            // Calculate usage percentages
+            const total = effectiveGpu + effectiveCpu;
+            let gpuUsage = Math.min(99, Math.round((effectiveGpu / effectiveCpu) * 70 + Math.random() * 10));
+            let cpuUsage = Math.min(99, Math.round((effectiveCpu / effectiveGpu) * 60 + Math.random() * 10));
+
+            // Determine bottleneck
+            const ratio = effectiveCpu / effectiveGpu;
+            let bottleneckPercent, status, desc, rec, statusColor;
+
+            if (ratio < 0.7) {
+                // CPU bottleneck
+                bottleneckPercent = Math.round((1 - ratio) * 50);
+                status = '⚠️ CPU Bottleneck';
+                statusColor = 'var(--orange)';
+                desc = `Your CPU is limiting your GPU's potential. You're losing ~${bottleneckPercent}% performance.`;
+                rec = `Consider upgrading to a faster CPU (Ryzen 7 7800X3D or i5-14600K recommended) to unlock your GPU's full potential.`;
+                cpuUsage = 95 + Math.round(Math.random() * 4);
+                gpuUsage = 60 + Math.round(Math.random() * 15);
+            } else if (ratio > 1.4) {
+                // GPU bottleneck (normal for gaming)
+                bottleneckPercent = Math.round((ratio - 1) * 20);
+                status = '✅ GPU Limited (Normal)';
+                statusColor = 'var(--green)';
+                desc = `Your GPU is the limiting factor, which is ideal for gaming. Your CPU has headroom.`;
+                rec = `This is the ideal scenario! Upgrade your GPU when you want more FPS. Consider RTX ${gpuScore < 150 ? '4070 Super' : '4080/5070'} for your next upgrade.`;
+                gpuUsage = 95 + Math.round(Math.random() * 4);
+                cpuUsage = 50 + Math.round(Math.random() * 20);
+            } else {
+                // Balanced
+                bottleneckPercent = Math.round(Math.abs(ratio - 1) * 10);
+                status = '✅ Well Balanced';
+                statusColor = 'var(--green)';
+                desc = `Your CPU and GPU are well matched for ${res} ${game} gaming. No significant bottleneck.`;
+                rec = `Great balance! Focus on other upgrades like faster RAM, more storage, or a better monitor.`;
+                gpuUsage = 85 + Math.round(Math.random() * 10);
+                cpuUsage = 70 + Math.round(Math.random() * 15);
+            }
+
+            // Update UI
+            document.getElementById('bottleneckPercent').textContent = bottleneckPercent + '%';
+            document.getElementById('resultStatus').textContent = status;
+            document.getElementById('resultStatus').style.color = statusColor;
+            document.getElementById('resultDesc').textContent = desc;
+            document.getElementById('recText').textContent = rec;
+
+            document.getElementById('cpuBar').style.width = cpuUsage + '%';
+            document.getElementById('cpuValue').textContent = cpuUsage + '%';
+            document.getElementById('gpuBar').style.width = gpuUsage + '%';
+            document.getElementById('gpuValue').textContent = gpuUsage + '%';
+
+            // Animate arcs
+            const cpuArc = document.getElementById('cpuArc');
+            const gpuArc = document.getElementById('gpuArc');
+            cpuArc.style.strokeDashoffset = 534 - (534 * cpuUsage / 100);
+            gpuArc.style.strokeDashoffset = 440 - (440 * gpuUsage / 100);
+        }
+
+        // Tab switching
+        document.querySelectorAll('.section-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.section).classList.add('active');
+            });
+        });
+
+        // Mobile menu
+        document.getElementById('hamburger')?.addEventListener('click', () => {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        });
+
+        // Initial calculation
+        calculateBottleneck();
+    </script>
+    <script src="effects.js"></script>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+<script>
+    // Back to top button
+    const backToTopBtn = document.getElementById('backToTop');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            backToTopBtn.classList.toggle('visible', window.scrollY > 400);
+        });
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Active nav link
+    (function() {
+        const currentFile = location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && (href === currentFile || (currentFile === '' && href === 'index.html'))) {
+                link.classList.add('active');
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071e3'/%3E%3Crect x='5' y='7' width='22' height='14' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cline x1='10' y1='25' x2='22' y2='25' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='16' y1='21' x2='16' y2='25' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+    <meta name="description" content="Essential Windows keyboard shortcuts for power users. Windows, File Explorer, Browser, and Gaming shortcuts — searchable and tap to copy.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Shortcuts | PC Essentials</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="base-styles.css">
+    <style>
+        :root {
+            --bg-primary: #05050a;
+            --bg-secondary: #0d0d18;
+            --bg-tertiary: #141425;
+            --bg-card: #0a0a18;
+            --text-primary: #f0f0fa;
+            --text-secondary: #9090b8;
+            --text-tertiary: #606085;
+            --accent: #0071e3;
+            --accent-hover: #0080ff;
+            --accent-glow: rgba(0, 113, 227, 0.2);
+            --border: rgba(0, 113, 227, 0.15);
+            --card-radius: 12px;
+            --card-padding: 16px;
+            --card-shadow: none;
+            --card-hover-transform: translateY(-2px);
+            --card-hover-border: rgba(0, 113, 227, 0.3);
+            --anim-speed: 0.2s;
+            --anim-easing: ease-out;
+            --hover-scale: 1.01;
+        }
+
+        /* Search bar */
+        .search-wrap {
+            max-width: 480px;
+            margin: 0 auto 32px;
+            position: relative;
+        }
+
+        .search-wrap svg {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-tertiary);
+            pointer-events: none;
+        }
+
+        .shortcut-search {
+            width: 100%;
+            padding: 13px 44px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 0.9375rem;
+            font-family: inherit;
+            transition: border-color 0.2s ease;
+            -webkit-appearance: none;
+        }
+
+        .shortcut-search:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .shortcut-search::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .search-clear {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            padding: 6px;
+            display: none;
+            line-height: 1;
+            font-size: 1.1rem;
+        }
+
+        .search-clear.visible { display: block; }
+
+        /* Filter tabs — override to allow horizontal scroll on mobile */
+        .filter-tabs {
+            margin-bottom: 40px;
+        }
+
+        /* Outer shortcut container (block, not grid) */
+        #shortcutGrid {
+            margin-bottom: 56px;
+        }
+
+        /* Shortcut grid — used for inner per-category card grids */
+        .shortcut-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 10px;
+        }
+
+        /* Category label above each group */
+        .cat-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+            margin-top: 40px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cat-label:first-child {
+            margin-top: 0;
+        }
+
+        /* Shortcut card */
+        .shortcut-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            position: relative;
+        }
+
+        .shortcut-card:hover {
+            border-color: var(--card-hover-border);
+            transform: translateY(-1px);
+        }
+
+        .shortcut-card:active {
+            transform: scale(0.98);
+        }
+
+        /* Keys area */
+        .keys {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+
+        kbd {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px 8px;
+            background: var(--bg-tertiary);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-bottom-width: 2px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-family: 'Inter', system-ui, sans-serif;
+            font-weight: 500;
+            color: var(--text-primary);
+            min-width: 28px;
+            text-align: center;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .key-sep {
+            color: var(--text-tertiary);
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        /* Description */
+        .shortcut-desc {
+            flex: 1;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Copy feedback */
+        .copy-indicator {
+            font-size: 0.7rem;
+            color: var(--accent);
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            font-weight: 600;
+            pointer-events: none;
+        }
+
+        .shortcut-card.copied .copy-indicator {
+            opacity: 1;
+        }
+
+        /* No results */
+        .no-results {
+            text-align: center;
+            padding: 64px 24px;
+            color: var(--text-secondary);
+            display: none;
+        }
+
+        .no-results.visible { display: block; }
+
+        .no-results-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .shortcut-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .search-wrap {
+                margin-bottom: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            kbd {
+                padding: 3px 6px;
+                font-size: 0.7rem;
+                min-width: 24px;
+            }
+
+            .shortcut-desc {
+                font-size: 0.8125rem;
+            }
+
+            .shortcut-card {
+                padding: 12px 14px;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body data-page="shortcuts">
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <span>PC Essentials</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="setup-checklist.html">Setup</a></li>
+                <li><a href="software.html">Software</a></li>
+                <li><a href="peripherals.html">Peripherals</a></li>
+                <li><a href="ai-tools.html">AI Tools</a></li>
+                <li><a href="performance.html">Performance</a></li>
+                <li><a href="shortcuts.html" class="active">Shortcuts</a></li>
+                <li><a href="maintenance.html">Tools</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="theme-toggle active" id="themeToggle" title="Toggle unique page themes">
+                    <div class="theme-toggle-switch"></div>
+                    <span class="theme-toggle-label">Themes</span>
+                </div>
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="mn">MN</button>
+                </div>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html">Home</a>
+            <a href="setup-checklist.html">Setup Guide</a>
+            <a href="software.html">Software</a>
+            <a href="peripherals.html">Peripherals</a>
+            <a href="ai-tools.html">AI Tools</a>
+            <a href="shortcuts.html" class="active">Shortcuts</a>
+            <a href="performance.html">Performance</a>
+            <a href="youtube-guide.html">Build Guide</a>
+            <a href="maintenance.html">Tools</a>
+            <a href="typing-test.html">Typing Test</a>
+            <a href="pc-name-generator.html">Name Gen</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="section-label">Quick Reference</div>
+        <h1>Keyboard Shortcuts</h1>
+        <p>The most useful Windows shortcuts in one place. Tap any card to copy the shortcut to your clipboard.</p>
+    </div>
+
+    <!-- Content -->
+    <div class="section">
+
+        <!-- Search -->
+        <div class="search-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="search" class="shortcut-search" id="shortcutSearch" placeholder="Search shortcuts…" autocomplete="off">
+            <button class="search-clear" id="searchClear">✕</button>
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="filter-tabs" id="filterTabs">
+            <button class="filter-tab active" data-cat="all">All</button>
+            <button class="filter-tab" data-cat="windows">Windows</button>
+            <button class="filter-tab" data-cat="explorer">File Explorer</button>
+            <button class="filter-tab" data-cat="browser">Browser</button>
+            <button class="filter-tab" data-cat="gaming">Gaming</button>
+        </div>
+
+        <!-- No results -->
+        <div class="no-results" id="noResults">
+            <div class="no-results-icon">🔍</div>
+            <p>No shortcuts found for "<span id="noResultsQuery"></span>"</p>
+        </div>
+
+        <!-- Shortcut grid -->
+        <div id="shortcutGrid"></div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="setup-checklist.html">Setup Guide</a>
+                <a href="software.html">Software</a>
+                <a href="peripherals.html">Peripherals</a>
+                <a href="ai-tools.html">AI Tools</a>
+                <a href="performance.html">Performance</a>
+                <a href="maintenance.html">Tools</a>
+                <a href="optimization.html">Optimize</a>
+                <a href="troubleshoot.html">Troubleshoot</a>
+            </div>
+            <p class="footer-copy">© 2026 PC Essentials. All software trademarks belong to their respective owners.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <script>
+        // ── Shortcut data ────────────────────────────────────────────────
+        const SHORTCUTS = [
+            // Windows
+            { id:'w1',  cat:'windows',  keys:['Win','D'],             desc:'Show / hide desktop' },
+            { id:'w2',  cat:'windows',  keys:['Win','E'],             desc:'Open File Explorer' },
+            { id:'w3',  cat:'windows',  keys:['Win','L'],             desc:'Lock your screen' },
+            { id:'w4',  cat:'windows',  keys:['Win','I'],             desc:'Open Settings' },
+            { id:'w5',  cat:'windows',  keys:['Win','R'],             desc:'Open Run dialog' },
+            { id:'w6',  cat:'windows',  keys:['Win','Tab'],           desc:'Open Task View' },
+            { id:'w7',  cat:'windows',  keys:['Win','V'],             desc:'Clipboard history' },
+            { id:'w8',  cat:'windows',  keys:['Win','.'],             desc:'Open emoji picker' },
+            { id:'w9',  cat:'windows',  keys:['Win','Shift','S'],     desc:'Screenshot snip (region)' },
+            { id:'w10', cat:'windows',  keys:['Win','PrtSc'],         desc:'Save screenshot to file' },
+            { id:'w11', cat:'windows',  keys:['Win','→'],             desc:'Snap window to right half' },
+            { id:'w12', cat:'windows',  keys:['Win','←'],             desc:'Snap window to left half' },
+            { id:'w13', cat:'windows',  keys:['Win','↑'],             desc:'Maximize window' },
+            { id:'w14', cat:'windows',  keys:['Win','↓'],             desc:'Minimize window' },
+            { id:'w15', cat:'windows',  keys:['Alt','Tab'],           desc:'Switch between open apps' },
+            { id:'w16', cat:'windows',  keys:['Alt','F4'],            desc:'Close active window' },
+            { id:'w17', cat:'windows',  keys:['Ctrl','Shift','Esc'],  desc:'Open Task Manager' },
+            { id:'w18', cat:'windows',  keys:['Ctrl','Z'],            desc:'Undo' },
+            { id:'w19', cat:'windows',  keys:['Ctrl','Y'],            desc:'Redo' },
+            { id:'w20', cat:'windows',  keys:['Ctrl','A'],            desc:'Select all' },
+            { id:'w21', cat:'windows',  keys:['Ctrl','C'],            desc:'Copy' },
+            { id:'w22', cat:'windows',  keys:['Ctrl','X'],            desc:'Cut' },
+            { id:'w23', cat:'windows',  keys:['Ctrl','V'],            desc:'Paste' },
+            { id:'w24', cat:'windows',  keys:['Ctrl','Shift','V'],    desc:'Paste without formatting' },
+            { id:'w25', cat:'windows',  keys:['Win','Ctrl','D'],      desc:'New virtual desktop' },
+            { id:'w26', cat:'windows',  keys:['Win','Ctrl','→'],      desc:'Switch to next virtual desktop' },
+            // File Explorer
+            { id:'e1',  cat:'explorer', keys:['F2'],                  desc:'Rename selected file' },
+            { id:'e2',  cat:'explorer', keys:['F5'],                  desc:'Refresh' },
+            { id:'e3',  cat:'explorer', keys:['Alt','←'],             desc:'Go back' },
+            { id:'e4',  cat:'explorer', keys:['Alt','→'],             desc:'Go forward' },
+            { id:'e5',  cat:'explorer', keys:['Ctrl','Shift','N'],    desc:'Create new folder' },
+            { id:'e6',  cat:'explorer', keys:['Ctrl','W'],            desc:'Close Explorer window' },
+            { id:'e7',  cat:'explorer', keys:['Delete'],              desc:'Move to Recycle Bin' },
+            { id:'e8',  cat:'explorer', keys:['Shift','Delete'],      desc:'Delete permanently (skip Bin)' },
+            { id:'e9',  cat:'explorer', keys:['Ctrl','N'],            desc:'Open new Explorer window' },
+            { id:'e10', cat:'explorer', keys:['Alt','Enter'],         desc:'Open file Properties' },
+            { id:'e11', cat:'explorer', keys:['Ctrl','Shift','E'],    desc:'Expand all folders in tree' },
+            // Browser
+            { id:'b1',  cat:'browser',  keys:['Ctrl','T'],            desc:'Open new tab' },
+            { id:'b2',  cat:'browser',  keys:['Ctrl','W'],            desc:'Close current tab' },
+            { id:'b3',  cat:'browser',  keys:['Ctrl','Shift','T'],    desc:'Reopen last closed tab' },
+            { id:'b4',  cat:'browser',  keys:['Ctrl','Tab'],          desc:'Switch to next tab' },
+            { id:'b5',  cat:'browser',  keys:['Ctrl','Shift','Tab'],  desc:'Switch to previous tab' },
+            { id:'b6',  cat:'browser',  keys:['Ctrl','L'],            desc:'Focus address bar' },
+            { id:'b7',  cat:'browser',  keys:['Ctrl','F'],            desc:'Find on page' },
+            { id:'b8',  cat:'browser',  keys:['Ctrl','D'],            desc:'Bookmark this page' },
+            { id:'b9',  cat:'browser',  keys:['Ctrl','R'],            desc:'Reload page' },
+            { id:'b10', cat:'browser',  keys:['Ctrl','Shift','R'],    desc:'Hard reload (ignore cache)' },
+            { id:'b11', cat:'browser',  keys:['Ctrl','Shift','I'],    desc:'Open DevTools' },
+            { id:'b12', cat:'browser',  keys:['Ctrl','+'],            desc:'Zoom in' },
+            { id:'b13', cat:'browser',  keys:['Ctrl','-'],            desc:'Zoom out' },
+            { id:'b14', cat:'browser',  keys:['Ctrl','0'],            desc:'Reset zoom to 100%' },
+            { id:'b15', cat:'browser',  keys:['F11'],                 desc:'Toggle browser fullscreen' },
+            { id:'b16', cat:'browser',  keys:['Ctrl','H'],            desc:'Open browsing history' },
+            { id:'b17', cat:'browser',  keys:['Ctrl','J'],            desc:'Open downloads' },
+            // Gaming
+            { id:'g1',  cat:'gaming',   keys:['Win','G'],             desc:'Open Xbox Game Bar' },
+            { id:'g2',  cat:'gaming',   keys:['Win','Alt','R'],       desc:'Start / stop clip recording' },
+            { id:'g3',  cat:'gaming',   keys:['Win','Alt','PrtSc'],   desc:'Screenshot current game' },
+            { id:'g4',  cat:'gaming',   keys:['Alt','Enter'],         desc:'Toggle fullscreen (most games)' },
+            { id:'g5',  cat:'gaming',   keys:['Alt','Tab'],           desc:'Switch out of game quickly' },
+            { id:'g6',  cat:'gaming',   keys:['Ctrl','Alt','Del'],    desc:'Emergency exit / Task Manager' },
+            { id:'g7',  cat:'gaming',   keys:['Tab'],                 desc:'Scoreboard in most FPS games' },
+            { id:'g8',  cat:'gaming',   keys:['~ (Tilde)'],           desc:'Developer console in many games' },
+            { id:'g9',  cat:'gaming',   keys:['F1'],                  desc:'In-game help / pause (varies)' },
+        ];
+
+        // ── Category metadata ────────────────────────────────────────────
+        const CAT_META = {
+            windows:  { label: '🪟 Windows System' },
+            explorer: { label: '📁 File Explorer' },
+            browser:  { label: '🌐 Browser' },
+            gaming:   { label: '🎮 Gaming' },
+        };
+
+        const ORDER = ['windows', 'explorer', 'browser', 'gaming'];
+
+        // ── Render ───────────────────────────────────────────────────────
+        const grid = document.getElementById('shortcutGrid');
+
+        function renderKeys(keys) {
+            return keys.map((k, i) => {
+                const sep = i < keys.length - 1 ? '<span class="key-sep">+</span>' : '';
+                return `<kbd>${k}</kbd>${sep}`;
+            }).join('');
+        }
+
+        function buildCards(list) {
+            grid.innerHTML = '';
+            if (list.length === 0) return;
+
+            const currentCat = document.querySelector('.filter-tab.active').dataset.cat;
+            const grouped = {};
+
+            list.forEach(s => {
+                if (!grouped[s.cat]) grouped[s.cat] = [];
+                grouped[s.cat].push(s);
+            });
+
+            const cats = currentCat === 'all' ? ORDER.filter(c => grouped[c]) : ORDER.filter(c => c === currentCat && grouped[c]);
+
+            cats.forEach(cat => {
+                if (!grouped[cat]) return;
+                const label = document.createElement('div');
+                label.className = 'cat-label';
+                label.textContent = CAT_META[cat].label;
+                grid.appendChild(label);
+
+                const catGrid = document.createElement('div');
+                catGrid.className = 'shortcut-grid';
+                catGrid.style.marginBottom = '0';
+
+                grouped[cat].forEach(s => {
+                    const card = document.createElement('div');
+                    card.className = 'shortcut-card';
+                    card.dataset.id = s.id;
+                    card.innerHTML = `
+                        <div class="keys">${renderKeys(s.keys)}</div>
+                        <div class="shortcut-desc">${s.desc}</div>
+                        <span class="copy-indicator">Copied!</span>`;
+                    card.addEventListener('click', () => copyShortcut(card, s.keys));
+                    catGrid.appendChild(card);
+                });
+
+                grid.appendChild(catGrid);
+            });
+        }
+
+        // ── Copy to clipboard ────────────────────────────────────────────
+        function copyShortcut(card, keys) {
+            const text = keys.join(' + ');
+            navigator.clipboard.writeText(text).catch(() => {});
+            card.classList.add('copied');
+            setTimeout(() => card.classList.remove('copied'), 1200);
+        }
+
+        // ── Filter & Search ──────────────────────────────────────────────
+        let activeCat = 'all';
+        let searchQuery = '';
+
+        function filterAndRender() {
+            const q = searchQuery.toLowerCase();
+            const filtered = SHORTCUTS.filter(s => {
+                const catMatch = activeCat === 'all' || s.cat === activeCat;
+                const searchMatch = !q || s.desc.toLowerCase().includes(q) || s.keys.some(k => k.toLowerCase().includes(q));
+                return catMatch && searchMatch;
+            });
+
+            const noResults = document.getElementById('noResults');
+            document.getElementById('noResultsQuery').textContent = q;
+            noResults.classList.toggle('visible', filtered.length === 0);
+
+            buildCards(filtered);
+        }
+
+        // Category tabs
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                activeCat = tab.dataset.cat;
+                filterAndRender();
+            });
+        });
+
+        // Search
+        const searchInput = document.getElementById('shortcutSearch');
+        const searchClear = document.getElementById('searchClear');
+
+        searchInput.addEventListener('input', () => {
+            searchQuery = searchInput.value.trim();
+            searchClear.classList.toggle('visible', searchQuery.length > 0);
+            filterAndRender();
+        });
+
+        searchClear.addEventListener('click', () => {
+            searchInput.value = '';
+            searchQuery = '';
+            searchClear.classList.remove('visible');
+            searchInput.focus();
+            filterAndRender();
+        });
+
+        filterAndRender();
+
+        // ── Nav: hamburger ───────────────────────────────────────────────
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (hamburger && mobileMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+            document.addEventListener('click', e => {
+                if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        }
+
+        // ── Back to top ──────────────────────────────────────────────────
+        const btt = document.getElementById('backToTop');
+        if (btt) {
+            window.addEventListener('scroll', () => btt.classList.toggle('visible', window.scrollY > 400));
+            btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        }
+    </script>
+
+    <script src="themes.js"></script>
+    <script src="effects.js"></script>
+    <script>
+        autoApplyPageTheme('shortcuts');
+
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.classList.toggle('active', getThemeState());
+        themeToggle.addEventListener('click', () => {
+            const s = toggleUniqueThemes(!getThemeState());
+            themeToggle.classList.toggle('active', s);
+        });
+
+        const langBtns = document.querySelectorAll('.lang-btn');
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                langBtns.forEach(b => b.classList.toggle('active', b === btn));
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(start \"\" \"C:\\\\Users\\\\elite\\\\Downloads\\\\PC Essentials _ Essential Software Hub_files\\\\index.html\")",
+      "Bash(start \"\" \"C:\\\\Users\\\\elite\\\\.claude\\\\pc-essentials\\\\maintenance.html\")",
+      "Bash(explorer \"C:\\\\Users\\\\elite\\\\.claude\\\\pc-essentials\\\\index.html\")",
+      "Bash(start \"\" \"C:/Users/elite/.claude/pc-essentials/maintenance.html\")",
+      "Bash(start \"\" \"C:\\\\Users\\\\elite\\\\.claude\\\\pc-essentials\\\\index.html\")",
+      "Bash(start \"\" \"C:\\\\Users\\\\elite\\\\Downloads\\\\PC Essentials _ Essential Software Hub_files\\\\typing-test.html\")",
+      "Bash(grep:*)",
+      "Bash(start \"\" \"C:\\\\Users\\\\elite\\\\Downloads\\\\PC Essentials _ Essential Software Hub_files\\\\peripherals.html\")",
+      "Bash(start \"\" \"C:\\\\Users\\\\elite\\\\Downloads\\\\PC Essentials _ Essential Software Hub_files\\\\software.html\")",
+      "Bash(start \"\" \"C:\\\\Users\\\\elite\\\\Downloads\\\\PC Essentials _ Essential Software Hub_files\\\\performance.html\")",
+      "Bash(start \"\" \"C:\\\\Users\\\\elite\\\\Downloads\\\\PC Essentials _ Essential Software Hub_files\\\\mongolz.html\")",
+      "Bash(node --check:*)",
+      "WebSearch",
+      "WebFetch(domain:www.hltv.org)",
+      "WebFetch(domain:liquipedia.net)",
+      "Bash(python3:*)",
+      "Bash(node -e \":*)",
+      "Bash(node:*)"
+    ]
+  }
+}

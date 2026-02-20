@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071e3'/%3E%3Crect x='5' y='7' width='22' height='14' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cline x1='10' y1='25' x2='22' y2='25' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='16' y1='21' x2='16' y2='25' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+    <meta name="description" content="Browse top-rated gaming mice, keyboards, headsets, and monitors. Expert picks with specs, reviews, and Amazon links.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peripherals | PC Essentials</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="base-styles.css">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-tertiary: #1a1a25;
+            --bg-card: #0f0f18;
+            --text-primary: #ffffff;
+            --text-secondary: #8888aa;
+            --text-tertiary: #555577;
+            --accent: #00c8ff;
+            --accent-hover: #33d4ff;
+            --accent-glow: rgba(0, 200, 255, 0.2);
+            --border: rgba(0, 200, 255, 0.15);
+            --shadow: rgba(0, 0, 0, 0.3);
+            --card-radius: 8px;
+            --card-padding: 24px;
+            --anim-speed: 0.15s;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --gradient-6: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(180deg, #0a0a0f 0%, #05050a 100%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Tech Lab Grid Pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(0, 200, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 200, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 52px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--gradient-3);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 400;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        /* MOBILE MENU - HIDDEN ON DESKTOP */
+        .mobile-menu {
+            display: none;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .lang-toggle {
+            display: flex;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 120px 24px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1000px;
+            height: 400px;
+            background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .page-header h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Category Navigation */
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .category-nav-btn {
+            padding: 14px 28px;
+            background: rgba(0, 200, 255, 0.1);
+            border: 2px solid var(--accent);
+            border-radius: 100px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 0 20px rgba(0, 200, 255, 0.15);
+        }
+
+        .category-nav-btn:hover {
+            background: rgba(0, 200, 255, 0.2);
+            border-color: var(--accent-hover);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 200, 255, 0.3);
+        }
+
+        .category-nav-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #000;
+            font-weight: 700;
+            box-shadow: 0 0 35px rgba(0, 200, 255, 0.4);
+        }
+
+        /* Section */
+        .section {
+            padding: 80px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 40px;
+        }
+
+        .section-title-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            max-width: 600px;
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 10px 20px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-tab:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
+        }
+
+        .filter-tab.active {
+            background: var(--bg-tertiary);
+            border-color: var(--accent);
+            color: var(--text-primary);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--card-radius, 8px);
+            padding: var(--card-padding, 24px);
+            transition: all var(--anim-speed, 0.15s) cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .product-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 40px var(--accent-glow);
+            cursor: pointer;
+        }
+
+        .product-card::after {
+            content: 'Click for details';
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            font-size: 0.65rem;
+            color: var(--accent);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .product-card:hover::after {
+            opacity: 1;
+        }
+
+        .product-card {
+            position: relative;
+        }
+
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-brand {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .product-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .product-price {
+            font-size: 0.875rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .product-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .spec-tag {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            color: var(--text-secondary);
+        }
+
+        .product-why {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .product-tags {
+            display: flex;
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+        .product-tag {
+            font-size: 0.65rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+
+        .product-tag.fastest {
+            background: rgba(255, 59, 48, 0.2);
+            color: #ff6b6b;
+        }
+
+        .product-tag.smoothest {
+            background: rgba(0, 113, 227, 0.2);
+            color: #5ac8fa;
+        }
+
+        .product-tag.budget {
+            background: rgba(48, 209, 88, 0.2);
+            color: #30d158;
+        }
+
+        .product-tag.pro {
+            background: rgba(175, 82, 222, 0.2);
+            color: #bf5af2;
+        }
+
+        .product-tag.quiet {
+            background: rgba(255, 159, 10, 0.2);
+            color: #ffcc00;
+        }
+
+        .product-tag.best {
+            background: rgba(255, 214, 10, 0.2);
+            color: #ffd60a;
+        }
+
+        .product-tag.value {
+            background: rgba(100, 210, 255, 0.2);
+            color: #64d2ff;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 24px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        /* Footer */
+        footer {
+            padding: 48px 24px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-copy {
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+        }
+
+        /* Brand Logo */
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: contain;
+            background: var(--bg-tertiary);
+            padding: 6px;
+        }
+
+        /* Product Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: contain;
+            background: var(--bg-tertiary);
+            padding: 8px;
+        }
+
+        .modal-title-area {
+            flex: 1;
+        }
+
+        .modal-brand {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .modal-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .modal-price {
+            font-size: 1.25rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--bg-tertiary);
+            border-radius: 50%;
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .modal-spec {
+            font-size: 0.8rem;
+            padding: 8px 14px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            color: var(--text-secondary);
+        }
+
+        .modal-description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .modal-why {
+            background: var(--bg-tertiary);
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .modal-why-label {
+            font-size: 0.7rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 6px;
+        }
+
+        .modal-why-text {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .modal-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .buy-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, #ff9900 0%, #ff6600 100%);
+            border: none;
+            border-radius: 10px;
+            color: #000;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .buy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 153, 0, 0.4);
+        }
+
+        .buy-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-tabs {
+                justify-content: center;
+            }
+
+            .category-nav {
+                padding: 0 16px;
+            }
+        }
+    </style>
+</head>
+<body data-page="peripherals">
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <span data-en="PC Essentials" data-mn="PC Зайлшгүй">PC Essentials</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                
+                <li><a href="setup-checklist.html">Setup</a></li>
+                <li><a href="software.html" data-en="Software" data-mn="Програм">Software</a></li>
+                <li><a href="peripherals.html" class="active" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a></li>
+                <li><a href="ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a></li>
+                
+                <li><a href="performance.html">Performance</a></li>
+                <li><a href="shortcuts.html">Shortcuts</a></li>
+                
+                <li><a href="youtube-guide.html" data-en="Build Guide" data-mn="Угсрах Заавар">Build Guide</a></li>
+                <li><a href="maintenance.html" data-en="Tools" data-mn="Хэрэгслүүд">Tools</a>
+            <a href="typing-test.html">Typing Test</a>
+            <a href="pc-name-generator.html">Name Gen</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="theme-toggle active" id="themeToggle" title="Toggle unique page themes">
+                    <div class="theme-toggle-switch"></div>
+                    <span class="theme-toggle-label">Themes</span>
+                </div>
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="mn">MN</button>
+                </div>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" data-en="Home" data-mn="Нүүр">Home</a>
+            <a href="setup-checklist.html">Setup Guide</a>
+            <a href="software.html" data-en="Software" data-mn="Програм">Software</a>
+            <a href="peripherals.html" class="active" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a>
+            <a href="ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a>
+            <a href="shortcuts.html">Shortcuts</a>
+            <a href="performance.html" data-en="Performance" data-mn="Гүйцэтгэл">Performance</a>
+            <a href="youtube-guide.html" data-en="Build Guide" data-mn="Угсрах Заавар">Build Guide</a>
+            <a href="maintenance.html" data-en="Tools" data-mn="Хэрэгслүүд">Tools</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1 data-en="Gaming Peripherals" data-mn="Тоглоомын төхөөрөмж">Gaming Peripherals</h1>
+        <p data-en="Curated recommendations for mice, keyboards, and headsets. Real products, honest opinions." data-mn="Хулгана, гар, чихэвчний сонголт. Бодит бүтээгдэхүүн, шударга санал.">Curated recommendations for mice, keyboards, and headsets. Real products, honest opinions.</p>
+
+        <div class="category-nav">
+            <button class="category-nav-btn active" data-category="mouse">
+                <span>🖱️</span>
+                <span data-en="Mouse" data-mn="Хулгана">Mouse</span>
+            </button>
+            <button class="category-nav-btn" data-category="keyboard">
+                <span>⌨️</span>
+                <span data-en="Keyboard" data-mn="Гар">Keyboard</span>
+            </button>
+            <button class="category-nav-btn" data-category="headset">
+                <span>🎧</span>
+                <span data-en="Headset" data-mn="Чихэвч">Headset</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mouse Section -->
+    <section class="section" id="mouse-section">
+        <div class="section-header">
+            <div class="section-title-row">
+                <div class="section-icon" style="background: var(--gradient-2);">🖱️</div>
+                <h2 class="section-title" data-en="Gaming Mice" data-mn="Тоглоомын хулгана">Gaming Mice</h2>
+            </div>
+            <p class="section-desc" data-en="From ultra-lightweight to ergonomic — find the perfect mouse for your grip style and games." data-mn="Хөнгөн жинтэйгээс эргономик хүртэл — таны барилт, тоглоомд тохирсон хулганыг олоорой.">From ultra-lightweight to ergonomic — find the perfect mouse for your grip style and games.</p>
+        </div>
+
+        <div class="filter-tabs" id="mouse-filters">
+            <button class="filter-tab active" data-filter="all" data-en="All" data-mn="Бүгд">All</button>
+            <button class="filter-tab" data-filter="fastest" data-en="Fastest" data-mn="Хамгийн хурдан">Fastest</button>
+            <button class="filter-tab" data-filter="smoothest" data-en="Smoothest" data-mn="Хамгийн жигд">Smoothest</button>
+            <button class="filter-tab" data-filter="budget" data-en="Budget" data-mn="Хямд">Budget</button>
+            <button class="filter-tab" data-filter="pro" data-en="Pro" data-mn="Мэргэжлийн">Pro</button>
+        </div>
+
+        <div class="product-grid" id="mouse-grid"></div>
+    </section>
+
+    <!-- Keyboard Section -->
+    <section class="section" id="keyboard-section" style="display: none;">
+        <div class="section-header">
+            <div class="section-title-row">
+                <div class="section-icon" style="background: var(--gradient-1);">⌨️</div>
+                <h2 class="section-title" data-en="Keyboards" data-mn="Гар">Keyboards</h2>
+            </div>
+            <p class="section-desc" data-en="Mechanical, hall effect, and topre — keyboards for gaming and productivity." data-mn="Механик, холл эффект, топре — тоглоом болон бүтээмжийн гар.">Mechanical, hall effect, and topre — keyboards for gaming and productivity.</p>
+        </div>
+
+        <div class="filter-tabs" id="keyboard-filters">
+            <button class="filter-tab active" data-filter="all" data-en="All" data-mn="Бүгд">All</button>
+            <button class="filter-tab" data-filter="fastest" data-en="Fastest" data-mn="Хамгийн хурдан">Fastest</button>
+            <button class="filter-tab" data-filter="smoothest" data-en="Smoothest" data-mn="Хамгийн жигд">Smoothest</button>
+            <button class="filter-tab" data-filter="quiet" data-en="Quiet" data-mn="Чимээгүй">Quiet</button>
+            <button class="filter-tab" data-filter="budget" data-en="Budget" data-mn="Хямд">Budget</button>
+        </div>
+
+        <div class="product-grid" id="keyboard-grid"></div>
+    </section>
+
+    <!-- Headset Section -->
+    <section class="section" id="headset-section" style="display: none;">
+        <div class="section-header">
+            <div class="section-title-row">
+                <div class="section-icon" style="background: var(--gradient-4);">🎧</div>
+                <h2 class="section-title" data-en="Headsets" data-mn="Чихэвч">Headsets</h2>
+            </div>
+            <p class="section-desc" data-en="Gaming headsets and audiophile options for competitive and immersive gaming." data-mn="Тоглоомын болон аудиофайл чихэвч — өрсөлдөөнт болон бүрэн дүрслэлт тоглоомд.">Gaming headsets and audiophile options for competitive and immersive gaming.</p>
+        </div>
+
+        <div class="filter-tabs" id="headset-filters">
+            <button class="filter-tab active" data-filter="all" data-en="All" data-mn="Бүгд">All</button>
+            <button class="filter-tab" data-filter="best" data-en="Best" data-mn="Шилдэг">Best</button>
+            <button class="filter-tab" data-filter="value" data-en="Value" data-mn="Үнэ цэнэтэй">Value</button>
+            <button class="filter-tab" data-filter="budget" data-en="Budget" data-mn="Хямд">Budget</button>
+        </div>
+
+        <div class="product-grid" id="headset-grid"></div>
+    </section>
+
+    <!-- Product Modal -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-header">
+                <img class="modal-logo" id="modalLogo" src="" alt="Brand logo">
+                <div class="modal-title-area">
+                    <div class="modal-brand" id="modalBrand"></div>
+                    <div class="modal-name" id="modalName"></div>
+                    <div class="modal-price" id="modalPrice"></div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-specs" id="modalSpecs"></div>
+                <div class="modal-why">
+                    <div class="modal-why-label">Why Pick This?</div>
+                    <div class="modal-why-text" id="modalWhy"></div>
+                </div>
+                <div class="modal-description" id="modalDetails"></div>
+                <div class="modal-tags" id="modalTags"></div>
+                <a href="#" class="buy-btn" id="modalBuyBtn" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M21 4H2v2h2.3l3.28 9a3 3 0 0 0 2.82 2H19v-2h-8.6a1 1 0 0 1-.94-.66L9 13h9.28a2 2 0 0 0 1.92-1.45L22 5.27A1 1 0 0 0 21 4zM10 20a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
+                    </svg>
+                    Buy on Amazon
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html" data-en="Home" data-mn="Нүүр">Home</a>
+                <a href="software.html" data-en="Software" data-mn="Програм">Software</a>
+                <a href="peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a>
+                <a href="ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a>
+                <a href="performance.html" data-en="Performance" data-mn="Гүйцэтгэл">Performance</a>
+                <a href="youtube-guide.html" data-en="Build Guide" data-mn="Угсрах Заавар">Build Guide</a>
+                <a href="maintenance.html" data-en="Maintenance" data-mn="Засвар">Maintenance</a>
+                <a href="optimization.html" data-en="Optimize" data-mn="Оновчлол">Optimize</a>
+                <a href="troubleshoot.html" data-en="Troubleshoot" data-mn="Засвар">Troubleshoot</a>
+                <a href="upgrade-planner.html" data-en="Upgrade" data-mn="Шинэчлэл">Upgrade</a>
+                <a href="can-i-run-it.html" data-en="Can I Run It?" data-mn="Ажиллах уу?">Can I Run It?</a>
+            </div>
+            <p class="footer-copy" data-en="© 2026 PC Essentials. All product names and trademarks belong to their respective owners." data-mn="© 2026 PC Essentials. Бүх бүтээгдэхүүний нэр, худалдааны тэмдэг тус тусын эзэмшигчдэд хамаарна.">© 2026 PC Essentials. All product names and trademarks belong to their respective owners.</p>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script>
+        // Current state
+        let currentCategory = 'mouse';
+        let currentFilter = 'all';
+        let currentLang = 'en';
+
+        // DOM Elements
+        const categoryBtns = document.querySelectorAll('.category-nav-btn');
+        const sections = {
+            mouse: document.getElementById('mouse-section'),
+            keyboard: document.getElementById('keyboard-section'),
+            headset: document.getElementById('headset-section')
+        };
+        const grids = {
+            mouse: document.getElementById('mouse-grid'),
+            keyboard: document.getElementById('keyboard-grid'),
+            headset: document.getElementById('headset-grid')
+        };
+
+        // Language Toggle
+        const langBtns = document.querySelectorAll('.lang-btn');
+
+        function setLanguage(lang) {
+            currentLang = lang;
+
+            langBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            document.querySelectorAll('[data-en]').forEach(el => {
+                const text = el.getAttribute(`data-${lang}`);
+                if (text) {
+                    el.textContent = text;
+                }
+            });
+
+            document.documentElement.lang = lang;
+            renderCurrentCategory();
+        }
+
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (hamburger && mobileMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        }
+
+        // Category Navigation
+        function switchCategory(category) {
+            currentCategory = category;
+            currentFilter = 'all';
+
+            categoryBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.category === category);
+            });
+
+            Object.keys(sections).forEach(key => {
+                sections[key].style.display = key === category ? 'block' : 'none';
+            });
+
+            // Reset filter tabs
+            document.querySelectorAll(`#${category}-filters .filter-tab`).forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.filter === 'all');
+            });
+
+            renderCurrentCategory();
+        }
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => switchCategory(btn.dataset.category));
+        });
+
+        // Filter functionality
+        document.querySelectorAll('.filter-tabs').forEach(filterGroup => {
+            filterGroup.addEventListener('click', (e) => {
+                if (e.target.classList.contains('filter-tab')) {
+                    const filter = e.target.dataset.filter;
+                    currentFilter = filter;
+
+                    filterGroup.querySelectorAll('.filter-tab').forEach(tab => {
+                        tab.classList.toggle('active', tab === e.target);
+                    });
+
+                    renderCurrentCategory();
+                }
+            });
+        });
+
+        // Modal Elements
+        const modal = document.getElementById('productModal');
+        const modalClose = document.getElementById('modalClose');
+        const modalLogo = document.getElementById('modalLogo');
+        const modalBrand = document.getElementById('modalBrand');
+        const modalName = document.getElementById('modalName');
+        const modalPrice = document.getElementById('modalPrice');
+        const modalSpecs = document.getElementById('modalSpecs');
+        const modalWhy = document.getElementById('modalWhy');
+        const modalDetails = document.getElementById('modalDetails');
+        const modalTags = document.getElementById('modalTags');
+        const modalBuyBtn = document.getElementById('modalBuyBtn');
+
+        // Open modal with product data
+        function openModal(product) {
+            modalLogo.src = product.logo;
+            modalLogo.alt = product.brand + ' logo';
+            modalBrand.textContent = product.brand;
+            modalName.textContent = product.name;
+            modalPrice.textContent = product.price;
+            modalSpecs.innerHTML = product.specs.map(spec => `<span class="modal-spec">${spec}</span>`).join('');
+            modalWhy.textContent = product.whyPick;
+            modalDetails.textContent = product.details;
+            modalTags.innerHTML = product.tags.map(tag => `<span class="product-tag ${tag}">${tag}</span>`).join('');
+            modalBuyBtn.href = product.amazon;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modal
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Render products
+        function renderProducts(category, filter) {
+            const grid = grids[category];
+            const data = PERIPHERALS_DATA[category];
+
+            let filtered = data;
+            if (filter !== 'all') {
+                filtered = data.filter(product => product.tags.includes(filter));
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔍</div>
+                        <p data-en="No products match this filter" data-mn="Энэ шүүлтүүрт тохирох бүтээгдэхүүн байхгүй">No products match this filter</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map((product, index) => `
+                <div class="product-card reveal" style="transition-delay: ${(index % 6) * 0.05}s; cursor: pointer;" data-product-index="${data.indexOf(product)}">
+                    <div class="product-header">
+                        <div class="product-info">
+                            <div class="product-brand">${product.brand}</div>
+                            <div class="product-name">${product.name}</div>
+                            <div class="product-price">${product.price}</div>
+                        </div>
+                        <img class="brand-logo" src="${product.logo}" alt="${product.brand}" onerror="this.style.display='none'">
+                    </div>
+                    <div class="product-specs">
+                        ${product.specs.map(spec => `<span class="spec-tag">${spec}</span>`).join('')}
+                    </div>
+                    <div class="product-why">${product.whyPick}</div>
+                    <div class="product-tags">
+                        ${product.tags.map(tag => `<span class="product-tag ${tag}">${tag}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            // Add click handlers for product cards
+            grid.querySelectorAll('.product-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const index = parseInt(card.dataset.productIndex);
+                    openModal(data[index]);
+                });
+            });
+
+            // Trigger reveal animation
+            requestAnimationFrame(() => {
+                grid.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
+            });
+        }
+
+        function renderCurrentCategory() {
+            renderProducts(currentCategory, currentFilter);
+        }
+
+        // Initial render
+        renderCurrentCategory();
+
+        // Scroll reveal for other elements
+        function reveal() {
+            document.querySelectorAll('.reveal:not(.product-card)').forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', reveal);
+        reveal();
+    </script>
+    <script src="themes.js"></script>
+    <script>
+        // Initialize page theme
+        autoApplyPageTheme('peripherals');
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.classList.toggle('active', getThemeState());
+
+        themeToggle.addEventListener('click', () => {
+            const newState = toggleUniqueThemes(!getThemeState());
+            themeToggle.classList.toggle('active', newState);
+        });
+    </script>
+    <script src="effects.js"></script>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+<script>
+    // Back to top button
+    const backToTopBtn = document.getElementById('backToTop');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            backToTopBtn.classList.toggle('visible', window.scrollY > 400);
+        });
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Active nav link
+    (function() {
+        const currentFile = location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && (href === currentFile || (currentFile === '' && href === 'index.html'))) {
+                link.classList.add('active');
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

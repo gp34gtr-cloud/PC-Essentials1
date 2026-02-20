@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071e3'/%3E%3Crect x='5' y='7' width='22' height='14' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cline x1='10' y1='25' x2='22' y2='25' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='16' y1='21' x2='16' y2='25' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+    <meta name="description" content="Discover the best AI tools for PC users — writing, image generation, coding assistants, and productivity apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tools | PC Essentials</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="base-styles.css">
+    <style>
+        :root {
+            --bg-primary: #0f0f1a;
+            --bg-secondary: #1a1a2e;
+            --bg-tertiary: #252540;
+            --bg-card: #1e1e35;
+            --text-primary: #f8f8fc;
+            --text-secondary: #a0a0c0;
+            --text-tertiary: #7070a0;
+            --accent: #8b5cf6;
+            --accent-hover: #a78bfa;
+            --accent-glow: rgba(139, 92, 246, 0.2);
+            --border: rgba(139, 92, 246, 0.15);
+            --shadow: rgba(0, 0, 0, 0.3);
+            --card-radius: 24px;
+            --card-padding: 32px;
+            --anim-speed: 0.4s;
+            --anim-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --gradient-6: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(180deg, #0f0f1a 0%, #1a1a2e 50%, #0f0f1a 100%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Soft glow orbs */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 20%;
+            left: 10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: 20%;
+            right: 10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 52px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--gradient-3);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 400;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        /* MOBILE MENU - HIDDEN ON DESKTOP */
+        .mobile-menu {
+            display: none;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .lang-toggle {
+            display: flex;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 120px 24px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1000px;
+            height: 400px;
+            background: radial-gradient(ellipse at center, var(--accent-glow) 0%, rgba(139, 92, 246, 0.05) 50%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .page-header h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section */
+        .section {
+            padding: 40px 24px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Filter Container */
+        .filter-container {
+            margin-bottom: 40px;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .filter-tab {
+            padding: 12px 24px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .filter-tab:hover {
+            color: var(--text-primary);
+            border-color: rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .filter-tab.active {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-color: var(--accent);
+            color: var(--text-primary);
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.2);
+        }
+
+        .filter-tab.active::before {
+            transform: scaleX(1);
+        }
+
+        .results-count {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+        }
+
+        .results-count span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* AI Tools Grid */
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+        }
+
+        .ai-card.hidden {
+            display: none;
+        }
+
+        /* No results message */
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .no-results-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .no-results h3 {
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .ai-card {
+            background: linear-gradient(180deg, var(--bg-card) 0%, rgba(30, 30, 53, 0.8) 100%);
+            border: 1px solid var(--border);
+            border-radius: var(--card-radius, 24px);
+            padding: var(--card-padding, 32px);
+            transition: all var(--anim-speed, 0.4s) var(--anim-easing, cubic-bezier(0.34, 1.56, 0.64, 1));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--card-accent, var(--gradient-1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .ai-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--accent);
+            box-shadow: 0 16px 48px var(--accent-glow);
+        }
+
+        .ai-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Availability Badge */
+        .ai-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .ai-badge.free {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .ai-badge.paid {
+            background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%);
+            color: #D1D5DB;
+        }
+
+        /* Rank Badge */
+        .ai-rank {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .ai-rank.rank-1 {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+        }
+
+        .ai-rank.rank-2 {
+            background: linear-gradient(135deg, #C0C0C0 0%, #A0A0A0 100%);
+            box-shadow: 0 4px 12px rgba(192, 192, 192, 0.3);
+        }
+
+        .ai-rank.rank-3 {
+            background: linear-gradient(135deg, #CD7F32 0%, #B8860B 100%);
+            box-shadow: 0 4px 12px rgba(205, 127, 50, 0.3);
+        }
+
+        .ai-rank.rank-other {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        /* Rankings Section */
+        .rankings-section {
+            margin-bottom: 40px;
+            padding: 24px;
+            background: linear-gradient(180deg, var(--bg-card) 0%, rgba(30, 30, 53, 0.6) 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .rankings-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rankings-title::before {
+            content: '🏆';
+        }
+
+        .rankings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: var(--bg-tertiary);
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .ranking-item:hover {
+            background: var(--bg-secondary);
+            transform: translateX(4px);
+        }
+
+        .ranking-position {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .ranking-position.gold {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: white;
+        }
+
+        .ranking-position.silver {
+            background: linear-gradient(135deg, #C0C0C0 0%, #A0A0A0 100%);
+            color: white;
+        }
+
+        .ranking-position.bronze {
+            background: linear-gradient(135deg, #CD7F32 0%, #B8860B 100%);
+            color: white;
+        }
+
+        .ranking-name {
+            font-size: 0.8125rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .ranking-name.unavailable {
+            color: var(--text-tertiary);
+        }
+
+        .ranking-free {
+            margin-left: auto;
+            font-size: 0.625rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(16, 185, 129, 0.2);
+            color: #10B981;
+            font-weight: 600;
+        }
+
+        .ranking-paid {
+            margin-left: auto;
+            font-size: 0.625rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(107, 114, 128, 0.2);
+            color: #9CA3AF;
+            font-weight: 600;
+        }
+
+        .ai-card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .ai-logo {
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden;
+            position: relative;
+            transition: transform var(--anim-speed, 0.4s) var(--anim-easing);
+        }
+
+        .ai-card:hover .ai-logo {
+            transform: scale(1.1);
+        }
+
+        .ai-logo-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .ai-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .ai-logo-note {
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            font-size: 0.5rem;
+            color: var(--text-tertiary);
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .ai-logo:hover .ai-logo-note {
+            opacity: 1;
+        }
+
+        .ai-info h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .ai-company {
+            font-size: 0.8125rem;
+            color: var(--text-tertiary);
+        }
+
+        .ai-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .ai-best-for {
+            margin-bottom: 24px;
+        }
+
+        .ai-best-for-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+        }
+
+        .ai-best-for-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .ai-best-for-item {
+            font-size: 0.75rem;
+            padding: 6px 12px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            color: var(--text-secondary);
+        }
+
+        .ai-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 14px 24px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .ai-link:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .ai-link.free-link {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            border-color: #10B981;
+        }
+
+        .ai-link.free-link:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            border-color: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .ai-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Logo Status Notice */
+        .logo-notice {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 24px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-notice-icon {
+            font-size: 1.25rem;
+        }
+
+        .logo-notice-text {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+        }
+
+        .logo-notice-text strong {
+            color: var(--text-primary);
+        }
+
+        /* Footer */
+        footer {
+            padding: 48px 24px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-copy {
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .ai-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-tabs {
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .filter-tab {
+                padding: 10px 16px;
+                font-size: 0.8125rem;
+            }
+
+            .results-count {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body data-page="ai-tools">
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <span data-en="PC Essentials" data-mn="PC Зайлшгүй">PC Essentials</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                
+                <li><a href="setup-checklist.html">Setup</a></li>
+                <li><a href="software.html" data-en="Software" data-mn="Програм">Software</a></li>
+                <li><a href="peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a></li>
+                <li><a href="ai-tools.html" class="active" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a></li>
+                
+                <li><a href="performance.html">Performance</a></li>
+                <li><a href="shortcuts.html">Shortcuts</a></li>
+                
+                <li><a href="maintenance.html" data-en="Tools" data-mn="Хэрэгслүүд">Tools</a>
+            <a href="typing-test.html">Typing Test</a>
+            <a href="pc-name-generator.html">Name Gen</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="theme-toggle active" id="themeToggle" title="Toggle unique page themes">
+                    <div class="theme-toggle-switch"></div>
+                    <span class="theme-toggle-label">Themes</span>
+                </div>
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="mn">MN</button>
+                </div>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" data-en="Home" data-mn="Нүүр">Home</a>
+            <a href="setup-checklist.html">Setup Guide</a>
+            <a href="software.html" data-en="Software" data-mn="Програм">Software</a>
+            <a href="peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a>
+            <a href="ai-tools.html" class="active" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a>
+            <a href="shortcuts.html">Shortcuts</a>
+            <a href="performance.html" data-en="Performance" data-mn="Гүйцэтгэл">Performance</a>
+            <a href="youtube-guide.html" data-en="Build Guide" data-mn="Угсрах Заавар">Build Guide</a>
+            <a href="maintenance.html" data-en="Tools" data-mn="Хэрэгслүүд">Tools</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1 data-en="AI Tools" data-mn="AI хэрэгслүүд">AI Tools</h1>
+        <p data-en="The best AI assistants for coding, writing, research, and creative work." data-mn="Код бичих, бичлэг, судалгаа, бүтээлч ажилд зориулсан шилдэг AI туслахууд.">The best AI assistants for coding, writing, research, and creative work.</p>
+    </header>
+
+    <!-- Section -->
+    <section class="section">
+        <!-- Filter Tabs -->
+        <div class="filter-container">
+            <div class="filter-tabs" id="filter-tabs">
+                <button class="filter-tab active" data-category="all" data-en="All" data-mn="Бүгд">All</button>
+                <button class="filter-tab" data-category="coding" data-en="Coding" data-mn="Код">Coding</button>
+                <button class="filter-tab" data-category="writing" data-en="Writing" data-mn="Бичлэг">Writing</button>
+                <button class="filter-tab" data-category="research" data-en="Research" data-mn="Судалгаа">Research</button>
+                <button class="filter-tab" data-category="stocks" data-en="Stocks & Finance" data-mn="Хувьцаа">Stocks & Finance</button>
+                <button class="filter-tab" data-category="image" data-en="Image Gen" data-mn="Зураг">Image Gen</button>
+                <button class="filter-tab" data-category="video" data-en="Video" data-mn="Видео">Video</button>
+                <button class="filter-tab" data-category="productivity" data-en="Productivity" data-mn="Бүтээмж">Productivity</button>
+                <button class="filter-tab" data-category="marketing" data-en="Marketing" data-mn="Маркетинг">Marketing</button>
+            </div>
+            <div class="results-count" id="results-count"></div>
+        </div>
+
+        <!-- Rankings Section -->
+        <div class="rankings-section" id="rankings-section">
+            <div class="rankings-title" id="rankings-title" data-en="Top 3 for this category" data-mn="Энэ ангилалд шилдэг 3">Top 3 for this category</div>
+            <div class="rankings-grid" id="rankings-grid"></div>
+        </div>
+
+        <!-- AI Tools Grid -->
+        <div class="ai-grid" id="ai-grid"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html" data-en="Home" data-mn="Нүүр">Home</a>
+                <a href="software.html" data-en="Software" data-mn="Програм">Software</a>
+                <a href="peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a>
+                <a href="ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a>
+                <a href="performance.html" data-en="Performance" data-mn="Гүйцэтгэл">Performance</a>
+                <a href="youtube-guide.html" data-en="Build Guide" data-mn="Угсрах Заавар">Build Guide</a>
+                <a href="maintenance.html" data-en="Maintenance" data-mn="Засвар">Maintenance</a>
+                <a href="optimization.html" data-en="Optimize" data-mn="Оновчлол">Optimize</a>
+                <a href="troubleshoot.html" data-en="Troubleshoot" data-mn="Засвар">Troubleshoot</a>
+                <a href="upgrade-planner.html" data-en="Upgrade" data-mn="Шинэчлэл">Upgrade</a>
+                <a href="can-i-run-it.html" data-en="Can I Run It?" data-mn="Ажиллах уу?">Can I Run It?</a>
+            </div>
+            <p class="footer-copy" data-en="© 2026 PC Essentials. All product names and trademarks belong to their respective owners." data-mn="© 2026 PC Essentials. Бүх бүтээгдэхүүний нэр, худалдааны тэмдэг тус тусын эзэмшигчдэд хамаарна.">© 2026 PC Essentials. All product names and trademarks belong to their respective owners.</p>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script>
+        // Best-for translations
+        const BEST_FOR_TRANSLATIONS = {
+            // General
+            "General conversations": "Ерөнхий яриа",
+            "Creative writing": "Бүтээлч бичлэг",
+            "Learning & explanations": "Суралцах & тайлбар",
+            "Quick research": "Хурдан судалгаа",
+            "Long documents": "Урт баримт бичиг",
+            "Thoughtful conversations": "Гүн яриа",
+
+            // Coding
+            "Coding assistance": "Код бичихэд туслах",
+            "Analysis & research": "Шинжилгээ & судалгаа",
+            "Code completion": "Код гүйцээлт",
+            "IDE integration": "IDE нэгтгэл",
+            "Learning new languages": "Шинэ хэл сурах",
+            "Boilerplate generation": "Загвар код үүсгэх",
+            "AI-native coding": "AI-д суурилсан код",
+            "Codebase chat": "Кодтой яриа",
+            "Refactoring": "Рефакторинг",
+            "Full IDE experience": "Бүрэн IDE туршлага",
+            "Learning to code": "Код сурах",
+            "Quick prototypes": "Хурдан загвар",
+            "Browser-based coding": "Хөтөч дээр код бичих",
+            "Collaboration": "Хамтран ажиллах",
+            "Private code completion": "Хувийн код гүйцээлт",
+            "Enterprise security": "Байгууллагын аюулгүй байдал",
+            "Offline coding": "Офлайн код бичих",
+
+            // Research
+            "Google integration": "Google нэгтгэл",
+            "Image analysis": "Зураг шинжлэх",
+            "Real-time information": "Бодит цагийн мэдээлэл",
+            "Multimodal tasks": "Олон хэлбэрийн даалгавар",
+            "Research with sources": "Эх сурвалжтай судалгаа",
+            "Fact-checking": "Баримт шалгах",
+            "Current events": "Одоогийн үйл явдлууд",
+            "Academic research": "Эрдэм шинжилгээний судалгаа",
+            "Paper analysis": "Судалгааны шинжилгээ",
+            "Literature review": "Уран зохиолын тойм",
+            "Scientific queries": "Шинжлэх ухааны асуулт",
+            "Scientific research": "Шинжлэх ухааны судалгаа",
+            "Evidence-based answers": "Нотолгоонд суурилсан хариулт",
+            "Paper discovery": "Судалгаа олох",
+            "Research synthesis": "Судалгааны нэгтгэл",
+
+            // Image
+            "AI art generation": "AI урлаг үүсгэх",
+            "Concept art": "Концепт арт",
+            "Creative inspiration": "Бүтээлч урам зориг",
+            "Visual brainstorming": "Визуал санаа гаргах",
+            "Accurate prompts": "Нарийн промпт",
+            "Text in images": "Зураг дахь текст",
+            "Realistic images": "Бодит зураг",
+            "Creative visuals": "Бүтээлч визуал",
+            "Local generation": "Локал үүсгэх",
+            "Custom models": "Тохируулсан загвар",
+            "No restrictions": "Хязгаарлалтгүй",
+            "Fine-tuning": "Нарийн тохируулга",
+            "Game assets": "Тоглоомын хөрөнгө",
+            "Consistent styles": "Тогтвортой хэв маяг",
+            "Character design": "Дүрийн дизайн",
+            "Texture generation": "Текстур үүсгэх",
+            "Commercial use": "Арилжааны хэрэглээ",
+            "Adobe integration": "Adobe нэгтгэл",
+            "Stock replacement": "Сток орлуулах",
+            "Design workflows": "Дизайны ажлын урсгал",
+
+            // Video
+            "Video generation": "Видео үүсгэх",
+            "Video editing": "Видео засварлах",
+            "Motion graphics": "Хөдөлгөөнт график",
+            "Special effects": "Тусгай эффект",
+            "Short videos": "Богино видео",
+            "Image animation": "Зургийг хөдөлгөх",
+            "Creative clips": "Бүтээлч клип",
+            "Social content": "Сошиал контент",
+            "Avatar videos": "Аватар видео",
+            "Marketing content": "Маркетингийн контент",
+            "Training videos": "Сургалтын видео",
+            "Localization": "Локализаци",
+            "Corporate content": "Байгууллагын контент",
+            "Multilingual videos": "Олон хэлтэй видео",
+            "Presentations": "Танилцуулга",
+
+            // Writing
+            "Writing assistance": "Бичихэд туслах",
+            "Summarization": "Хураангуй",
+            "Note organization": "Тэмдэглэл цэгцлэх",
+            "Workspace productivity": "Ажлын орон зайн бүтээмж",
+            "Marketing copy": "Маркетингийн текст",
+            "Blog posts": "Блог нийтлэл",
+            "Ad copy": "Зар сурталчилгааны текст",
+            "Brand voice": "Брэндийн дуу хоолой",
+            "Sales copy": "Борлуулалтын текст",
+            "Email writing": "Имэйл бичих",
+            "Social media": "Сошиал медиа",
+            "Product descriptions": "Бүтээгдэхүүний тайлбар",
+            "Grammar checking": "Дүрмийн шалгалт",
+            "Tone adjustment": "Өнгө аяс тохируулах",
+            "Clarity improvements": "Ойлгомжтой болгох",
+            "Professional writing": "Мэргэжлийн бичлэг",
+
+            // Finance & Stocks
+            "Market analysis": "Зах зээлийн шинжилгээ",
+            "Financial data": "Санхүүгийн өгөгдөл",
+            "Trading insights": "Арилжааны ойлголт",
+            "News synthesis": "Мэдээний нэгтгэл",
+            "Stock screening": "Хувьцааны шүүлтүүр",
+            "AI stock ratings": "AI хувьцааны үнэлгээ",
+            "Portfolio analysis": "Багцын шинжилгээ",
+            "Investment research": "Хөрөнгө оруулалтын судалгаа",
+            "Technical analysis": "Техникийн шинжилгээ",
+            "Chart patterns": "Графикийн хэв маяг",
+            "Trading alerts": "Арилжааны дохио",
+            "Backtesting": "Буцаах туршилт",
+            "Stock scoring": "Хувьцааны оноо",
+            "AI predictions": "AI таамаглал",
+            "Risk analysis": "Эрсдлийн шинжилгээ",
+            "Portfolio building": "Багц бүрдүүлэх",
+            "Company research": "Компанийн судалгаа",
+            "Financial Q&A": "Санхүүгийн асуулт хариулт",
+            "Earnings analysis": "Орлогын шинжилгээ",
+            "Investor queries": "Хөрөнгө оруулагчийн асуулт",
+
+            // Productivity
+            "Meeting transcription": "Уулзалтын хуулбар",
+            "Note taking": "Тэмдэглэл авах",
+            "Summary generation": "Хураангуй үүсгэх",
+            "Action items": "Үйлдлийн зүйлс",
+            "Meeting notes": "Уулзалтын тэмдэглэл",
+            "CRM integration": "CRM нэгтгэл",
+            "Conversation search": "Яриа хайх",
+            "Team collaboration": "Багийн хамтын ажиллагаа",
+            "Calendar management": "Хуанли удирдах",
+            "Time blocking": "Цаг хуваарилах",
+            "Habit tracking": "Дадал хянах",
+            "Meeting scheduling": "Уулзалт товлох",
+            "Smart notes": "Ухаалаг тэмдэглэл",
+            "Knowledge management": "Мэдлэгийн менежмент",
+            "Auto-organization": "Автомат зохион байгуулалт",
+            "AI search": "AI хайлт"
+        };
+
+        // Language Toggle
+        const langBtns = document.querySelectorAll('.lang-btn');
+        let currentLang = 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+
+            langBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            document.querySelectorAll('[data-en]').forEach(el => {
+                const text = el.getAttribute(`data-${lang}`);
+                if (text) {
+                    el.textContent = text;
+                }
+            });
+
+            document.documentElement.lang = lang;
+            renderAITools();
+        }
+
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (hamburger && mobileMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        }
+
+        // Get first letter for placeholder
+        function getInitials(name) {
+            return name.split(' ').map(word => word[0]).join('').substring(0, 2).toUpperCase();
+        }
+
+        // Current filter state
+        let currentCategory = 'all';
+
+        // Category labels for display
+        const CATEGORY_LABELS = {
+            all: { en: 'All AI Tools', mn: 'Бүх AI хэрэгсэл' },
+            coding: { en: 'Coding & Development', mn: 'Код & хөгжүүлэлт' },
+            writing: { en: 'Writing & Content', mn: 'Бичлэг & агуулга' },
+            research: { en: 'Research & Analysis', mn: 'Судалгаа & шинжилгээ' },
+            stocks: { en: 'Stocks & Finance', mn: 'Хувьцаа & санхүү' },
+            finance: { en: 'Finance', mn: 'Санхүү' },
+            image: { en: 'Image Generation', mn: 'Зураг үүсгэх' },
+            video: { en: 'Video Creation', mn: 'Видео үүсгэх' },
+            productivity: { en: 'Productivity', mn: 'Бүтээмж' },
+            marketing: { en: 'Marketing', mn: 'Маркетинг' },
+            general: { en: 'General Purpose', mn: 'Ерөнхий зориулалт' }
+        };
+
+        // Filter AI tools by category
+        function filterAITools(category) {
+            currentCategory = category;
+
+            // Update active tab
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.category === category);
+            });
+
+            // Render filtered tools
+            renderAITools();
+        }
+
+        // Render Rankings
+        function renderRankings() {
+            const rankingsSection = document.getElementById('rankings-section');
+            const rankingsGrid = document.getElementById('rankings-grid');
+            const rankingsTitle = document.getElementById('rankings-title');
+
+            if (currentCategory === 'all') {
+                rankingsSection.style.display = 'none';
+                return;
+            }
+
+            rankingsSection.style.display = 'block';
+            const rankings = AI_RANKINGS[currentCategory] || [];
+
+            if (rankings.length === 0) {
+                rankingsSection.style.display = 'none';
+                return;
+            }
+
+            const categoryLabel = CATEGORY_LABELS[currentCategory] || { en: currentCategory, mn: currentCategory };
+            const label = currentLang === 'mn' ? categoryLabel.mn : categoryLabel.en;
+            rankingsTitle.textContent = currentLang === 'mn'
+                ? `${label} - Шилдэг ${Math.min(rankings.length, 5)}`
+                : `Top ${Math.min(rankings.length, 5)} for ${label}`;
+
+            rankingsGrid.innerHTML = rankings.slice(0, 5).map((name, index) => {
+                const tool = AI_TOOLS_DATA.find(t => t.name === name);
+                const positionClass = index === 0 ? 'gold' : index === 1 ? 'silver' : index === 2 ? 'bronze' : '';
+                const isFree = tool ? tool.free : false;
+                const freeLabel = currentLang === 'mn' ? 'ҮНЭГҮЙ' : 'FREE';
+                const paidLabel = currentLang === 'mn' ? 'ТӨЛБӨРТЭЙ' : 'PAID';
+
+                return `
+                    <div class="ranking-item">
+                        <div class="ranking-position ${positionClass}">${index + 1}</div>
+                        <span class="ranking-name ${!isFree ? 'unavailable' : ''}">${name}</span>
+                        ${isFree
+                            ? `<span class="ranking-free">${freeLabel}</span>`
+                            : `<span class="ranking-paid">${paidLabel}</span>`
+                        }
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Render AI Tools
+        function renderAITools() {
+            const grid = document.getElementById('ai-grid');
+            const resultsCount = document.getElementById('results-count');
+
+            // Filter tools based on category
+            let filteredTools = currentCategory === 'all'
+                ? [...AI_TOOLS_DATA]
+                : AI_TOOLS_DATA.filter(tool => tool.categories.includes(currentCategory));
+
+            // Sort by rank if category is selected
+            if (currentCategory !== 'all') {
+                filteredTools.sort((a, b) => {
+                    const rankA = a.rank[currentCategory] || 999;
+                    const rankB = b.rank[currentCategory] || 999;
+                    return rankA - rankB;
+                });
+            }
+
+            // Update results count
+            const categoryLabel = CATEGORY_LABELS[currentCategory] || { en: currentCategory, mn: currentCategory };
+            const label = currentLang === 'mn' ? categoryLabel.mn : categoryLabel.en;
+            const freeCount = filteredTools.filter(t => t.free).length;
+            resultsCount.innerHTML = currentLang === 'mn'
+                ? `<span>${filteredTools.length}</span> ${label} (${freeCount} үнэгүй)`
+                : `Showing <span>${filteredTools.length}</span> ${label} (${freeCount} free)`;
+
+            // Render rankings
+            renderRankings();
+
+            if (filteredTools.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">🔍</div>
+                        <h3 data-en="No tools found" data-mn="Хэрэгсэл олдсонгүй">${currentLang === 'mn' ? 'Хэрэгсэл олдсонгүй' : 'No tools found'}</h3>
+                        <p data-en="Try selecting a different category" data-mn="Өөр ангилал сонгоно уу">${currentLang === 'mn' ? 'Өөр ангилал сонгоно уу' : 'Try selecting a different category'}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filteredTools.map((tool, index) => {
+                const bestForItems = tool.bestFor.map(item => {
+                    const translated = currentLang === 'mn' && BEST_FOR_TRANSLATIONS[item]
+                        ? BEST_FOR_TRANSLATIONS[item]
+                        : item;
+                    return `<li class="ai-best-for-item">${translated}</li>`;
+                }).join('');
+
+                const logoContent = tool.logoFile
+                    ? `<img src="logos/${tool.logoFile}" alt="${tool.name} logo">`
+                    : `<div class="ai-logo-placeholder" style="background: ${tool.color};">${getInitials(tool.name)}</div>`;
+
+                // Get rank for current category
+                const rank = currentCategory !== 'all' && tool.rank[currentCategory]
+                    ? tool.rank[currentCategory]
+                    : null;
+                const rankClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : 'rank-other';
+
+                // Availability badge
+                const freeLabel = currentLang === 'mn' ? 'ҮНЭГҮЙ' : 'FREE';
+                const paidLabel = currentLang === 'mn' ? 'БОЛОМЖГҮЙ' : 'NOT AVAILABLE';
+                const badgeClass = tool.free ? 'free' : 'paid';
+                const badgeText = tool.free ? freeLabel : paidLabel;
+
+                // Button text
+                const visitText = currentLang === 'mn' ? `${tool.name} руу очих` : `Visit ${tool.name}`;
+                const useText = currentLang === 'mn' ? `${tool.name} ашиглах` : `Use ${tool.name}`;
+                const buttonText = tool.free ? useText : visitText;
+
+                return `
+                    <div class="ai-card reveal" data-categories="${tool.categories.join(',')}" style="--card-accent: ${tool.color}; transition-delay: ${(index % 6) * 0.05}s">
+                        ${rank ? `<div class="ai-rank ${rankClass}">#${rank}</div>` : ''}
+                        <span class="ai-badge ${badgeClass}">${badgeText}</span>
+                        <div class="ai-card-header">
+                            <div class="ai-logo">
+                                ${logoContent}
+                            </div>
+                            <div class="ai-info">
+                                <h3>${tool.name}</h3>
+                                <div class="ai-company">${tool.company}</div>
+                            </div>
+                        </div>
+                        <p class="ai-description">${tool.description}</p>
+                        <div class="ai-best-for">
+                            <div class="ai-best-for-label" data-en="Best for" data-mn="Хамгийн тохиромжтой">${currentLang === 'mn' ? 'Хамгийн тохиромжтой' : 'Best for'}</div>
+                            <ul class="ai-best-for-list">
+                                ${bestForItems}
+                            </ul>
+                        </div>
+                        <a href="${tool.url}" target="_blank" rel="noopener" class="ai-link ${tool.free ? 'free-link' : ''}">
+                            <span>${buttonText}</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                <polyline points="15 3 21 3 21 9"/>
+                                <line x1="10" y1="14" x2="21" y2="3"/>
+                            </svg>
+                        </a>
+                    </div>
+                `;
+            }).join('');
+
+            // Trigger reveal animation
+            requestAnimationFrame(() => {
+                grid.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
+            });
+        }
+
+        // Initialize filter tabs
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                filterAITools(tab.dataset.category);
+            });
+        });
+
+        // Initial render
+        renderAITools();
+
+        // Scroll reveal
+        function reveal() {
+            document.querySelectorAll('.reveal:not(.ai-card)').forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', reveal);
+        reveal();
+    </script>
+    <script src="themes.js"></script>
+    <script>
+        // Initialize page theme
+        autoApplyPageTheme('aiTools');
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.classList.toggle('active', getThemeState());
+
+        themeToggle.addEventListener('click', () => {
+            const newState = toggleUniqueThemes(!getThemeState());
+            themeToggle.classList.toggle('active', newState);
+        });
+    </script>
+    <script src="effects.js"></script>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+<script>
+    // Back to top button
+    const backToTopBtn = document.getElementById('backToTop');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            backToTopBtn.classList.toggle('visible', window.scrollY > 400);
+        });
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Active nav link
+    (function() {
+        const currentFile = location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && (href === currentFile || (currentFile === '' && href === 'index.html'))) {
+                link.classList.add('active');
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

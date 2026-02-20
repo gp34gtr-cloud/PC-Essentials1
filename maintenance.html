@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071e3'/%3E%3Crect x='5' y='7' width='22' height='14' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cline x1='10' y1='25' x2='22' y2='25' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='16' y1='21' x2='16' y2='25' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+    <meta name="description" content="Keep your PC healthy with maintenance guides, cleaning tools, disk utilities, and system checkup tips.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Maintenance & Health | PC Essentials</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="base-styles.css">
+    <style>
+        :root {
+            --bg-primary: #030806;
+            --bg-secondary: #071410;
+            --bg-tertiary: #0a1f18;
+            --bg-card: rgba(16, 42, 32, 0.5);
+            --bg-card-solid: #0a1f16;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --text-tertiary: #64748b;
+            --accent: #10b981;
+            --accent-light: #34d399;
+            --accent-hover: #059669;
+            --accent-glow: rgba(16, 185, 129, 0.4);
+            --border: rgba(16, 185, 129, 0.15);
+            --border-light: rgba(255, 255, 255, 0.06);
+            --card-radius: 20px;
+            --green: #10b981;
+            --yellow: #fbbf24;
+            --red: #f43f5e;
+            --blue: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated gradient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent),
+                radial-gradient(ellipse 60% 40% at 100% 50%, rgba(16, 185, 129, 0.08), transparent),
+                radial-gradient(ellipse 60% 40% at 0% 80%, rgba(16, 185, 129, 0.05), transparent);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(3, 8, 6, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: opacity 0.2s;
+        }
+
+        .logo:hover {
+            opacity: 0.8;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-links a.active {
+            color: var(--accent-light);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lang-toggle {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 4px;
+        }
+
+        .lang-btn {
+            padding: 6px 14px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 500;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        /* Tools Sub-Navigation */
+        .tools-subnav {
+            background: rgba(7, 20, 16, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+            margin-top: 64px;
+            position: sticky;
+            top: 64px;
+            z-index: 99;
+        }
+
+        .tools-subnav-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            padding: 14px 20px;
+            overflow-x: auto;
+        }
+
+        .tools-subnav-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tools-subnav-link {
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+
+        .tools-subnav-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border-color: var(--border-light);
+        }
+
+        .tools-subnav-link.active {
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            color: white;
+            box-shadow: 0 4px 20px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.1);
+            border-color: transparent;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 80px 24px 50px;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.03em;
+            background: linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.6) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            line-height: 1.7;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px 100px;
+        }
+
+        /* Premium Card Base */
+        .card {
+            background: linear-gradient(135deg, rgba(16, 42, 32, 0.6) 0%, rgba(10, 31, 22, 0.4) 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            border-radius: var(--card-radius);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(16, 185, 129, 0.25);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3), 0 0 60px rgba(16, 185, 129, 0.08);
+            transform: translateY(-2px);
+        }
+
+        /* Health Score Card */
+        .health-score-card {
+            background: linear-gradient(135deg, rgba(16, 42, 32, 0.7) 0%, rgba(10, 31, 22, 0.5) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 40px;
+            align-items: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .health-ring {
+            width: 130px;
+            height: 130px;
+            position: relative;
+        }
+
+        .health-ring svg {
+            transform: rotate(-90deg);
+            filter: drop-shadow(0 0 15px var(--accent-glow));
+        }
+
+        .health-ring circle {
+            fill: none;
+            stroke-width: 10;
+        }
+
+        .health-ring .bg {
+            stroke: rgba(255, 255, 255, 0.08);
+        }
+
+        .health-ring .progress {
+            stroke: url(#healthGradient);
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .health-score {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .health-score .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--green);
+        }
+
+        .health-score .label {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+        }
+
+        .health-info h2 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+        }
+
+        .health-info p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 16px;
+        }
+
+        .health-tasks {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .health-task {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+
+        .health-task.done {
+            background: rgba(34, 197, 94, 0.12);
+            border-color: rgba(34, 197, 94, 0.25);
+            color: var(--green);
+            box-shadow: 0 2px 12px rgba(34, 197, 94, 0.15);
+        }
+
+        .health-task.pending {
+            background: rgba(234, 179, 8, 0.12);
+            border-color: rgba(234, 179, 8, 0.25);
+            color: var(--yellow);
+            box-shadow: 0 2px 12px rgba(234, 179, 8, 0.1);
+        }
+
+        .run-checkup-btn {
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: #000;
+            border: none;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .run-checkup-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .run-checkup-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+
+        .run-checkup-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Section Tabs */
+        .section-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .section-tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section-tab:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .section-tab.active {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-color: transparent;
+            color: #000;
+            box-shadow: 0 4px 20px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.15);
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .maint-card {
+            background: linear-gradient(135deg, rgba(16, 42, 32, 0.5) 0%, rgba(10, 31, 22, 0.3) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            border-radius: var(--card-radius);
+            padding: 28px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .maint-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .maint-card:hover {
+            border-color: rgba(16, 185, 129, 0.25);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 50px rgba(16, 185, 129, 0.08);
+        }
+
+        .maint-card:hover::before {
+            opacity: 1;
+        }
+
+        .maint-card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .maint-card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .maint-card-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .maint-card-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            margin-top: 2px;
+        }
+
+        .maint-card-body {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .maint-card-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .maint-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .maint-btn:hover {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-color: transparent;
+            color: #000;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        .maint-btn.primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-color: transparent;
+            color: #000;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .maint-btn.primary:hover {
+            box-shadow: 0 6px 25px var(--accent-glow);
+        }
+
+        /* Schedule Section */
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 18px;
+        }
+
+        .schedule-item {
+            background: linear-gradient(135deg, rgba(16, 42, 32, 0.4) 0%, rgba(10, 31, 22, 0.2) 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(16, 185, 129, 0.08);
+            border-radius: 16px;
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .schedule-item:hover {
+            border-color: rgba(16, 185, 129, 0.2);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .schedule-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+
+        .schedule-info {
+            flex: 1;
+        }
+
+        .schedule-task {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            letter-spacing: -0.01em;
+        }
+
+        .schedule-freq {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+
+        .schedule-status {
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            border: 1px solid transparent;
+        }
+
+        .schedule-status.good {
+            background: rgba(34, 197, 94, 0.12);
+            border-color: rgba(34, 197, 94, 0.2);
+            color: var(--green);
+            box-shadow: 0 2px 10px rgba(34, 197, 94, 0.15);
+        }
+
+        .schedule-status.due {
+            background: rgba(234, 179, 8, 0.12);
+            border-color: rgba(234, 179, 8, 0.2);
+            color: var(--yellow);
+            box-shadow: 0 2px 10px rgba(234, 179, 8, 0.1);
+        }
+
+        .schedule-status.overdue {
+            background: rgba(239, 68, 68, 0.12);
+            border-color: rgba(239, 68, 68, 0.2);
+            color: var(--red);
+            box-shadow: 0 2px 10px rgba(239, 68, 68, 0.1);
+        }
+
+        /* Driver Cards */
+        .driver-card {
+            background: linear-gradient(135deg, rgba(16, 42, 32, 0.4) 0%, rgba(10, 31, 22, 0.2) 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(16, 185, 129, 0.08);
+            border-radius: 16px;
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .driver-card:hover {
+            border-color: rgba(16, 185, 129, 0.2);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .driver-logo {
+            width: 58px;
+            height: 58px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        .driver-logo.nvidia {
+            background: linear-gradient(135deg, #76b900 0%, #5a8f00 100%);
+            box-shadow: 0 4px 15px rgba(118, 185, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        .driver-logo.amd {
+            background: linear-gradient(135deg, #ed1c24 0%, #b8171d 100%);
+            box-shadow: 0 4px 15px rgba(237, 28, 36, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        .driver-logo.intel {
+            background: linear-gradient(135deg, #0071c5 0%, #005a9e 100%);
+            box-shadow: 0 4px 15px rgba(0, 113, 197, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        .driver-info {
+            flex: 1;
+        }
+
+        .driver-name {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 4px;
+            letter-spacing: -0.01em;
+        }
+
+        .driver-desc {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+
+        .driver-link {
+            padding: 12px 22px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .driver-link:hover {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-color: transparent;
+            color: #000;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Tips List */
+        .tips-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .tip-item {
+            background: linear-gradient(135deg, rgba(16, 42, 32, 0.4) 0%, rgba(10, 31, 22, 0.2) 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(16, 185, 129, 0.08);
+            border-radius: 16px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .tip-item:hover {
+            border-color: rgba(16, 185, 129, 0.2);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+            transform: translateX(4px);
+        }
+
+        .tip-number {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #000;
+            flex-shrink: 0;
+            box-shadow: 0 3px 12px var(--accent-glow);
+        }
+
+        .tip-content h4 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+        }
+
+        .tip-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Tool Recommendations */
+        .tool-card {
+            background: linear-gradient(135deg, rgba(16, 42, 32, 0.5) 0%, rgba(10, 31, 22, 0.3) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            border-radius: 18px;
+            padding: 24px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tool-card:hover {
+            border-color: rgba(16, 185, 129, 0.25);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 50px rgba(16, 185, 129, 0.08);
+        }
+
+        .tool-card:hover::before {
+            opacity: 1;
+        }
+
+        .tool-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .tool-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        .tool-name {
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .tool-price {
+            font-size: 0.75rem;
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        .tool-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .tool-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tool-link:hover {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-color: transparent;
+            color: #000;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 24px;
+            border-top: 1px solid rgba(16, 185, 129, 0.1);
+            text-align: center;
+            background: linear-gradient(180deg, transparent 0%, rgba(16, 185, 129, 0.02) 100%);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 36px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-light);
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .footer-copy {
+            color: var(--text-tertiary);
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .health-score-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .health-ring {
+                margin: 0 auto;
+            }
+
+            .health-tasks {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .section-tabs {
+                justify-content: center;
+            }
+        }
+
+        /* Mobile Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 16px 24px;
+        }
+
+        .mobile-menu.active { display: flex; }
+
+        .mobile-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mobile-menu a:hover, .mobile-menu a.active {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                        <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <span>PC Essentials</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                
+                <li><a href="setup-checklist.html">Setup</a></li>
+                <li><a href="software.html" data-en="Software" data-mn="Програм">Software</a></li>
+                <li><a href="peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a></li>
+                <li><a href="ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a></li>
+                
+                <li><a href="performance.html">Performance</a></li>
+                <li><a href="shortcuts.html">Shortcuts</a></li>
+                
+                <li><a href="maintenance.html" class="active" data-en="Tools" data-mn="Хэрэгслүүд">Tools</a>
+            <a href="typing-test.html">Typing Test</a>
+            <a href="pc-name-generator.html">Name Gen</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="mn">MN</button>
+                </div>
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" data-en="Home" data-mn="Нүүр">Home</a>
+            <a href="setup-checklist.html">Setup Guide</a>
+            <a href="software.html" data-en="Software" data-mn="Програм">Software</a>
+            <a href="peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a>
+            <a href="ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a>
+            <a href="shortcuts.html">Shortcuts</a>
+            <a href="performance.html" data-en="Performance" data-mn="Гүйцэтгэл">Performance</a>
+            <a href="youtube-guide.html" data-en="Build Guide" data-mn="Угсрах Заавар">Build Guide</a>
+            <a href="maintenance.html" class="active" data-en="Tools" data-mn="Хэрэгслүүд">Tools</a>
+        </div>
+    </nav>
+
+    <!-- Tools Sub-Navigation -->
+    <div class="tools-subnav">
+        <div class="tools-subnav-container">
+            <a href="maintenance.html" class="tools-subnav-link active">🔧 Maintenance</a>
+            <a href="optimization.html" class="tools-subnav-link">⚡ Optimize</a>
+            <a href="troubleshoot.html" class="tools-subnav-link">🛠️ Troubleshoot</a>
+            <a href="upgrade-planner.html" class="tools-subnav-link">📈 Upgrade</a>
+            <a href="can-i-run-it.html" class="tools-subnav-link">🎮 Can I Run It?</a>
+        </div>
+    </div>
+
+    <header class="page-header">
+        <h1 data-en="PC Maintenance & Health" data-mn="Компьютерийн засвар & эрүүл мэнд">PC Maintenance & Health</h1>
+        <p data-en="Keep your PC running like new. Regular maintenance prevents slowdowns and extends hardware life." data-mn="Компьютерээ шинэ шиг ажиллуулаарай. Тогтмол засвар үйлчилгээ нь удаашралаас сэргийлж, техник хангамжийн ашиглалтын хугацааг уртасгана.">Keep your PC running like new. Regular maintenance prevents slowdowns and extends hardware life.</p>
+    </header>
+
+    <main class="main-content">
+        <!-- Health Score Card -->
+        <div class="health-score-card">
+            <div class="health-ring">
+                <svg viewBox="0 0 120 120" width="120" height="120">
+                    <defs>
+                        <linearGradient id="healthGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#10b981"/>
+                            <stop offset="100%" stop-color="#34d399"/>
+                        </linearGradient>
+                    </defs>
+                    <circle class="bg" cx="60" cy="60" r="52"/>
+                    <circle class="progress" cx="60" cy="60" r="52"
+                        stroke-dasharray="327"
+                        stroke-dashoffset="65"
+                        id="healthProgress"/>
+                <div class="health-score">
+                    <div class="value" id="healthValue">80</div>
+                    <div class="label">Health</div>
+                </div>
+            </div>
+            <div class="health-info">
+                <h2 data-en="Your PC Health Score" data-mn="Таны компьютерийн эрүүл мэндийн оноо">Your PC Health Score</h2>
+                <p data-en="Based on your maintenance schedule. Complete tasks to improve your score." data-mn="Таны засвар үйлчилгээний хуваарьт үндэслэсэн. Оноогоо сайжруулахын тулд даалгавруудыг гүйцэтгэ.">Based on your maintenance schedule. Complete tasks to improve your score.</p>
+                <div class="health-tasks">
+                    <span class="health-task done">✓ Drivers Updated</span>
+                    <span class="health-task done">✓ Disk Cleanup</span>
+                    <span class="health-task pending">⏱ Dust Cleaning Due</span>
+                    <span class="health-task pending">⏱ Temp Check Due</span>
+                </div>
+            </div>
+            <button class="run-checkup-btn" onclick="runCheckup()" data-en="Run Full Checkup" data-mn="Бүрэн шалгалт хийх">Run Full Checkup</button>
+        </div>
+
+        <!-- Section Tabs -->
+        <div class="section-tabs">
+            <button class="section-tab active" data-section="drivers">🔧 Drivers</button>
+            <button class="section-tab" data-section="cleanup">🧹 Cleanup</button>
+            <button class="section-tab" data-section="schedule">📅 Schedule</button>
+            <button class="section-tab" data-section="temps">🌡️ Temperatures</button>
+            <button class="section-tab" data-section="tools">🛠️ Tools</button>
+        </div>
+
+        <!-- Drivers Section -->
+        <div class="content-section active" id="drivers">
+            <h3 style="margin-bottom: 24px; font-size: 1.2rem; font-weight: 600; letter-spacing: -0.02em;" data-en="Update Your Drivers" data-mn="Драйверуудаа шинэчлэх">Update Your Drivers</h3>
+            <div class="cards-grid">
+                <div class="driver-card">
+                    <div class="driver-logo nvidia">N</div>
+                    <div class="driver-info">
+                        <div class="driver-name">NVIDIA GeForce Drivers</div>
+                        <div class="driver-desc" data-en="For RTX/GTX graphics cards" data-mn="RTX/GTX график картанд">For RTX/GTX graphics cards</div>
+                    </div>
+                    <a href="https://www.nvidia.com/download/index.aspx" target="_blank" class="driver-link">Download →</a>
+                </div>
+
+                <div class="driver-card">
+                    <div class="driver-logo amd">A</div>
+                    <div class="driver-info">
+                        <div class="driver-name">AMD Radeon Drivers</div>
+                        <div class="driver-desc" data-en="For RX graphics cards" data-mn="RX график картанд">For RX graphics cards</div>
+                    </div>
+                    <a href="https://www.amd.com/en/support" target="_blank" class="driver-link">Download →</a>
+                </div>
+
+                <div class="driver-card">
+                    <div class="driver-logo intel">i</div>
+                    <div class="driver-info">
+                        <div class="driver-name">Intel Graphics Drivers</div>
+                        <div class="driver-desc" data-en="For Intel Arc & integrated graphics" data-mn="Intel Arc & интеграцлагдсан графикт">For Intel Arc & integrated graphics</div>
+                    </div>
+                    <a href="https://www.intel.com/content/www/us/en/download-center/home.html" target="_blank" class="driver-link">Download →</a>
+                </div>
+
+                <div class="driver-card">
+                    <div class="driver-logo" style="background: linear-gradient(135deg, #00bcf2 0%, #0078d4 100%);">⊞</div>
+                    <div class="driver-info">
+                        <div class="driver-name">Windows Update</div>
+                        <div class="driver-desc" data-en="System & security updates" data-mn="Систем & аюулгүй байдлын шинэчлэлт">System & security updates</div>
+                    </div>
+                    <a href="ms-settings:windowsupdate" class="driver-link">Open →</a>
+                </div>
+
+                <div class="driver-card">
+                    <div class="driver-logo" style="background: linear-gradient(135deg, #ff6b00 0%, #cc5500 100%);">🔊</div>
+                    <div class="driver-info">
+                        <div class="driver-name">Realtek Audio Drivers</div>
+                        <div class="driver-desc" data-en="For onboard audio" data-mn="Суурилуулсан аудионд">For onboard audio</div>
+                    </div>
+                    <a href="https://www.realtek.com/en/downloads" target="_blank" class="driver-link">Download →</a>
+                </div>
+
+                <div class="driver-card">
+                    <div class="driver-logo" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">🔌</div>
+                    <div class="driver-info">
+                        <div class="driver-name">Chipset Drivers</div>
+                        <div class="driver-desc" data-en="Check your motherboard manufacturer" data-mn="Эх хавтангийн үйлдвэрлэгчээ шалга">Check your motherboard manufacturer</div>
+                    </div>
+                    <a href="https://www.google.com/search?q=my+motherboard+chipset+drivers" target="_blank" class="driver-link">Find →</a>
+                </div>
+            </div>
+
+            <div style="margin-top: 28px; padding: 20px 24px; background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(34, 197, 94, 0.03) 100%); border: 1px solid rgba(34, 197, 94, 0.15); border-radius: 16px; backdrop-filter: blur(8px);">
+                <p style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6;">
+                    <strong style="color: var(--green);">💡 Pro Tip:</strong> <span data-en="Don't update drivers unless you're having issues or want new features. 'If it ain't broke, don't fix it' applies to stable drivers." data-mn="Асуудал гараагүй эсвэл шинэ функц хүсэхгүй бол драйвер шинэчлэх шаардлагагүй.">"If it ain't broke, don't fix it" applies to stable drivers.</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Cleanup Section -->
+        <div class="content-section" id="cleanup">
+            <h3 style="margin-bottom: 24px; font-size: 1.2rem; font-weight: 600; letter-spacing: -0.02em;" data-en="Storage Cleanup Tips" data-mn="Санах ойн цэвэрлэгээний зөвлөмж">Storage Cleanup Tips</h3>
+
+            <div class="tips-list">
+                <div class="tip-item">
+                    <div class="tip-number">1</div>
+                    <div class="tip-content">
+                        <h4 data-en="Run Disk Cleanup" data-mn="Диск цэвэрлэгч ажиллуул">Run Disk Cleanup</h4>
+                        <p data-en="Windows built-in tool. Search 'Disk Cleanup' in Start menu, select your drive, check all boxes, and clean." data-mn="Windows-ийн суурилуулсан хэрэгсэл. Start цэснээс 'Disk Cleanup' хайж, драйваа сонгоод бүх нүдийг чагтлаад цэвэрлэ.">Search 'Disk Cleanup' in Start menu, select your drive, check all boxes, and clean.</p>
+                    </div>
+                </div>
+
+                <div class="tip-item">
+                    <div class="tip-number">2</div>
+                    <div class="tip-content">
+                        <h4 data-en="Clear Temp Files" data-mn="Түр файлуудыг устга">Clear Temp Files</h4>
+                        <p data-en="Press Win+R, type %temp%, delete everything. Also clear C:\\Windows\\Temp (admin required)." data-mn="Win+R дараад %temp% бичээд бүгдийг устга. Мөн C:\\Windows\\Temp цэвэрлэ (админ эрх шаардлагатай).">Press Win+R, type %temp%, delete everything inside.</p>
+                    </div>
+                </div>
+
+                <div class="tip-item">
+                    <div class="tip-number">3</div>
+                    <div class="tip-content">
+                        <h4 data-en="Uninstall Unused Programs" data-mn="Ашиглагдаагүй програмуудыг устга">Uninstall Unused Programs</h4>
+                        <p data-en="Go to Settings → Apps → Installed apps. Sort by size and remove what you don't use." data-mn="Settings → Apps → Installed apps руу очоод хэмжээгээр эрэмбэлж ашигладаггүй зүйлсийг устга.">Settings → Apps → Installed apps. Sort by size and remove what you don't use.</p>
+                    </div>
+                </div>
+
+                <div class="tip-item">
+                    <div class="tip-number">4</div>
+                    <div class="tip-content">
+                        <h4 data-en="Empty Recycle Bin" data-mn="Хогийн савыг хооослох">Empty Recycle Bin</h4>
+                        <p data-en="Right-click Recycle Bin on desktop → Empty Recycle Bin. This can free up GBs of space." data-mn="Ширээн дээрх Recycle Bin дээр баруун товч дарж → Empty Recycle Bin. Энэ нь GB зай чөлөөлж чадна.">Right-click Recycle Bin → Empty. Can free up GBs of space.</p>
+                    </div>
+                </div>
+
+                <div class="tip-item">
+                    <div class="tip-number">5</div>
+                    <div class="tip-content">
+                        <h4 data-en="Clear Browser Cache" data-mn="Хөтчийн кэшийг цэвэрлэ">Clear Browser Cache</h4>
+                        <p data-en="Chrome: Ctrl+Shift+Del → Clear browsing data. Can free up several GB over time." data-mn="Chrome: Ctrl+Shift+Del → Clear browsing data. Цаг хугацааны явцад хэдэн GB чөлөөлж чадна.">Ctrl+Shift+Del in browser → Clear browsing data. Can free up several GB.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cards-grid" style="margin-top: 24px;">
+                <div class="maint-card">
+                    <div class="maint-card-header">
+                        <div class="maint-card-icon" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);">🧹</div>
+                        <div>
+                            <div class="maint-card-title">WizTree</div>
+                            <div class="maint-card-subtitle" data-en="See what's eating your storage" data-mn="Юу санах ой идэж байгааг хар">See what's eating your storage</div>
+                        </div>
+                    </div>
+                    <div class="maint-card-body" data-en="Visual disk space analyzer. Instantly see which folders/files take the most space." data-mn="Дискний зайн визуал шинжээч. Аль хавтас/файл хамгийн их зай эзэлж байгааг шууд хар.">Visual disk space analyzer. See which folders/files take the most space.</div>
+                    <div class="maint-card-actions">
+                        <a href="https://diskanalyzer.com/" target="_blank" class="maint-btn primary">Download Free</a>
+                    </div>
+                </div>
+
+                <div class="maint-card">
+                    <div class="maint-card-header">
+                        <div class="maint-card-icon" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">🗑️</div>
+                        <div>
+                            <div class="maint-card-title">BleachBit</div>
+                            <div class="maint-card-subtitle" data-en="Deep system cleaner" data-mn="Гүн системийн цэвэрлэгч">Deep system cleaner</div>
+                        </div>
+                    </div>
+                    <div class="maint-card-body" data-en="Open-source cleaner. Removes cache, cookies, temp files from 100+ apps." data-mn="Нээлттэй эхийн цэвэрлэгч. 100+ аппаас кэш, күүки, түр файлуудыг устгана.">Open-source cleaner. Removes cache, cookies, temp files from 100+ apps.</div>
+                    <div class="maint-card-actions">
+                        <a href="https://www.bleachbit.org/" target="_blank" class="maint-btn primary">Download Free</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Schedule Section -->
+        <div class="content-section" id="schedule">
+            <h3 style="margin-bottom: 24px; font-size: 1.2rem; font-weight: 600; letter-spacing: -0.02em;" data-en="Maintenance Schedule" data-mn="Засвар үйлчилгээний хуваарь">Maintenance Schedule</h3>
+
+            <div class="schedule-grid">
+                <div class="schedule-item">
+                    <div class="schedule-icon" style="background: rgba(34, 197, 94, 0.15);">💨</div>
+                    <div class="schedule-info">
+                        <div class="schedule-task" data-en="Dust Cleaning" data-mn="Тоос цэвэрлэх">Dust Cleaning</div>
+                        <div class="schedule-freq" data-en="Every 3-6 months" data-mn="3-6 сар тутам">Every 3-6 months</div>
+                    </div>
+                    <span class="schedule-status due" id="dustStatus">Due Soon</span>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="schedule-icon" style="background: rgba(59, 130, 246, 0.15);">🔄</div>
+                    <div class="schedule-info">
+                        <div class="schedule-task" data-en="Driver Updates" data-mn="Драйвер шинэчлэлт">Driver Updates</div>
+                        <div class="schedule-freq" data-en="Monthly check" data-mn="Сар бүр шалгах">Monthly check</div>
+                    </div>
+                    <span class="schedule-status good">Up to Date</span>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="schedule-icon" style="background: rgba(234, 179, 8, 0.15);">🧹</div>
+                    <div class="schedule-info">
+                        <div class="schedule-task" data-en="Disk Cleanup" data-mn="Диск цэвэрлэгээ">Disk Cleanup</div>
+                        <div class="schedule-freq" data-en="Every 2-4 weeks" data-mn="2-4 долоо хоног тутам">Every 2-4 weeks</div>
+                    </div>
+                    <span class="schedule-status good">Done</span>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="schedule-icon" style="background: rgba(239, 68, 68, 0.15);">🌡️</div>
+                    <div class="schedule-info">
+                        <div class="schedule-task" data-en="Temperature Check" data-mn="Температур шалгах">Temperature Check</div>
+                        <div class="schedule-freq" data-en="Weekly when gaming" data-mn="Тоглоом тоглох үед долоо хоног бүр">Weekly when gaming</div>
+                    </div>
+                    <span class="schedule-status due">Check Now</span>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="schedule-icon" style="background: rgba(168, 85, 247, 0.15);">💾</div>
+                    <div class="schedule-info">
+                        <div class="schedule-task" data-en="Backup Important Files" data-mn="Чухал файлуудыг нөөцлөх">Backup Important Files</div>
+                        <div class="schedule-freq" data-en="Weekly or before major changes" data-mn="Долоо хоног бүр эсвэл том өөрчлөлтийн өмнө">Weekly or before major changes</div>
+                    </div>
+                    <span class="schedule-status due">Recommended</span>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="schedule-icon" style="background: rgba(34, 197, 94, 0.15);">🔒</div>
+                    <div class="schedule-info">
+                        <div class="schedule-task" data-en="Security Scan" data-mn="Аюулгүй байдлын шалгалт">Security Scan</div>
+                        <div class="schedule-freq" data-en="Weekly" data-mn="Долоо хоног бүр">Weekly</div>
+                    </div>
+                    <span class="schedule-status good">Protected</span>
+                </div>
+            </div>
+
+            <div style="margin-top: 28px; padding: 24px; background: linear-gradient(135deg, rgba(16, 42, 32, 0.5) 0%, rgba(10, 31, 22, 0.3) 100%); border: 1px solid rgba(16, 185, 129, 0.1); border-radius: 18px; backdrop-filter: blur(10px);">
+                <h4 style="margin-bottom: 16px; font-size: 1.05rem;" data-en="Physical Cleaning Tips" data-mn="Физик цэвэрлэгээний зөвлөмж">Physical Cleaning Tips</h4>
+                <ul style="font-size: 0.875rem; color: var(--text-secondary); padding-left: 20px; display: flex; flex-direction: column; gap: 10px; line-height: 1.6;">
+                    <li data-en="Use compressed air to blow out dust (do this outside!)" data-mn="Шахсан агаар ашиглан тоос үлээх (гадаа хий!)">Use compressed air to blow out dust (do this outside!)</li>
+                    <li data-en="Clean fans and heatsinks - dust buildup causes overheating" data-mn="Сэнс, дулаан шингээгчийг цэвэрлэ - тоос хуримтлагдах нь халалт үүсгэдэг">Clean fans and heatsinks - dust buildup causes overheating</li>
+                    <li data-en="Wipe down surfaces with microfiber cloth" data-mn="Микрофибер даавуугаар гадаргууг арч">Wipe down surfaces with microfiber cloth</li>
+                    <li data-en="Check cable management - tangled cables block airflow" data-mn="Кабелийн зохион байгуулалтыг шалга - орооцолдсон кабель агаарын урсгалыг хааж">Check cable management - tangled cables block airflow</li>
+                    <li data-en="Replace thermal paste every 2-3 years (or if temps are high)" data-mn="Дулааны оо 2-3 жил тутам солих (эсвэл температур өндөр бол)">Replace thermal paste every 2-3 years (or if temps are high)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Temperatures Section -->
+        <div class="content-section" id="temps">
+            <h3 style="margin-bottom: 24px; font-size: 1.2rem; font-weight: 600; letter-spacing: -0.02em;" data-en="Temperature Monitoring" data-mn="Температур хянах">Temperature Monitoring</h3>
+
+            <div style="margin-bottom: 28px; padding: 28px; background: linear-gradient(135deg, rgba(16, 42, 32, 0.5) 0%, rgba(10, 31, 22, 0.3) 100%); border: 1px solid rgba(16, 185, 129, 0.1); border-radius: 20px; backdrop-filter: blur(12px);">
+                <h4 style="margin-bottom: 20px; font-size: 1.1rem;" data-en="Safe Temperature Ranges" data-mn="Аюулгүй температурын хязгаар">Safe Temperature Ranges</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div style="padding: 16px; background: rgba(34, 197, 94, 0.08); border: 1px solid rgba(34, 197, 94, 0.15); border-radius: 14px;">
+                        <div style="font-size: 0.8rem; color: var(--text-tertiary); margin-bottom: 6px;">CPU (Idle)</div>
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--green); text-shadow: 0 0 20px rgba(34, 197, 94, 0.3);">30-45°C</div>
+                    </div>
+                    <div style="padding: 16px; background: rgba(234, 179, 8, 0.08); border: 1px solid rgba(234, 179, 8, 0.15); border-radius: 14px;">
+                        <div style="font-size: 0.8rem; color: var(--text-tertiary); margin-bottom: 6px;">CPU (Gaming)</div>
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--yellow); text-shadow: 0 0 20px rgba(234, 179, 8, 0.3);">60-80°C</div>
+                    </div>
+                    <div style="padding: 16px; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.15); border-radius: 14px;">
+                        <div style="font-size: 0.8rem; color: var(--text-tertiary); margin-bottom: 6px;">CPU (Max Safe)</div>
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--red); text-shadow: 0 0 20px rgba(239, 68, 68, 0.3);">90-95°C</div>
+                    </div>
+                    <div style="padding: 16px; background: rgba(234, 179, 8, 0.08); border: 1px solid rgba(234, 179, 8, 0.15); border-radius: 14px;">
+                        <div style="font-size: 0.8rem; color: var(--text-tertiary); margin-bottom: 6px;">GPU (Gaming)</div>
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--yellow); text-shadow: 0 0 20px rgba(234, 179, 8, 0.3);">65-85°C</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cards-grid">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">🌡️</div>
+                        <div>
+                            <div class="tool-name">HWiNFO64</div>
+                            <div class="tool-price" data-en="Free" data-mn="Үнэгүй">Free</div>
+                        </div>
+                    </div>
+                    <div class="tool-desc" data-en="The most detailed hardware monitoring tool. Shows every sensor in your PC including temps, voltages, fan speeds, and power draw." data-mn="Хамгийн дэлгэрэнгүй техник хангамжийн хяналтын хэрэгсэл. Температур, хүчдэл, сэнсний хурд, цахилгаан зарцуулалт зэрэг бүх мэдрэгчийг харуулна.">Most detailed hardware monitoring. Shows all temps, voltages, fan speeds.</div>
+                    <a href="https://www.hwinfo.com/download/" target="_blank" class="tool-link">Download →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">📊</div>
+                        <div>
+                            <div class="tool-name">MSI Afterburner</div>
+                            <div class="tool-price" data-en="Free" data-mn="Үнэгүй">Free</div>
+                        </div>
+                    </div>
+                    <div class="tool-desc" data-en="GPU overclocking tool with on-screen display. Shows FPS, temps, and usage while gaming. Works with all GPUs." data-mn="Дэлгэцэн дээрх дэлгэцтэй GPU-ийн overclocking хэрэгсэл. Тоглоом тоглох үед FPS, температур, ашиглалтыг харуулна. Бүх GPU-тай ажилладаг.">GPU overclocking + on-screen display. Shows FPS, temps while gaming.</div>
+                    <a href="https://www.msi.com/Landing/afterburner/graphics-cards" target="_blank" class="tool-link">Download →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);">💻</div>
+                        <div>
+                            <div class="tool-name">Core Temp</div>
+                            <div class="tool-price" data-en="Free" data-mn="Үнэгүй">Free</div>
+                        </div>
+                    </div>
+                    <div class="tool-desc" data-en="Simple CPU temperature monitor. Sits in your system tray and shows temps at a glance. Lightweight and reliable." data-mn="Энгийн CPU температурын хяналт. Системийн тавиур дээр суугаад температурыг харуулна. Хөнгөн, найдвартай.">Simple CPU temp monitor. Lives in system tray, lightweight and reliable.</div>
+                    <a href="https://www.alcpu.com/CoreTemp/" target="_blank" class="tool-link">Download →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">🔥</div>
+                        <div>
+                            <div class="tool-name">GPU-Z</div>
+                            <div class="tool-price" data-en="Free" data-mn="Үнэгүй">Free</div>
+                        </div>
+                    </div>
+                    <div class="tool-desc" data-en="Detailed GPU information and monitoring. Shows GPU specs, temps, clocks, memory usage, and load." data-mn="Дэлгэрэнгүй GPU мэдээлэл, хяналт. GPU-ийн үзүүлэлт, температур, цагийн хурд, санах ойн хэрэглээ, ачааллыг харуулна.">Detailed GPU info and monitoring. Shows specs, temps, clocks, memory.</div>
+                    <a href="https://www.techpowerup.com/gpuz/" target="_blank" class="tool-link">Download →</a>
+                </div>
+            </div>
+
+            <div style="margin-top: 28px; padding: 20px 24px; background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.03) 100%); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 16px; backdrop-filter: blur(8px);">
+                <p style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6;">
+                    <strong style="color: var(--red);">⚠️ Warning Signs:</strong> <span data-en="If your CPU/GPU regularly hits 90°C+ while gaming, you may need better cooling, fresh thermal paste, or improved case airflow." data-mn="Хэрэв таны CPU/GPU тоглоом тоглох үед байнга 90°C-аас дээш халдаг бол илүү сайн хөргөлт, шинэ дулааны оо эсвэл сайжруулсан хайрцагны агаарын урсгал хэрэгтэй байж магадгүй.">If your CPU/GPU regularly hits 90°C+ while gaming, you need better cooling, fresh thermal paste, or improved airflow.</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Tools Section -->
+        <div class="content-section" id="tools">
+            <h3 style="margin-bottom: 24px; font-size: 1.2rem; font-weight: 600; letter-spacing: -0.02em;" data-en="Essential Maintenance Tools" data-mn="Зайлшгүй засвар үйлчилгээний хэрэгслүүд">Essential Maintenance Tools</h3>
+
+            <div class="cards-grid">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">💾</div>
+                        <div>
+                            <div class="tool-name">CrystalDiskInfo</div>
+                            <div class="tool-price" data-en="Free" data-mn="Үнэгүй">Free</div>
+                        </div>
+                    </div>
+                    <div class="tool-desc" data-en="Check the health of your SSD/HDD. Shows SMART data to predict drive failures before they happen." data-mn="SSD/HDD-ийн эрүүл мэндийг шалга. Дискний эвдрэлийг урьдчилан таамаглах SMART өгөгдлийг харуулна.">Check SSD/HDD health. Predicts drive failures before they happen.</div>
+                    <a href="https://crystalmark.info/en/software/crystaldiskinfo/" target="_blank" class="tool-link">Download →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);">⚡</div>
+                        <div>
+                            <div class="tool-name">CrystalDiskMark</div>
+                            <div class="tool-price" data-en="Free" data-mn="Үнэгүй">Free</div>
+                        </div>
+                    </div>
+                    <div class="tool-desc" data-en="Test your drive speeds. Benchmark read/write performance to ensure your SSD is performing correctly." data-mn="Дискний хурдаа шалга. SSD зөв ажиллаж байгаа эсэхийг шалгахын тулд унших/бичих гүйцэтгэлийг benchmark хий.">Test drive speeds. Benchmark to ensure SSD is performing correctly.</div>
+                    <a href="https://crystalmark.info/en/software/crystaldiskmark/" target="_blank" class="tool-link">Download →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon" style="background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);">🧪</div>
+                        <div>
+                            <div class="tool-name">MemTest86</div>
+                            <div class="tool-price" data-en="Free" data-mn="Үнэгүй">Free</div>
+                        </div>
+                    </div>
+                    <div class="tool-desc" data-en="Test your RAM for errors. Bootable tool that checks for memory problems causing crashes or instability." data-mn="RAM-аа алдаа байгаа эсэхийг шалга. Гацах эсвэл тогтворгүй байдал үүсгэж буй санах ойн асуудлыг шалгах ачаалах хэрэгсэл.">Test RAM for errors. Checks for memory problems causing crashes.</div>
+                    <a href="https://www.memtest86.com/" target="_blank" class="tool-link">Download →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon" style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);">🔍</div>
+                        <div>
+                            <div class="tool-name">CPU-Z</div>
+                            <div class="tool-price" data-en="Free" data-mn="Үнэгүй">Free</div>
+                        </div>
+                    </div>
+                    <div class="tool-desc" data-en="Detailed CPU information. Shows processor model, speed, cache, motherboard, and RAM specs." data-mn="Дэлгэрэнгүй CPU мэдээлэл. Процессорын загвар, хурд, кэш, эх хавтан, RAM-ийн үзүүлэлтийг харуулна.">Detailed CPU info. Shows processor, motherboard, and RAM specs.</div>
+                    <a href="https://www.cpuid.com/softwares/cpu-z.html" target="_blank" class="tool-link">Download →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">🛡️</div>
+                        <div>
+                            <div class="tool-name">Windows Security</div>
+                            <div class="tool-price" data-en="Built-in" data-mn="Суурилуулсан">Built-in</div>
+                        </div>
+                    </div>
+                    <div class="tool-desc" data-en="Windows Defender is actually good now. Run regular scans and keep it updated. No need for third-party antivirus." data-mn="Windows Defender одоо үнэхээр сайн. Тогтмол шалгалт хийж шинэчилж бай. Гуравдагч талын антивирус хэрэггүй.">Windows Defender is good now. Run regular scans, no need for third-party AV.</div>
+                    <a href="ms-settings:windowsdefender" class="tool-link">Open →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon" style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);">📦</div>
+                        <div>
+                            <div class="tool-name">Revo Uninstaller</div>
+                            <div class="tool-price" data-en="Free" data-mn="Үнэгүй">Free</div>
+                        </div>
+                    </div>
+                    <div class="tool-desc" data-en="Completely remove programs. Cleans up leftover files and registry entries that normal uninstall misses." data-mn="Програмуудыг бүрэн устга. Энгийн устгалт орхисон үлдэгдэл файл, бүртгэлийн оруулгуудыг цэвэрлэнэ.">Completely remove programs. Cleans leftover files and registry entries.</div>
+                    <a href="https://www.revouninstaller.com/revo-uninstaller-free-download/" target="_blank" class="tool-link">Download →</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="software.html">Software</a>
+            <a href="maintenance.html">Maintenance</a>
+            <a href="optimization.html">Optimize</a>
+            <a href="troubleshoot.html">Troubleshoot</a>
+            <a href="upgrade-planner.html">Upgrade</a>
+        </div>
+        <p class="footer-copy">© 2026 PC Essentials. Keep your PC healthy.</p>
+    </footer>
+
+    <script>
+        // Tab switching
+        document.querySelectorAll('.section-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.section).classList.add('active');
+            });
+        });
+
+        // Health score calculation
+        function calculateHealthScore() {
+            const tasks = {
+                drivers: localStorage.getItem('maint_drivers') || null,
+                cleanup: localStorage.getItem('maint_cleanup') || null,
+                dust: localStorage.getItem('maint_dust') || null,
+                temps: localStorage.getItem('maint_temps') || null
+            };
+
+            let score = 50; // Base score
+            const now = Date.now();
+            const day = 24 * 60 * 60 * 1000;
+
+            // Drivers (monthly = 30 days)
+            if (tasks.drivers && (now - tasks.drivers) < 30 * day) score += 15;
+            // Cleanup (bi-weekly = 14 days)
+            if (tasks.cleanup && (now - tasks.cleanup) < 14 * day) score += 15;
+            // Dust (quarterly = 90 days)
+            if (tasks.dust && (now - tasks.dust) < 90 * day) score += 10;
+            // Temps (weekly = 7 days)
+            if (tasks.temps && (now - tasks.temps) < 7 * day) score += 10;
+
+            return Math.min(100, score);
+        }
+
+        function updateHealthDisplay() {
+            const score = calculateHealthScore();
+            document.getElementById('healthValue').textContent = score;
+
+            // Update ring (circumference = 2 * PI * 52 ≈ 327)
+            const offset = 327 - (327 * score / 100);
+            document.getElementById('healthProgress').style.strokeDashoffset = offset;
+
+            // Update color based on score
+            const progress = document.getElementById('healthProgress');
+            const value = document.getElementById('healthValue');
+            if (score >= 80) {
+                progress.style.stroke = '#22c55e';
+                value.style.color = '#22c55e';
+            } else if (score >= 60) {
+                progress.style.stroke = '#eab308';
+                value.style.color = '#eab308';
+            } else {
+                progress.style.stroke = '#ef4444';
+                value.style.color = '#ef4444';
+            }
+        }
+
+        function runCheckup() {
+            alert('Running system checkup...\n\n✓ Checking driver status\n✓ Scanning disk health\n✓ Reading temperatures\n✓ Analyzing storage\n\nTip: Use the tools in each tab to manually verify your system health!');
+        }
+
+        // Mobile menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger?.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Language toggle
+        const langBtns = document.querySelectorAll('.lang-btn');
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                langBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const lang = btn.dataset.lang;
+
+                document.querySelectorAll('[data-en]').forEach(el => {
+                    const text = el.getAttribute(`data-${lang}`);
+                    if (text) el.textContent = text;
+                });
+            });
+        });
+
+        // Initialize
+        updateHealthDisplay();
+    </script>
+    <script src="effects.js"></script>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+<script>
+    // Back to top button
+    const backToTopBtn = document.getElementById('backToTop');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            backToTopBtn.classList.toggle('visible', window.scrollY > 400);
+        });
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Active nav link
+    (function() {
+        const currentFile = location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && (href === currentFile || (currentFile === '' && href === 'index.html'))) {
+                link.classList.add('active');
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

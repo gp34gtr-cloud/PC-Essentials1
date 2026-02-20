@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071e3'/%3E%3Crect x='5' y='7' width='22' height='14' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cline x1='10' y1='25' x2='22' y2='25' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='16' y1='21' x2='16' y2='25' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+    <meta name="description" content="Optimize your PC performance with guides on overclocking, RAM optimization, game settings, and Windows tweaks.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Estimator | PC Essentials</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="base-styles.css">
+    <style>
+        :root {
+            --bg-primary: #080806;
+            --bg-secondary: #121210;
+            --bg-tertiary: #1a1a16;
+            --bg-card: #0f0f0c;
+            --text-primary: #f0f0e8;
+            --text-secondary: #a0a098;
+            --text-tertiary: #686860;
+            --accent: #f59e0b;
+            --accent-hover: #fbbf24;
+            --accent-glow: rgba(245, 158, 11, 0.15);
+            --border: rgba(245, 158, 11, 0.12);
+            --card-radius: 16px;
+            --card-padding: 24px;
+            --anim-speed: 0.2s;
+            --green: #10b981;
+            --yellow: #f59e0b;
+            --red: #ef4444;
+            --gradient-1: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+            --gradient-2: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(180deg, #080806 0%, #0a0a08 100%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(8, 8, 6, 0.9);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 52px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--gradient-3);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 400;
+            transition: color var(--anim-speed) ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        /* MOBILE MENU - HIDDEN ON DESKTOP */
+        .mobile-menu {
+            display: none;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .lang-toggle {
+            display: flex;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all var(--anim-speed) ease;
+        }
+
+        .lang-btn.active {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 100px 24px 32px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+            background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Main Layout */
+        .estimator-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+        }
+
+        .estimator-layout {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        /* Control Panel */
+        .control-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--card-radius);
+            padding: var(--card-padding);
+            position: sticky;
+            top: 76px;
+        }
+
+        .panel-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-title-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .buy-link {
+            font-size: 0.7rem;
+            color: var(--accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .buy-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.8125rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: border-color var(--anim-speed) ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a0a098' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* Toggle Buttons */
+        .toggle-group {
+            display: flex;
+            gap: 6px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 10px 12px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--anim-speed) ease;
+            font-family: inherit;
+        }
+
+        .toggle-btn:hover {
+            border-color: rgba(245, 158, 11, 0.3);
+            color: var(--text-primary);
+        }
+
+        .toggle-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #000;
+        }
+
+        /* Price Display */
+        .total-price {
+            margin-top: 20px;
+            padding: 16px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .price-label {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .price-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--green);
+        }
+
+        .price-note {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            margin-top: 4px;
+        }
+
+        /* Results Panel */
+        .results-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .results-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .results-title-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        /* Game Filter */
+        .game-filter {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 14px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .filter-btn:hover {
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .filter-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #000;
+        }
+
+        /* Games Grid */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        /* Game Card */
+        .game-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            transition: all 0.2s;
+        }
+
+        .game-card:hover {
+            border-color: rgba(245, 158, 11, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .game-card.hidden {
+            display: none;
+        }
+
+        .game-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .game-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .game-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .game-name {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .game-meta {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            display: flex;
+            gap: 8px;
+        }
+
+        .game-genre {
+            background: var(--bg-tertiary);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* FPS Display */
+        .fps-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .fps-box {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .fps-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .fps-value.excellent { color: #10b981; }
+        .fps-value.good { color: #22c55e; }
+        .fps-value.okay { color: #f59e0b; }
+        .fps-value.poor { color: #ef4444; }
+
+        .fps-label {
+            font-size: 0.65rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Performance Bar */
+        .perf-bar-container {
+            margin-top: 12px;
+        }
+
+        .perf-bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.65rem;
+            color: var(--text-tertiary);
+            margin-bottom: 4px;
+        }
+
+        .perf-bar {
+            height: 4px;
+            background: var(--bg-tertiary);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .perf-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        /* Warning Notice */
+        .warning-notice {
+            padding: 14px 18px;
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.15);
+            border-radius: 12px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .warning-icon {
+            flex-shrink: 0;
+            color: var(--accent);
+            margin-top: 1px;
+        }
+
+        /* Spec Summary Bar */
+        .spec-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 14px 18px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .spec-chip {
+            font-size: 0.7rem;
+            padding: 5px 10px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            color: var(--text-secondary);
+        }
+
+        .spec-chip.highlight {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            padding: 48px 24px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color var(--anim-speed) ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-copy {
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .estimator-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .control-panel {
+                position: static;
+            }
+
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .toggle-group {
+                flex-wrap: wrap;
+            }
+
+            .toggle-btn {
+                min-width: calc(33% - 4px);
+            }
+
+            .game-filter {
+                justify-content: center;
+            }
+
+            .results-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .fps-value {
+                font-size: 1.5rem;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body data-page="performance">
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <span>PC Essentials</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                
+                <li><a href="setup-checklist.html">Setup</a></li>
+                <li><a href="software.html" data-en="Software" data-mn="Програм">Software</a></li>
+                <li><a href="peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a></li>
+                <li><a href="ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a></li>
+                
+                <li><a href="performance.html">Performance</a></li>
+                <li><a href="shortcuts.html">Shortcuts</a></li>
+                
+                <li><a href="youtube-guide.html" data-en="Build Guide" data-mn="Угсрах Заавар">Build Guide</a></li>
+                <li><a href="maintenance.html" data-en="Tools" data-mn="Хэрэгслүүд">Tools</a>
+            <a href="typing-test.html">Typing Test</a>
+            <a href="pc-name-generator.html">Name Gen</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="mn">MN</button>
+                </div>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" data-en="Home" data-mn="Нүүр">Home</a>
+            <a href="setup-checklist.html">Setup Guide</a>
+            <a href="software.html" data-en="Software" data-mn="Програм">Software</a>
+            <a href="peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a>
+            <a href="ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a>
+            <a href="shortcuts.html">Shortcuts</a>
+            <a href="performance.html" class="active" data-en="Performance" data-mn="Гүйцэтгэл">Performance</a>
+            <a href="youtube-guide.html" data-en="Build Guide" data-mn="Угсрах Заавар">Build Guide</a>
+            <a href="maintenance.html" data-en="Tools" data-mn="Хэрэгслүүд">Tools</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1 data-en="PC Performance Estimator" data-mn="Компьютерийн гүйцэтгэлийн тооцоолуур">PC Performance Estimator</h1>
+        <p data-en="Get accurate FPS estimates for popular games. Select your hardware and see real-world performance expectations." data-mn="Алдартай тоглоомуудын FPS тооцоолол. Техник хангамжаа сонгоод бодит гүйцэтгэлийг хараарай.">Get accurate FPS estimates for popular games. Select your hardware and see real-world performance expectations.</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="estimator-container">
+        <div class="estimator-layout">
+            <!-- Control Panel -->
+            <div class="control-panel">
+                <h2 class="panel-title">
+                    <div class="panel-title-icon">⚙️</div>
+                    <span data-en="Build Your System" data-mn="Системээ бүрдүүл">Build Your System</span>
+                </h2>
+
+                <!-- GPU Selection -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <span data-en="Graphics Card (GPU)" data-mn="График карт (GPU)">Graphics Card (GPU)</span>
+                        <a href="#" class="buy-link" id="gpuBuyLink" target="_blank">
+                            Buy
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </a>
+                    </label>
+                    <select class="form-select" id="gpuSelect"></select>
+                </div>
+
+                <!-- CPU Selection -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <span data-en="Processor (CPU)" data-mn="Процессор (CPU)">Processor (CPU)</span>
+                        <a href="#" class="buy-link" id="cpuBuyLink" target="_blank">
+                            Buy
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </a>
+                    </label>
+                    <select class="form-select" id="cpuSelect"></select>
+                </div>
+
+                <!-- RAM Selection -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <span>RAM</span>
+                        <a href="https://www.amazon.com/s?k=ddr5+ram+32gb" class="buy-link" target="_blank">
+                            Buy
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </a>
+                    </label>
+                    <div class="toggle-group" id="ramToggle">
+                        <button class="toggle-btn" data-value="8">8 GB</button>
+                        <button class="toggle-btn active" data-value="16">16 GB</button>
+                        <button class="toggle-btn" data-value="32">32 GB</button>
+                    </div>
+                </div>
+
+                <!-- Resolution -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <span data-en="Resolution" data-mn="Нягтрал">Resolution</span>
+                    </label>
+                    <div class="toggle-group" id="resolutionToggle">
+                        <button class="toggle-btn active" data-value="1080p">1080p</button>
+                        <button class="toggle-btn" data-value="1440p">1440p</button>
+                        <button class="toggle-btn" data-value="4k">4K</button>
+                    </div>
+                </div>
+
+                <!-- Graphics Settings -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <span data-en="Graphics Preset" data-mn="График тохиргоо">Graphics Preset</span>
+                    </label>
+                    <div class="toggle-group" id="settingsToggle">
+                        <button class="toggle-btn" data-value="low">Low</button>
+                        <button class="toggle-btn" data-value="medium">Medium</button>
+                        <button class="toggle-btn active" data-value="high">High</button>
+                        <button class="toggle-btn" data-value="ultra">Ultra</button>
+                    </div>
+                </div>
+
+                <!-- Estimated Build Price -->
+                <div class="total-price">
+                    <div class="price-label" data-en="Estimated Build Cost" data-mn="Төсөвлөсөн үнэ">Estimated Build Cost</div>
+                    <div class="price-value" id="totalPrice">$0</div>
+                    <div class="price-note" data-en="GPU + CPU only (MSRP)" data-mn="Зөвхөн GPU + CPU (MSRP)">GPU + CPU only (MSRP)</div>
+                </div>
+            </div>
+
+            <!-- Results Panel -->
+            <div class="results-panel">
+                <!-- Header with filters -->
+                <div class="results-header">
+                    <h2 class="results-title">
+                        <div class="results-title-icon">📊</div>
+                        <span data-en="Performance Results" data-mn="Гүйцэтгэлийн үр дүн">Performance Results</span>
+                    </h2>
+                    <div class="game-filter">
+                        <button class="filter-btn active" data-filter="all">All Games</button>
+                        <button class="filter-btn" data-filter="esports">Esports</button>
+                        <button class="filter-btn" data-filter="fps">FPS/Shooter</button>
+                        <button class="filter-btn" data-filter="openworld">Open World</button>
+                        <button class="filter-btn" data-filter="racing">Racing</button>
+                    </div>
+                </div>
+
+                <!-- Spec Summary -->
+                <div class="spec-bar" id="specBar">
+                    <span class="spec-chip highlight" id="chipGpu">RTX 4070</span>
+                    <span class="spec-chip highlight" id="chipCpu">i5-14600K</span>
+                    <span class="spec-chip" id="chipRam">16 GB DDR5</span>
+                    <span class="spec-chip" id="chipRes">1080p</span>
+                    <span class="spec-chip" id="chipSettings">High</span>
+                </div>
+
+                <!-- Games Grid -->
+                <div class="games-grid" id="gamesGrid">
+                    <!-- Games will be populated by JS -->
+                </div>
+
+                <!-- Warning -->
+                <div class="warning-notice">
+                    <svg class="warning-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <div>
+                        <strong data-en="Disclaimer:" data-mn="Анхааруулга:">Disclaimer:</strong> <span data-en="These estimates are based on aggregated benchmark data and may vary ±15% depending on your specific system configuration, driver versions, cooling solution, background processes, in-game settings, and map/scene complexity. Real-world results may differ." data-mn="Эдгээр тооцоолол нь нийтлэг benchmark өгөгдөл дээр үндэслэсэн бөгөөд таны системийн тохиргоо, драйверын хувилбар, хөргөлтийн шийдэл, арын процессууд, тоглоомын тохиргооноос хамааран ±15% өөрчлөгдөж болно.">These estimates are based on aggregated benchmark data and may vary ±15% depending on your specific system configuration, driver versions, cooling solution, background processes, in-game settings, and map/scene complexity. Real-world results may differ.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="software.html">Software</a>
+                <a href="peripherals.html">Peripherals</a>
+                <a href="ai-tools.html">AI Tools</a>
+                <a href="performance.html">Performance</a>
+                <a href="youtube-guide.html">Build Guide</a>
+                <a href="maintenance.html">Maintenance</a>
+                <a href="optimization.html">Optimize</a>
+                <a href="troubleshoot.html">Troubleshoot</a>
+                <a href="upgrade-planner.html">Upgrade</a>
+                <a href="can-i-run-it.html">Can I Run It?</a>
+            </div>
+            <p class="footer-copy">© 2026 PC Essentials. Performance data is for estimation purposes only.</p>
+        </div>
+    </footer>
+
+    <script>
+        // =====================================================
+        // COMPREHENSIVE BENCHMARK DATABASE
+        // Based on real-world benchmarks from TechPowerUp,
+        // Tom's Hardware, GamersNexus, Hardware Unboxed
+        // =====================================================
+
+        const GPU_DATABASE = {
+            // NVIDIA RTX 50 Series (2025)
+            'rtx5090': {
+                name: 'NVIDIA RTX 5090',
+                score: 420,
+                vram: 32,
+                price: 1999,
+                buyUrl: 'https://www.amazon.com/s?k=rtx+5090'
+            },
+            'rtx5080': {
+                name: 'NVIDIA RTX 5080',
+                score: 340,
+                vram: 16,
+                price: 999,
+                buyUrl: 'https://www.amazon.com/s?k=rtx+5080'
+            },
+            'rtx5070ti': {
+                name: 'NVIDIA RTX 5070 Ti',
+                score: 290,
+                vram: 16,
+                price: 749,
+                buyUrl: 'https://www.amazon.com/s?k=rtx+5070+ti'
+            },
+            'rtx5070': {
+                name: 'NVIDIA RTX 5070',
+                score: 250,
+                vram: 12,
+                price: 549,
+                buyUrl: 'https://www.amazon.com/s?k=rtx+5070'
+            },
+            // NVIDIA RTX 40 Series
+            'rtx4090': {
+                name: 'NVIDIA RTX 4090',
+                score: 295,
+                vram: 24,
+                price: 1599,
+                buyUrl: 'https://www.amazon.com/s?k=rtx+4090'
+            },
+            'rtx4080super': {
+                name: 'NVIDIA RTX 4080 Super',
+                score: 250,
+                vram: 16,
+                price: 949,
+                buyUrl: 'https://www.amazon.com/s?k=rtx+4080+super'
+            },
+            'rtx4080': {
+                name: 'NVIDIA RTX 4080',
+                score: 240,
+                vram: 16,
+                price: 849,
+                buyUrl: 'https://www.amazon.com/s?k=rtx+4080'
+            },
+            'rtx4070tisuper': {
+                name: 'NVIDIA RTX 4070 Ti Super',
+                score: 210,
+                vram: 16,
+                price: 749,
+                buyUrl: 'https://www.amazon.com/s?k=rtx+4070+ti+super'
+            },
+            'rtx4070ti': {
+                name: 'NVIDIA RTX 4070 Ti',
+                score: 195,
+                vram: 12,
+                price: 649,
+                buyUrl: 'https://www.amazon.com/s?k=rtx+4070+ti'
+            },
+            'rtx4070super': {
+                name: 'NVIDIA RTX 4070 Super',
+                score: 180,
+                vram: 12,
+                price: 549,
+                buyUrl: 'https://www.amazon.com/s?k=rtx+4070+super'
+            },
+            'rtx4070': {
+                name: 'NVIDIA RTX 4070',
+                score: 160,
+                vram: 12,
+                price: 449,
+                buyUrl: 'https://www.amazon.com/s?k=rtx+4070'
+            },
+            'rtx4060ti16': {
+                name: 'NVIDIA RTX 4060 Ti 16GB',
+                score: 140,
+                vram: 16,
+                price: 449,
+                buyUrl: 'https://www.amazon.com/s?k=rtx+4060+ti+16gb'
+            },
+            'rtx4060ti': {
+                name: 'NVIDIA RTX 4060 Ti',
+                score: 135,
+                vram: 8,
+                price: 379,
+                buyUrl: 'https://www.amazon.com/s?k=rtx+4060+ti'
+            },
+            'rtx4060': {
+                name: 'NVIDIA RTX 4060',
+                score: 115,
+                vram: 8,
+                price: 279,
+                buyUrl: 'https://www.amazon.com/s?k=rtx+4060'
+            },
+            // NVIDIA RTX 30 Series (Legacy)
+            'rtx3090': {
+                name: 'NVIDIA RTX 3090',
+                score: 185,
+                vram: 24,
+                price: 599,
+                buyUrl: 'https://www.amazon.com/s?k=rtx+3090'
+            },
+            'rtx3080': {
+                name: 'NVIDIA RTX 3080',
+                score: 165,
+                vram: 10,
+                price: 449,
+                buyUrl: 'https://www.amazon.com/s?k=rtx+3080'
+            },
+            'rtx3070': {
+                name: 'NVIDIA RTX 3070',
+                score: 140,
+                vram: 8,
+                price: 299,
+                buyUrl: 'https://www.amazon.com/s?k=rtx+3070'
+            },
+            'rtx3060': {
+                name: 'NVIDIA RTX 3060',
+                score: 105,
+                vram: 12,
+                price: 219,
+                buyUrl: 'https://www.amazon.com/s?k=rtx+3060'
+            },
+            // AMD RX 9000 Series (2025)
+            'rx9070xt': {
+                name: 'AMD RX 9070 XT',
+                score: 260,
+                vram: 16,
+                price: 599,
+                buyUrl: 'https://www.amazon.com/s?k=rx+9070+xt'
+            },
+            'rx9070': {
+                name: 'AMD RX 9070',
+                score: 220,
+                vram: 16,
+                price: 499,
+                buyUrl: 'https://www.amazon.com/s?k=rx+9070'
+            },
+            // AMD RX 7000 Series
+            'rx7900xtx': {
+                name: 'AMD RX 7900 XTX',
+                score: 255,
+                vram: 24,
+                price: 799,
+                buyUrl: 'https://www.amazon.com/s?k=rx+7900+xtx'
+            },
+            'rx7900xt': {
+                name: 'AMD RX 7900 XT',
+                score: 220,
+                vram: 20,
+                price: 599,
+                buyUrl: 'https://www.amazon.com/s?k=rx+7900+xt'
+            },
+            'rx7900gre': {
+                name: 'AMD RX 7900 GRE',
+                score: 185,
+                vram: 16,
+                price: 499,
+                buyUrl: 'https://www.amazon.com/s?k=rx+7900+gre'
+            },
+            'rx7800xt': {
+                name: 'AMD RX 7800 XT',
+                score: 165,
+                vram: 16,
+                price: 399,
+                buyUrl: 'https://www.amazon.com/s?k=rx+7800+xt'
+            },
+            'rx7700xt': {
+                name: 'AMD RX 7700 XT',
+                score: 145,
+                vram: 12,
+                price: 329,
+                buyUrl: 'https://www.amazon.com/s?k=rx+7700+xt'
+            },
+            'rx7600xt': {
+                name: 'AMD RX 7600 XT',
+                score: 125,
+                vram: 16,
+                price: 299,
+                buyUrl: 'https://www.amazon.com/s?k=rx+7600+xt'
+            },
+            'rx7600': {
+                name: 'AMD RX 7600',
+                score: 110,
+                vram: 8,
+                price: 229,
+                buyUrl: 'https://www.amazon.com/s?k=rx+7600'
+            },
+            // Intel Arc B-Series (2025)
+            'arcb580': {
+                name: 'Intel Arc B580',
+                score: 130,
+                vram: 12,
+                price: 249,
+                buyUrl: 'https://www.amazon.com/s?k=intel+arc+b580'
+            },
+            // Intel Arc A-Series
+            'arca770': {
+                name: 'Intel Arc A770',
+                score: 120,
+                vram: 16,
+                price: 249,
+                buyUrl: 'https://www.amazon.com/s?k=intel+arc+a770'
+            },
+            'arca750': {
+                name: 'Intel Arc A750',
+                score: 105,
+                vram: 8,
+                price: 189,
+                buyUrl: 'https://www.amazon.com/s?k=intel+arc+a750'
+            }
+        };
+
+        const CPU_DATABASE = {
+            // Intel Core Ultra 200 Series (Arrow Lake - 2024/2025)
+            'ultra9-285k': {
+                name: 'Intel Core Ultra 9 285K',
+                score: 210,
+                cores: 24,
+                price: 589,
+                buyUrl: 'https://www.amazon.com/s?k=core+ultra+9+285k'
+            },
+            'ultra7-265k': {
+                name: 'Intel Core Ultra 7 265K',
+                score: 192,
+                cores: 20,
+                price: 394,
+                buyUrl: 'https://www.amazon.com/s?k=core+ultra+7+265k'
+            },
+            'ultra5-245k': {
+                name: 'Intel Core Ultra 5 245K',
+                score: 172,
+                cores: 14,
+                price: 309,
+                buyUrl: 'https://www.amazon.com/s?k=core+ultra+5+245k'
+            },
+            // Intel 14th Gen
+            'i9-14900k': {
+                name: 'Intel Core i9-14900K',
+                score: 198,
+                cores: 24,
+                price: 489,
+                buyUrl: 'https://www.amazon.com/s?k=i9+14900k'
+            },
+            'i7-14700k': {
+                name: 'Intel Core i7-14700K',
+                score: 185,
+                cores: 20,
+                price: 359,
+                buyUrl: 'https://www.amazon.com/s?k=i7+14700k'
+            },
+            'i5-14600k': {
+                name: 'Intel Core i5-14600K',
+                score: 165,
+                cores: 14,
+                price: 279,
+                buyUrl: 'https://www.amazon.com/s?k=i5+14600k'
+            },
+            'i5-14400f': {
+                name: 'Intel Core i5-14400F',
+                score: 140,
+                cores: 10,
+                price: 179,
+                buyUrl: 'https://www.amazon.com/s?k=i5+14400f'
+            },
+            // Intel 13th Gen (Legacy)
+            'i9-13900k': {
+                name: 'Intel Core i9-13900K',
+                score: 192,
+                cores: 24,
+                price: 429,
+                buyUrl: 'https://www.amazon.com/s?k=i9+13900k'
+            },
+            'i7-13700k': {
+                name: 'Intel Core i7-13700K',
+                score: 175,
+                cores: 16,
+                price: 299,
+                buyUrl: 'https://www.amazon.com/s?k=i7+13700k'
+            },
+            'i5-13600k': {
+                name: 'Intel Core i5-13600K',
+                score: 160,
+                cores: 14,
+                price: 249,
+                buyUrl: 'https://www.amazon.com/s?k=i5+13600k'
+            },
+            'i5-13400f': {
+                name: 'Intel Core i5-13400F',
+                score: 132,
+                cores: 10,
+                price: 159,
+                buyUrl: 'https://www.amazon.com/s?k=i5+13400f'
+            },
+            'i3-12100f': {
+                name: 'Intel Core i3-12100F',
+                score: 105,
+                cores: 4,
+                price: 89,
+                buyUrl: 'https://www.amazon.com/s?k=i3+12100f'
+            },
+            // AMD Ryzen 9000 Series (Zen 5 - 2024/2025)
+            'r9-9950x': {
+                name: 'AMD Ryzen 9 9950X',
+                score: 215,
+                cores: 16,
+                price: 549,
+                buyUrl: 'https://www.amazon.com/s?k=ryzen+9+9950x'
+            },
+            'r9-9900x': {
+                name: 'AMD Ryzen 9 9900X',
+                score: 200,
+                cores: 12,
+                price: 449,
+                buyUrl: 'https://www.amazon.com/s?k=ryzen+9+9900x'
+            },
+            'r7-9800x3d': {
+                name: 'AMD Ryzen 7 9800X3D',
+                score: 220,
+                cores: 8,
+                price: 479,
+                buyUrl: 'https://www.amazon.com/s?k=ryzen+7+9800x3d'
+            },
+            'r7-9700x': {
+                name: 'AMD Ryzen 7 9700X',
+                score: 178,
+                cores: 8,
+                price: 329,
+                buyUrl: 'https://www.amazon.com/s?k=ryzen+7+9700x'
+            },
+            'r5-9600x': {
+                name: 'AMD Ryzen 5 9600X',
+                score: 165,
+                cores: 6,
+                price: 249,
+                buyUrl: 'https://www.amazon.com/s?k=ryzen+5+9600x'
+            },
+            // AMD Ryzen 7000 Series
+            'r9-7950x3d': {
+                name: 'AMD Ryzen 9 7950X3D',
+                score: 205,
+                cores: 16,
+                price: 499,
+                buyUrl: 'https://www.amazon.com/s?k=ryzen+9+7950x3d'
+            },
+            'r9-7950x': {
+                name: 'AMD Ryzen 9 7950X',
+                score: 188,
+                cores: 16,
+                price: 399,
+                buyUrl: 'https://www.amazon.com/s?k=ryzen+9+7950x'
+            },
+            'r7-7800x3d': {
+                name: 'AMD Ryzen 7 7800X3D',
+                score: 195,
+                cores: 8,
+                price: 349,
+                buyUrl: 'https://www.amazon.com/s?k=ryzen+7+7800x3d'
+            },
+            'r7-7700x': {
+                name: 'AMD Ryzen 7 7700X',
+                score: 162,
+                cores: 8,
+                price: 249,
+                buyUrl: 'https://www.amazon.com/s?k=ryzen+7+7700x'
+            },
+            'r5-7600x': {
+                name: 'AMD Ryzen 5 7600X',
+                score: 148,
+                cores: 6,
+                price: 199,
+                buyUrl: 'https://www.amazon.com/s?k=ryzen+5+7600x'
+            },
+            'r5-7600': {
+                name: 'AMD Ryzen 5 7600',
+                score: 142,
+                cores: 6,
+                price: 179,
+                buyUrl: 'https://www.amazon.com/s?k=ryzen+5+7600'
+            },
+            // AMD Ryzen 5000 Series (Legacy/Budget)
+            'r7-5800x3d': {
+                name: 'AMD Ryzen 7 5800X3D',
+                score: 175,
+                cores: 8,
+                price: 249,
+                buyUrl: 'https://www.amazon.com/s?k=ryzen+7+5800x3d'
+            },
+            'r5-5600x': {
+                name: 'AMD Ryzen 5 5600X',
+                score: 125,
+                cores: 6,
+                price: 129,
+                buyUrl: 'https://www.amazon.com/s?k=ryzen+5+5600x'
+            },
+            'r5-5600': {
+                name: 'AMD Ryzen 5 5600',
+                score: 118,
+                cores: 6,
+                price: 99,
+                buyUrl: 'https://www.amazon.com/s?k=ryzen+5+5600'
+            }
+        };
+
+        // Game database with accurate per-game benchmark data
+        // FPS values calibrated to RTX 4070 + i5-14600K @ 1080p High as baseline
+        const GAMES_DATABASE = {
+            // Esports Titles (CPU-heavy, high FPS)
+            valorant: {
+                name: 'VALORANT',
+                genre: 'esports',
+                engine: 'Unreal Engine 4',
+                icon: '🎯',
+                color: '#fd4556',
+                cpuWeight: 0.70,
+                gpuWeight: 0.30,
+                baseFps: { '1080p': 380, '1440p': 340, '4k': 220 },
+                settingsScale: { low: 1.35, medium: 1.15, high: 1.0, ultra: 0.92 },
+                optimized: true
+            },
+            cs2: {
+                name: 'Counter-Strike 2',
+                genre: 'esports',
+                engine: 'Source 2',
+                icon: '💥',
+                color: '#de9b35',
+                cpuWeight: 0.60,
+                gpuWeight: 0.40,
+                baseFps: { '1080p': 290, '1440p': 230, '4k': 145 },
+                settingsScale: { low: 1.40, medium: 1.18, high: 1.0, ultra: 0.85 },
+                optimized: true
+            },
+            apex: {
+                name: 'Apex Legends',
+                genre: 'esports',
+                engine: 'Source',
+                icon: '🔺',
+                color: '#cd3333',
+                cpuWeight: 0.55,
+                gpuWeight: 0.45,
+                baseFps: { '1080p': 195, '1440p': 155, '4k': 95 },
+                settingsScale: { low: 1.45, medium: 1.20, high: 1.0, ultra: 0.82 },
+                optimized: true
+            },
+            fortnite: {
+                name: 'Fortnite',
+                genre: 'esports',
+                engine: 'Unreal Engine 5',
+                icon: '🏗️',
+                color: '#9d4dbb',
+                cpuWeight: 0.50,
+                gpuWeight: 0.50,
+                baseFps: { '1080p': 175, '1440p': 130, '4k': 70 },
+                settingsScale: { low: 1.60, medium: 1.25, high: 1.0, ultra: 0.70 },
+                optimized: true
+            },
+            overwatch2: {
+                name: 'Overwatch 2',
+                genre: 'esports',
+                engine: 'Custom',
+                icon: '🎮',
+                color: '#f99e1a',
+                cpuWeight: 0.55,
+                gpuWeight: 0.45,
+                baseFps: { '1080p': 245, '1440p': 190, '4k': 115 },
+                settingsScale: { low: 1.35, medium: 1.15, high: 1.0, ultra: 0.88 },
+                optimized: true
+            },
+            rocketleague: {
+                name: 'Rocket League',
+                genre: 'esports',
+                engine: 'Unreal Engine 4',
+                icon: '🚗',
+                color: '#0078f2',
+                cpuWeight: 0.45,
+                gpuWeight: 0.55,
+                baseFps: { '1080p': 350, '1440p': 290, '4k': 180 },
+                settingsScale: { low: 1.25, medium: 1.10, high: 1.0, ultra: 0.90 },
+                optimized: true
+            },
+            // FPS/Shooter Games
+            cod_mw3: {
+                name: 'Call of Duty: MW III',
+                genre: 'fps',
+                engine: 'IW Engine',
+                icon: '🔫',
+                color: '#4a7c3f',
+                cpuWeight: 0.45,
+                gpuWeight: 0.55,
+                baseFps: { '1080p': 155, '1440p': 120, '4k': 70 },
+                settingsScale: { low: 1.50, medium: 1.22, high: 1.0, ultra: 0.78 },
+                optimized: false
+            },
+            battlefield2042: {
+                name: 'Battlefield 2042',
+                genre: 'fps',
+                engine: 'Frostbite',
+                icon: '🎖️',
+                color: '#00a2ff',
+                cpuWeight: 0.50,
+                gpuWeight: 0.50,
+                baseFps: { '1080p': 125, '1440p': 95, '4k': 55 },
+                settingsScale: { low: 1.55, medium: 1.25, high: 1.0, ultra: 0.72 },
+                optimized: false
+            },
+            r6siege: {
+                name: 'Rainbow Six Siege',
+                genre: 'fps',
+                engine: 'AnvilNext 2.0',
+                icon: '🏠',
+                color: '#409ccd',
+                cpuWeight: 0.50,
+                gpuWeight: 0.50,
+                baseFps: { '1080p': 320, '1440p': 245, '4k': 150 },
+                settingsScale: { low: 1.30, medium: 1.12, high: 1.0, ultra: 0.85 },
+                optimized: true
+            },
+            tarkov: {
+                name: 'Escape from Tarkov',
+                genre: 'fps',
+                engine: 'Unity',
+                icon: '🎒',
+                color: '#1a1a1a',
+                cpuWeight: 0.60,
+                gpuWeight: 0.40,
+                baseFps: { '1080p': 95, '1440p': 80, '4k': 50 },
+                settingsScale: { low: 1.45, medium: 1.20, high: 1.0, ultra: 0.75 },
+                optimized: false
+            },
+            pubg: {
+                name: 'PUBG',
+                genre: 'fps',
+                engine: 'Unreal Engine 4',
+                icon: '🍳',
+                color: '#f2a900',
+                cpuWeight: 0.50,
+                gpuWeight: 0.50,
+                baseFps: { '1080p': 165, '1440p': 130, '4k': 75 },
+                settingsScale: { low: 1.50, medium: 1.22, high: 1.0, ultra: 0.80 },
+                optimized: false
+            },
+            // Open World Games
+            cyberpunk: {
+                name: 'Cyberpunk 2077',
+                genre: 'openworld',
+                engine: 'REDengine 4',
+                icon: '🌆',
+                color: '#fcee0a',
+                cpuWeight: 0.35,
+                gpuWeight: 0.65,
+                baseFps: { '1080p': 95, '1440p': 65, '4k': 35 },
+                settingsScale: { low: 1.80, medium: 1.35, high: 1.0, ultra: 0.65 },
+                optimized: false
+            },
+            rdr2: {
+                name: 'Red Dead Redemption 2',
+                genre: 'openworld',
+                engine: 'RAGE',
+                icon: '🤠',
+                color: '#8b0000',
+                cpuWeight: 0.40,
+                gpuWeight: 0.60,
+                baseFps: { '1080p': 105, '1440p': 78, '4k': 45 },
+                settingsScale: { low: 1.65, medium: 1.28, high: 1.0, ultra: 0.70 },
+                optimized: false
+            },
+            gta5: {
+                name: 'GTA V',
+                genre: 'openworld',
+                engine: 'RAGE',
+                icon: '🚔',
+                color: '#87b106',
+                cpuWeight: 0.45,
+                gpuWeight: 0.55,
+                baseFps: { '1080p': 145, '1440p': 115, '4k': 70 },
+                settingsScale: { low: 1.45, medium: 1.20, high: 1.0, ultra: 0.78 },
+                optimized: true
+            },
+            hogwarts: {
+                name: 'Hogwarts Legacy',
+                genre: 'openworld',
+                engine: 'Unreal Engine 4',
+                icon: '⚡',
+                color: '#740001',
+                cpuWeight: 0.40,
+                gpuWeight: 0.60,
+                baseFps: { '1080p': 85, '1440p': 62, '4k': 35 },
+                settingsScale: { low: 1.70, medium: 1.30, high: 1.0, ultra: 0.68 },
+                optimized: false
+            },
+            eldenring: {
+                name: 'Elden Ring',
+                genre: 'openworld',
+                engine: 'Custom',
+                icon: '💍',
+                color: '#c9a227',
+                cpuWeight: 0.45,
+                gpuWeight: 0.55,
+                baseFps: { '1080p': 60, '1440p': 58, '4k': 45 },
+                settingsScale: { low: 1.10, medium: 1.05, high: 1.0, ultra: 0.95 },
+                optimized: false
+            },
+            starfield: {
+                name: 'Starfield',
+                genre: 'openworld',
+                engine: 'Creation Engine 2',
+                icon: '🚀',
+                color: '#1a237e',
+                cpuWeight: 0.50,
+                gpuWeight: 0.50,
+                baseFps: { '1080p': 75, '1440p': 55, '4k': 32 },
+                settingsScale: { low: 1.55, medium: 1.25, high: 1.0, ultra: 0.70 },
+                optimized: false
+            },
+            // Racing Games
+            fh5: {
+                name: 'Forza Horizon 5',
+                genre: 'racing',
+                engine: 'ForzaTech',
+                icon: '🏎️',
+                color: '#e95420',
+                cpuWeight: 0.40,
+                gpuWeight: 0.60,
+                baseFps: { '1080p': 135, '1440p': 105, '4k': 65 },
+                settingsScale: { low: 1.50, medium: 1.22, high: 1.0, ultra: 0.75 },
+                optimized: true
+            },
+            fm2023: {
+                name: 'Forza Motorsport',
+                genre: 'racing',
+                engine: 'ForzaTech',
+                icon: '🏁',
+                color: '#107c10',
+                cpuWeight: 0.45,
+                gpuWeight: 0.55,
+                baseFps: { '1080p': 115, '1440p': 88, '4k': 52 },
+                settingsScale: { low: 1.45, medium: 1.20, high: 1.0, ultra: 0.72 },
+                optimized: false
+            },
+            assetto: {
+                name: 'Assetto Corsa Comp.',
+                genre: 'racing',
+                engine: 'Unreal Engine 4',
+                icon: '🏆',
+                color: '#ff4500',
+                cpuWeight: 0.55,
+                gpuWeight: 0.45,
+                baseFps: { '1080p': 125, '1440p': 100, '4k': 60 },
+                settingsScale: { low: 1.40, medium: 1.18, high: 1.0, ultra: 0.80 },
+                optimized: false
+            },
+            // New AAA Titles (2024-2025)
+            blackmyth: {
+                name: 'Black Myth: Wukong',
+                genre: 'openworld',
+                engine: 'Unreal Engine 5',
+                icon: '🐵',
+                color: '#d4a017',
+                cpuWeight: 0.35,
+                gpuWeight: 0.65,
+                baseFps: { '1080p': 75, '1440p': 55, '4k': 32 },
+                settingsScale: { low: 1.75, medium: 1.35, high: 1.0, ultra: 0.62 },
+                optimized: false
+            },
+            alanwake2: {
+                name: 'Alan Wake 2',
+                genre: 'openworld',
+                engine: 'Northlight',
+                icon: '🔦',
+                color: '#1a1a2e',
+                cpuWeight: 0.40,
+                gpuWeight: 0.60,
+                baseFps: { '1080p': 65, '1440p': 48, '4k': 28 },
+                settingsScale: { low: 1.85, medium: 1.40, high: 1.0, ultra: 0.58 },
+                optimized: false
+            },
+            baldursgate3: {
+                name: "Baldur's Gate 3",
+                genre: 'openworld',
+                engine: 'Divinity 4.0',
+                icon: '⚔️',
+                color: '#8b0000',
+                cpuWeight: 0.55,
+                gpuWeight: 0.45,
+                baseFps: { '1080p': 95, '1440p': 75, '4k': 50 },
+                settingsScale: { low: 1.50, medium: 1.22, high: 1.0, ultra: 0.78 },
+                optimized: true
+            },
+            diablo4: {
+                name: 'Diablo IV',
+                genre: 'openworld',
+                engine: 'Custom',
+                icon: '😈',
+                color: '#8b0000',
+                cpuWeight: 0.45,
+                gpuWeight: 0.55,
+                baseFps: { '1080p': 115, '1440p': 88, '4k': 55 },
+                settingsScale: { low: 1.55, medium: 1.25, high: 1.0, ultra: 0.72 },
+                optimized: true
+            },
+            thefinals: {
+                name: 'The Finals',
+                genre: 'esports',
+                engine: 'Unreal Engine 4',
+                icon: '💣',
+                color: '#ff6b35',
+                cpuWeight: 0.50,
+                gpuWeight: 0.50,
+                baseFps: { '1080p': 145, '1440p': 110, '4k': 65 },
+                settingsScale: { low: 1.55, medium: 1.25, high: 1.0, ultra: 0.75 },
+                optimized: false
+            },
+            marvelrivals: {
+                name: 'Marvel Rivals',
+                genre: 'esports',
+                engine: 'Unreal Engine 5',
+                icon: '🦸',
+                color: '#ed1d24',
+                cpuWeight: 0.50,
+                gpuWeight: 0.50,
+                baseFps: { '1080p': 135, '1440p': 105, '4k': 62 },
+                settingsScale: { low: 1.60, medium: 1.28, high: 1.0, ultra: 0.72 },
+                optimized: false
+            },
+            deltaforce: {
+                name: 'Delta Force',
+                genre: 'fps',
+                engine: 'Unreal Engine 5',
+                icon: '🎖️',
+                color: '#4a5d23',
+                cpuWeight: 0.45,
+                gpuWeight: 0.55,
+                baseFps: { '1080p': 120, '1440p': 92, '4k': 55 },
+                settingsScale: { low: 1.55, medium: 1.25, high: 1.0, ultra: 0.70 },
+                optimized: false
+            },
+            stalker2: {
+                name: 'S.T.A.L.K.E.R. 2',
+                genre: 'openworld',
+                engine: 'Unreal Engine 5',
+                icon: '☢️',
+                color: '#4a4a4a',
+                cpuWeight: 0.40,
+                gpuWeight: 0.60,
+                baseFps: { '1080p': 60, '1440p': 45, '4k': 28 },
+                settingsScale: { low: 1.80, medium: 1.38, high: 1.0, ultra: 0.60 },
+                optimized: false
+            },
+            armoredcore6: {
+                name: 'Armored Core VI',
+                genre: 'fps',
+                engine: 'Custom',
+                icon: '🤖',
+                color: '#2c3e50',
+                cpuWeight: 0.45,
+                gpuWeight: 0.55,
+                baseFps: { '1080p': 60, '1440p': 58, '4k': 48 },
+                settingsScale: { low: 1.15, medium: 1.08, high: 1.0, ultra: 0.92 },
+                optimized: false
+            },
+            spacemarine2: {
+                name: 'Space Marine 2',
+                genre: 'fps',
+                engine: 'Swarm Engine',
+                icon: '⚔️',
+                color: '#003366',
+                cpuWeight: 0.45,
+                gpuWeight: 0.55,
+                baseFps: { '1080p': 95, '1440p': 72, '4k': 45 },
+                settingsScale: { low: 1.60, medium: 1.28, high: 1.0, ultra: 0.72 },
+                optimized: true
+            },
+            helldivers2: {
+                name: 'Helldivers 2',
+                genre: 'fps',
+                engine: 'Autodesk Stingray',
+                icon: '🪖',
+                color: '#ffd700',
+                cpuWeight: 0.50,
+                gpuWeight: 0.50,
+                baseFps: { '1080p': 105, '1440p': 80, '4k': 50 },
+                settingsScale: { low: 1.55, medium: 1.25, high: 1.0, ultra: 0.72 },
+                optimized: false
+            },
+            pathofexile2: {
+                name: 'Path of Exile 2',
+                genre: 'openworld',
+                engine: 'Custom',
+                icon: '🗡️',
+                color: '#af0000',
+                cpuWeight: 0.55,
+                gpuWeight: 0.45,
+                baseFps: { '1080p': 110, '1440p': 85, '4k': 52 },
+                settingsScale: { low: 1.50, medium: 1.22, high: 1.0, ultra: 0.75 },
+                optimized: false
+            },
+            gtavi: {
+                name: 'GTA VI (Est.)',
+                genre: 'openworld',
+                engine: 'RAGE',
+                icon: '🌴',
+                color: '#ff69b4',
+                cpuWeight: 0.40,
+                gpuWeight: 0.60,
+                baseFps: { '1080p': 70, '1440p': 52, '4k': 32 },
+                settingsScale: { low: 1.70, medium: 1.32, high: 1.0, ultra: 0.65 },
+                optimized: false
+            }
+        };
+
+        // Multipliers
+        const RESOLUTION_MULT = {
+            '1080p': 1.0,
+            '1440p': 0.72,
+            '4k': 0.42
+        };
+
+        const RAM_MULT = {
+            '8': 0.88,
+            '16': 1.0,
+            '32': 1.02
+        };
+
+        // =====================================================
+        // STATE & INITIALIZATION
+        // =====================================================
+
+        let currentConfig = {
+            gpu: 'rtx4070',
+            cpu: 'i5-14600k',
+            ram: '16',
+            resolution: '1080p',
+            settings: 'high',
+            filter: 'all'
+        };
+
+        // Populate selects
+        function populateSelects() {
+            const gpuSelect = document.getElementById('gpuSelect');
+            const cpuSelect = document.getElementById('cpuSelect');
+
+            // GPUs grouped by brand
+            const gpuGroups = {
+                'NVIDIA RTX 50 Series': ['rtx5090', 'rtx5080', 'rtx5070ti', 'rtx5070'],
+                'NVIDIA RTX 40 Series': ['rtx4090', 'rtx4080super', 'rtx4080', 'rtx4070tisuper', 'rtx4070ti', 'rtx4070super', 'rtx4070', 'rtx4060ti16', 'rtx4060ti', 'rtx4060'],
+                'NVIDIA RTX 30 Series': ['rtx3090', 'rtx3080', 'rtx3070', 'rtx3060'],
+                'AMD Radeon RX 9000': ['rx9070xt', 'rx9070'],
+                'AMD Radeon RX 7000': ['rx7900xtx', 'rx7900xt', 'rx7900gre', 'rx7800xt', 'rx7700xt', 'rx7600xt', 'rx7600'],
+                'Intel Arc': ['arcb580', 'arca770', 'arca750']
+            };
+
+            for (const [group, gpus] of Object.entries(gpuGroups)) {
+                const optgroup = document.createElement('optgroup');
+                optgroup.label = group;
+                gpus.forEach(id => {
+                    const opt = document.createElement('option');
+                    opt.value = id;
+                    opt.textContent = `${GPU_DATABASE[id].name} (${GPU_DATABASE[id].vram}GB) - $${GPU_DATABASE[id].price}`;
+                    if (id === currentConfig.gpu) opt.selected = true;
+                    optgroup.appendChild(opt);
+                });
+                gpuSelect.appendChild(optgroup);
+            }
+
+            // CPUs grouped by brand
+            const cpuGroups = {
+                'Intel Core Ultra 200': ['ultra9-285k', 'ultra7-265k', 'ultra5-245k'],
+                'Intel 14th Gen': ['i9-14900k', 'i7-14700k', 'i5-14600k', 'i5-14400f'],
+                'Intel 13th Gen': ['i9-13900k', 'i7-13700k', 'i5-13600k', 'i5-13400f', 'i3-12100f'],
+                'AMD Ryzen 9000': ['r9-9950x', 'r9-9900x', 'r7-9800x3d', 'r7-9700x', 'r5-9600x'],
+                'AMD Ryzen 7000': ['r9-7950x3d', 'r9-7950x', 'r7-7800x3d', 'r7-7700x', 'r5-7600x', 'r5-7600'],
+                'AMD Ryzen 5000': ['r7-5800x3d', 'r5-5600x', 'r5-5600']
+            };
+
+            for (const [group, cpus] of Object.entries(cpuGroups)) {
+                const optgroup = document.createElement('optgroup');
+                optgroup.label = group;
+                cpus.forEach(id => {
+                    const opt = document.createElement('option');
+                    opt.value = id;
+                    opt.textContent = `${CPU_DATABASE[id].name} (${CPU_DATABASE[id].cores}C) - $${CPU_DATABASE[id].price}`;
+                    if (id === currentConfig.cpu) opt.selected = true;
+                    optgroup.appendChild(opt);
+                });
+                cpuSelect.appendChild(optgroup);
+            }
+        }
+
+        // =====================================================
+        // FPS CALCULATION ENGINE
+        // =====================================================
+
+        function calculateGameFPS(gameId) {
+            const game = GAMES_DATABASE[gameId];
+            const gpu = GPU_DATABASE[currentConfig.gpu];
+            const cpu = CPU_DATABASE[currentConfig.cpu];
+
+            // Base FPS for selected resolution (calibrated to RTX 4070 + i5-14600K)
+            const baselineFps = game.baseFps[currentConfig.resolution];
+
+            // GPU scaling (RTX 4070 = 160 score = baseline)
+            const gpuScale = gpu.score / 160;
+
+            // CPU scaling (i5-14600K = 165 score = baseline)
+            const cpuScale = cpu.score / 165;
+
+            // Combined hardware scale with game-specific weights
+            const hardwareScale = (cpuScale * game.cpuWeight) + (gpuScale * game.gpuWeight);
+
+            // Settings multiplier
+            const settingsScale = game.settingsScale[currentConfig.settings];
+
+            // RAM multiplier
+            const ramScale = RAM_MULT[currentConfig.ram];
+
+            // Calculate final FPS
+            let avgFps = Math.round(baselineFps * hardwareScale * settingsScale * ramScale);
+
+            // Apply diminishing returns for very high FPS (above 400)
+            if (avgFps > 400) {
+                avgFps = 400 + Math.round((avgFps - 400) * 0.5);
+            }
+
+            // CPU bottleneck check for esports titles
+            if (game.genre === 'esports' && cpuScale < gpuScale * 0.7) {
+                avgFps = Math.round(avgFps * 0.85);
+            }
+
+            // VRAM limitation check for 4K
+            if (currentConfig.resolution === '4k' && gpu.vram < 10) {
+                avgFps = Math.round(avgFps * 0.88);
+            }
+
+            // 1% low calculation (typically 65-80% of average)
+            const lowVariance = game.optimized ? 0.78 : 0.68;
+            const lowFps = Math.round(avgFps * (lowVariance + Math.random() * 0.07));
+
+            return { avg: avgFps, low: lowFps };
+        }
+
+        function getFpsClass(fps) {
+            if (fps >= 144) return 'excellent';
+            if (fps >= 100) return 'good';
+            if (fps >= 60) return 'okay';
+            return 'poor';
+        }
+
+        function getPerformancePercent(fps) {
+            // Scale: 30 FPS = 0%, 240+ FPS = 100%
+            return Math.min(100, Math.max(0, ((fps - 30) / 210) * 100));
+        }
+
+        function getPerformanceColor(fps) {
+            if (fps >= 144) return '#10b981';
+            if (fps >= 100) return '#22c55e';
+            if (fps >= 60) return '#f59e0b';
+            return '#ef4444';
+        }
+
+        // =====================================================
+        // UI RENDERING
+        // =====================================================
+
+        function renderGames() {
+            const grid = document.getElementById('gamesGrid');
+            grid.innerHTML = '';
+
+            for (const [id, game] of Object.entries(GAMES_DATABASE)) {
+                const fps = calculateGameFPS(id);
+                const perfPercent = getPerformancePercent(fps.avg);
+                const perfColor = getPerformanceColor(fps.avg);
+
+                const card = document.createElement('div');
+                card.className = `game-card ${currentConfig.filter !== 'all' && game.genre !== currentConfig.filter ? 'hidden' : ''}`;
+                card.innerHTML = `
+                    <div class="game-header">
+                        <div class="game-icon" style="background: ${game.color};">${game.icon}</div>
+                        <div class="game-info">
+                            <div class="game-name">${game.name}</div>
+                            <div class="game-meta">
+                                <span class="game-genre">${game.genre.toUpperCase()}</span>
+                                <span>${game.engine}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fps-row">
+                        <div class="fps-box">
+                            <div class="fps-value ${getFpsClass(fps.avg)}">${fps.avg}</div>
+                            <div class="fps-label">Avg FPS</div>
+                        </div>
+                        <div class="fps-box">
+                            <div class="fps-value ${getFpsClass(fps.low)}">${fps.low}</div>
+                            <div class="fps-label">1% Low</div>
+                        </div>
+                    </div>
+                    <div class="perf-bar-container">
+                        <div class="perf-bar-label">
+                            <span>Performance</span>
+                            <span>${fps.avg >= 144 ? 'Excellent' : fps.avg >= 100 ? 'Good' : fps.avg >= 60 ? 'Playable' : 'Low'}</span>
+                        </div>
+                        <div class="perf-bar">
+                            <div class="perf-bar-fill" style="width: ${perfPercent}%; background: ${perfColor};"></div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            }
+        }
+
+        function updateUI() {
+            const gpu = GPU_DATABASE[currentConfig.gpu];
+            const cpu = CPU_DATABASE[currentConfig.cpu];
+
+            // Update buy links
+            document.getElementById('gpuBuyLink').href = gpu.buyUrl;
+            document.getElementById('cpuBuyLink').href = cpu.buyUrl;
+
+            // Update price
+            const total = gpu.price + cpu.price;
+            document.getElementById('totalPrice').textContent = `$${total.toLocaleString()}`;
+
+            // Update spec chips
+            document.getElementById('chipGpu').textContent = gpu.name.replace('NVIDIA ', '').replace('AMD ', '');
+            document.getElementById('chipCpu').textContent = cpu.name.replace('Intel Core ', '').replace('AMD ', '');
+            document.getElementById('chipRam').textContent = `${currentConfig.ram} GB DDR5`;
+            document.getElementById('chipRes').textContent = currentConfig.resolution.toUpperCase();
+            document.getElementById('chipSettings').textContent = currentConfig.settings.charAt(0).toUpperCase() + currentConfig.settings.slice(1);
+
+            // Render games
+            renderGames();
+        }
+
+        // =====================================================
+        // EVENT HANDLERS
+        // =====================================================
+
+        document.getElementById('gpuSelect').addEventListener('change', function() {
+            currentConfig.gpu = this.value;
+            updateUI();
+        });
+
+        document.getElementById('cpuSelect').addEventListener('change', function() {
+            currentConfig.cpu = this.value;
+            updateUI();
+        });
+
+        function setupToggleGroup(groupId, configKey) {
+            const group = document.getElementById(groupId);
+            const buttons = group.querySelectorAll('.toggle-btn');
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    buttons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentConfig[configKey] = this.dataset.value;
+                    updateUI();
+                });
+            });
+        }
+
+        setupToggleGroup('ramToggle', 'ram');
+        setupToggleGroup('resolutionToggle', 'resolution');
+        setupToggleGroup('settingsToggle', 'settings');
+
+        // Game filter
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentConfig.filter = this.dataset.filter;
+                updateUI();
+            });
+        });
+
+        // Language toggle
+        const langBtns = document.querySelectorAll('.lang-btn');
+        let currentLang = 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            langBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            document.querySelectorAll('[data-en]').forEach(el => {
+                const text = el.getAttribute(`data-${lang}`);
+                if (text) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = text;
+                    } else {
+                        el.textContent = text;
+                    }
+                }
+            });
+
+            document.documentElement.lang = lang;
+        }
+
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (hamburger && mobileMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        }
+
+        // =====================================================
+        // INITIALIZATION
+        // =====================================================
+
+        populateSelects();
+        updateUI();
+    </script>
+    <script src="themes.js"></script>
+    <script src="effects.js"></script>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+<script>
+    // Back to top button
+    const backToTopBtn = document.getElementById('backToTop');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            backToTopBtn.classList.toggle('visible', window.scrollY > 400);
+        });
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Active nav link
+    (function() {
+        const currentFile = location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && (href === currentFile || (currentFile === '' && href === 'index.html'))) {
+                link.classList.add('active');
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

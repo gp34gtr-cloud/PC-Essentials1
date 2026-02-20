@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071e3'/%3E%3Crect x='5' y='7' width='22' height='14' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cline x1='10' y1='25' x2='22' y2='25' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='16' y1='21' x2='16' y2='25' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+    <meta name="description" content="Fix common PC problems fast — blue screens, slow performance, driver issues, and network problems explained.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Troubleshooting | PC Essentials</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="base-styles.css">
+    <style>
+        :root {
+            --bg-primary: #080505;
+            --bg-secondary: #0f0909;
+            --bg-tertiary: #1a1010;
+            --bg-card: rgba(26, 16, 16, 0.5);
+            --bg-card-solid: #150d0d;
+            --text-primary: #ffffff;
+            --text-secondary: #c8a8a8;
+            --text-tertiary: #8a6a6a;
+            --accent: #ef4444;
+            --accent-light: #f87171;
+            --accent-hover: #dc2626;
+            --accent-glow: rgba(239, 68, 68, 0.4);
+            --border: rgba(239, 68, 68, 0.15);
+            --border-light: rgba(255, 255, 255, 0.06);
+            --card-radius: 20px;
+            --green: #22c55e;
+            --yellow: #eab308;
+            --red: #ef4444;
+            --blue: #3b82f6;
+            --orange: #f97316;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated gradient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(239, 68, 68, 0.12), transparent),
+                radial-gradient(ellipse 60% 40% at 100% 50%, rgba(239, 68, 68, 0.06), transparent),
+                radial-gradient(ellipse 60% 40% at 0% 80%, rgba(239, 68, 68, 0.04), transparent);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(8, 5, 5, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: opacity 0.2s;
+        }
+
+        .logo:hover {
+            opacity: 0.8;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-links a.active {
+            color: var(--accent-light);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lang-toggle {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 4px;
+        }
+
+        .lang-btn {
+            padding: 6px 14px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 500;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        /* Tools Sub-Navigation */
+        .tools-subnav {
+            background: rgba(15, 9, 9, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+            margin-top: 64px;
+            position: sticky;
+            top: 64px;
+            z-index: 99;
+        }
+
+        .tools-subnav-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            padding: 14px 20px;
+            overflow-x: auto;
+        }
+
+        .tools-subnav-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tools-subnav-link {
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+
+        .tools-subnav-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border-color: var(--border-light);
+        }
+
+        .tools-subnav-link.active {
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            color: white;
+            box-shadow: 0 4px 20px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.1);
+            border-color: transparent;
+        }
+
+        .page-header {
+            padding: 80px 24px 50px;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.03em;
+            background: linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.6) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            line-height: 1.7;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 100px;
+        }
+
+        /* Problem Selector */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 18px;
+            margin-bottom: 40px;
+        }
+
+        .problem-btn {
+            padding: 24px 20px;
+            background: linear-gradient(135deg, rgba(26, 16, 16, 0.5) 0%, rgba(15, 9, 9, 0.3) 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid rgba(239, 68, 68, 0.1);
+            border-radius: 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .problem-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.4), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .problem-btn:hover {
+            border-color: rgba(239, 68, 68, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 40px rgba(239, 68, 68, 0.08);
+        }
+
+        .problem-btn:hover::before {
+            opacity: 1;
+        }
+
+        .problem-btn.active {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.05) 100%);
+            box-shadow: 0 8px 30px rgba(239, 68, 68, 0.2), inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+
+        .problem-btn.active::before {
+            opacity: 1;
+        }
+
+        .problem-icon {
+            font-size: 2.25rem;
+            margin-bottom: 10px;
+        }
+
+        .problem-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: -0.01em;
+        }
+
+        /* Solution Sections */
+        .solution-section {
+            display: none;
+        }
+
+        .solution-section.active {
+            display: block;
+        }
+
+        .solution-card {
+            background: linear-gradient(135deg, rgba(26, 16, 16, 0.5) 0%, rgba(15, 9, 9, 0.3) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(239, 68, 68, 0.1);
+            border-radius: var(--card-radius);
+            padding: 28px;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .solution-card:hover {
+            border-color: rgba(239, 68, 68, 0.2);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .solution-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+            cursor: pointer;
+        }
+
+        .solution-number {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #fff;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .solution-title {
+            flex: 1;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .solution-difficulty {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border: 1px solid transparent;
+        }
+
+        .difficulty-easy {
+            background: rgba(34, 197, 94, 0.12);
+            border-color: rgba(34, 197, 94, 0.2);
+            color: var(--green);
+            box-shadow: 0 2px 10px rgba(34, 197, 94, 0.1);
+        }
+
+        .difficulty-medium {
+            background: rgba(234, 179, 8, 0.12);
+            border-color: rgba(234, 179, 8, 0.2);
+            color: var(--yellow);
+            box-shadow: 0 2px 10px rgba(234, 179, 8, 0.1);
+        }
+
+        .difficulty-hard {
+            background: rgba(239, 68, 68, 0.12);
+            border-color: rgba(239, 68, 68, 0.2);
+            color: var(--red);
+            box-shadow: 0 2px 10px rgba(239, 68, 68, 0.1);
+        }
+
+        .solution-body {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .solution-body strong {
+            color: var(--text-primary);
+        }
+
+        .solution-body code {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-light);
+        }
+
+        .solution-body ol, .solution-body ul {
+            padding-left: 24px;
+            margin: 14px 0;
+        }
+
+        .solution-body li {
+            margin-bottom: 10px;
+        }
+
+        .warning-box {
+            margin-top: 18px;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, rgba(234, 179, 8, 0.1) 0%, rgba(234, 179, 8, 0.03) 100%);
+            border: 1px solid rgba(234, 179, 8, 0.2);
+            border-radius: 14px;
+            font-size: 0.875rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .warning-box strong {
+            color: var(--yellow);
+        }
+
+        .success-box {
+            margin-top: 18px;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(34, 197, 94, 0.03) 100%);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 14px;
+            font-size: 0.875rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .success-box strong {
+            color: var(--green);
+        }
+
+        /* BSOD Codes */
+        .bsod-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 20px;
+        }
+
+        .bsod-card {
+            background: linear-gradient(135deg, rgba(26, 16, 16, 0.5) 0%, rgba(15, 9, 9, 0.3) 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(239, 68, 68, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .bsod-card:hover {
+            border-color: rgba(239, 68, 68, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .bsod-code {
+            font-family: 'Consolas', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-light);
+            margin-bottom: 10px;
+            padding: 6px 10px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .bsod-name {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+
+        .bsod-cause {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 14px;
+            line-height: 1.6;
+        }
+
+        .bsod-fix {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+
+        /* Search */
+        .search-box {
+            margin-bottom: 28px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, rgba(26, 16, 16, 0.5) 0%, rgba(15, 9, 9, 0.3) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(239, 68, 68, 0.15);
+            border-radius: 14px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.15);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 24px;
+            border-top: 1px solid rgba(239, 68, 68, 0.1);
+            text-align: center;
+            background: linear-gradient(180deg, transparent 0%, rgba(239, 68, 68, 0.02) 100%);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 36px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-light);
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .footer-copy {
+            color: var(--text-tertiary);
+            font-size: 0.8rem;
+        }
+
+        /* Mobile */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 16px 24px;
+        }
+
+        .mobile-menu.active { display: flex; }
+
+        .mobile-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .page-header h1 { font-size: 2rem; }
+            .problem-grid { grid-template-columns: repeat(2, 1fr); }
+            .bsod-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                        <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <span>PC Essentials</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                
+                <li><a href="setup-checklist.html">Setup</a></li>
+                <li><a href="software.html" data-en="Software" data-mn="Програм">Software</a></li>
+                <li><a href="peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a></li>
+                <li><a href="ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a></li>
+                
+                <li><a href="performance.html">Performance</a></li>
+                <li><a href="shortcuts.html">Shortcuts</a></li>
+                
+                <li><a href="maintenance.html" class="active" data-en="Tools" data-mn="Хэрэгслүүд">Tools</a>
+            <a href="typing-test.html">Typing Test</a>
+            <a href="pc-name-generator.html">Name Gen</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="mn">MN</button>
+                </div>
+                <button class="hamburger" id="hamburger">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" data-en="Home" data-mn="Нүүр">Home</a>
+            <a href="setup-checklist.html">Setup Guide</a>
+            <a href="software.html" data-en="Software" data-mn="Програм">Software</a>
+            <a href="peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a>
+            
+            <a href="ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a>
+            <a href="shortcuts.html">Shortcuts</a>
+            <a href="performance.html" data-en="Performance" data-mn="Гүйцэтгэл">Performance</a>
+            <a href="youtube-guide.html" data-en="Build Guide" data-mn="Угсрах Заавар">Build Guide</a>
+            <a href="maintenance.html" class="active" data-en="Tools" data-mn="Хэрэгслүүд">Tools</a>
+        </div>
+    </nav>
+
+    <!-- Tools Sub-Navigation -->
+    <div class="tools-subnav">
+        <div class="tools-subnav-container">
+            <a href="maintenance.html" class="tools-subnav-link">🔧 Maintenance</a>
+            <a href="optimization.html" class="tools-subnav-link">⚡ Optimize</a>
+            <a href="troubleshoot.html" class="tools-subnav-link active">🛠️ Troubleshoot</a>
+            <a href="upgrade-planner.html" class="tools-subnav-link">📈 Upgrade</a>
+            <a href="can-i-run-it.html" class="tools-subnav-link">🎮 Can I Run It?</a>
+        </div>
+    </div>
+
+    <header class="page-header">
+        <h1>🔧 PC Troubleshooting</h1>
+        <p>Common PC problems and how to fix them. Step-by-step solutions that actually work.</p>
+    </header>
+
+    <main class="main-content">
+        <!-- Problem Selector -->
+        <div class="problem-grid">
+            <div class="problem-btn active" data-problem="slow">
+                <div class="problem-icon">🐌</div>
+                <div class="problem-title">PC is Slow</div>
+            </div>
+            <div class="problem-btn" data-problem="stutter">
+                <div class="problem-icon">📉</div>
+                <div class="problem-title">Game Stuttering</div>
+            </div>
+            <div class="problem-btn" data-problem="crash">
+                <div class="problem-icon">💥</div>
+                <div class="problem-title">Games Crashing</div>
+            </div>
+            <div class="problem-btn" data-problem="bsod">
+                <div class="problem-icon">💀</div>
+                <div class="problem-title">Blue Screen</div>
+            </div>
+            <div class="problem-btn" data-problem="noboot">
+                <div class="problem-icon">⚫</div>
+                <div class="problem-title">Won't Boot</div>
+            </div>
+            <div class="problem-btn" data-problem="heat">
+                <div class="problem-icon">🔥</div>
+                <div class="problem-title">Overheating</div>
+            </div>
+        </div>
+
+        <!-- PC is Slow -->
+        <div class="solution-section active" id="slow">
+            <h2 style="margin-bottom: 24px;">🐌 My PC is Slow - Diagnostic Guide</h2>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">1</div>
+                    <div class="solution-title">Check What's Using Your Resources</div>
+                    <span class="solution-difficulty difficulty-easy">Easy</span>
+                </div>
+                <div class="solution-body">
+                    <ol>
+                        <li>Press <code>Ctrl + Shift + Esc</code> to open Task Manager</li>
+                        <li>Click "More details" if in simple view</li>
+                        <li>Click on <strong>CPU</strong>, <strong>Memory</strong>, or <strong>Disk</strong> columns to sort by usage</li>
+                        <li>Look for programs using high percentages (80%+)</li>
+                        <li>Right-click → End Task on anything suspicious you don't need</li>
+                    </ol>
+                    <div class="warning-box">
+                        <strong>⚠️ Common culprits:</strong> Chrome (memory hog), Windows Update, antivirus scans, cloud sync apps (OneDrive, Dropbox)
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">2</div>
+                    <div class="solution-title">Disable Startup Programs</div>
+                    <span class="solution-difficulty difficulty-easy">Easy</span>
+                </div>
+                <div class="solution-body">
+                    <ol>
+                        <li>Open Task Manager (<code>Ctrl + Shift + Esc</code>)</li>
+                        <li>Go to <strong>Startup apps</strong> tab</li>
+                        <li>Disable programs you don't need at startup</li>
+                        <li>Keep: GPU drivers, audio drivers. Disable: Spotify, Discord, Steam, etc.</li>
+                        <li>Restart your PC</li>
+                    </ol>
+                    <div class="success-box">
+                        <strong>✓ Impact:</strong> Faster boot times and more available RAM
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">3</div>
+                    <div class="solution-title">Free Up Disk Space</div>
+                    <span class="solution-difficulty difficulty-easy">Easy</span>
+                </div>
+                <div class="solution-body">
+                    <ol>
+                        <li>Press <code>Win + E</code> to open File Explorer</li>
+                        <li>Check if your C: drive is nearly full (red bar = bad)</li>
+                        <li>Search "Disk Cleanup" in Start menu and run it</li>
+                        <li>Check all boxes and click "Clean up system files"</li>
+                        <li>Also check "Previous Windows installations" (can be 10+ GB)</li>
+                    </ol>
+                    <div class="warning-box">
+                        <strong>⚠️ Important:</strong> SSDs need 10-20% free space to perform optimally. If nearly full, performance drops significantly.
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">4</div>
+                    <div class="solution-title">Scan for Malware</div>
+                    <span class="solution-difficulty difficulty-easy">Easy</span>
+                </div>
+                <div class="solution-body">
+                    <ol>
+                        <li>Open <strong>Windows Security</strong> (search in Start)</li>
+                        <li>Click <strong>Virus & threat protection</strong></li>
+                        <li>Click <strong>Quick scan</strong> (or Full scan for thorough check)</li>
+                        <li>Also run <strong>Malwarebytes Free</strong> for a second opinion</li>
+                    </ol>
+                    <div class="success-box">
+                        <strong>✓ Tip:</strong> Windows Defender is actually good now. No need for paid antivirus.
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">5</div>
+                    <div class="solution-title">Check RAM and Storage Health</div>
+                    <span class="solution-difficulty difficulty-medium">Medium</span>
+                </div>
+                <div class="solution-body">
+                    <ol>
+                        <li><strong>Check RAM:</strong> Search "Windows Memory Diagnostic" → Restart and check</li>
+                        <li><strong>Check SSD/HDD:</strong> Download <a href="https://crystalmark.info/en/software/crystaldiskinfo/" target="_blank" style="color: var(--accent);">CrystalDiskInfo</a></li>
+                        <li>Look for "Health Status" - should say "Good"</li>
+                        <li>"Caution" or "Bad" means your drive is failing - backup now!</li>
+                    </ol>
+                    <div class="warning-box">
+                        <strong>⚠️ Signs of dying SSD/HDD:</strong> Random freezes, slow file transfers, files becoming corrupted, increasing bad sectors
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">6</div>
+                    <div class="solution-title">Fresh Windows Install (Nuclear Option)</div>
+                    <span class="solution-difficulty difficulty-hard">Last Resort</span>
+                </div>
+                <div class="solution-body">
+                    <p>If nothing else works, a fresh Windows install often fixes deep issues:</p>
+                    <ol>
+                        <li>Backup all important files to external drive</li>
+                        <li>Go to Settings → System → Recovery</li>
+                        <li>Click "Reset this PC" → "Remove everything"</li>
+                        <li>Or do a clean install from USB for best results</li>
+                    </ol>
+                    <div class="warning-box">
+                        <strong>⚠️ This will delete everything!</strong> Make sure you have backups of documents, game saves, and important files.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Stuttering -->
+        <div class="solution-section" id="stutter">
+            <h2 style="margin-bottom: 24px;">📉 Game Stuttering - Fix Guide</h2>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">1</div>
+                    <div class="solution-title">Check Your Temperatures</div>
+                    <span class="solution-difficulty difficulty-easy">Easy</span>
+                </div>
+                <div class="solution-body">
+                    <ol>
+                        <li>Download <a href="https://www.hwinfo.com/" target="_blank" style="color: var(--accent);">HWiNFO64</a> or <a href="https://www.msi.com/Landing/afterburner/" target="_blank" style="color: var(--accent);">MSI Afterburner</a></li>
+                        <li>Run your game with monitoring overlay enabled</li>
+                        <li>Check CPU and GPU temperatures</li>
+                        <li><strong>CPU over 90°C</strong> or <strong>GPU over 85°C</strong> = thermal throttling (stutters)</li>
+                    </ol>
+                    <div class="warning-box">
+                        <strong>⚠️ If overheating:</strong> Clean dust, replace thermal paste, improve case airflow, or get better cooling
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">2</div>
+                    <div class="solution-title">Enable/Disable V-Sync Properly</div>
+                    <span class="solution-difficulty difficulty-easy">Easy</span>
+                </div>
+                <div class="solution-body">
+                    <ul>
+                        <li><strong>V-Sync OFF</strong> = Best for competitive games (lower input lag)</li>
+                        <li><strong>V-Sync ON</strong> = Fixes screen tearing but adds input lag</li>
+                        <li><strong>Best solution:</strong> Use G-Sync (NVIDIA) or FreeSync (AMD) if your monitor supports it</li>
+                        <li>Enable in NVIDIA Control Panel or AMD Software, then disable V-Sync in-game</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">3</div>
+                    <div class="solution-title">VRAM/RAM Running Out</div>
+                    <span class="solution-difficulty difficulty-medium">Medium</span>
+                </div>
+                <div class="solution-body">
+                    <p><strong>Stuttering when looking around or entering new areas?</strong> Likely VRAM or RAM issue.</p>
+                    <ol>
+                        <li>Check VRAM usage with MSI Afterburner overlay</li>
+                        <li>If VRAM is maxed out: Lower texture quality</li>
+                        <li>Check RAM usage in Task Manager while gaming</li>
+                        <li>If RAM is near 100%: Close background apps or upgrade RAM</li>
+                    </ol>
+                    <div class="success-box">
+                        <strong>✓ Quick fix:</strong> Lower texture quality from Ultra to High - often saves 2-4GB VRAM with minimal visual difference
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">4</div>
+                    <div class="solution-title">Shader Compilation Stutters</div>
+                    <span class="solution-difficulty difficulty-easy">Easy</span>
+                </div>
+                <div class="solution-body">
+                    <p><strong>Stutters that go away after playing the same area?</strong> Shader compilation.</p>
+                    <ul>
+                        <li>This is normal for first-time loading in many games</li>
+                        <li>Some games have "Compile shaders" option in graphics settings - let it complete</li>
+                        <li>Stutters should reduce after playing through areas once</li>
+                        <li>Don't delete shader cache in GPU drivers (unless troubleshooting)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">5</div>
+                    <div class="solution-title">CPU Bottleneck Check</div>
+                    <span class="solution-difficulty difficulty-medium">Medium</span>
+                </div>
+                <div class="solution-body">
+                    <ol>
+                        <li>Use MSI Afterburner to monitor CPU and GPU usage</li>
+                        <li><strong>CPU at 100%, GPU below 90%</strong> = CPU bottleneck</li>
+                        <li>Solutions for CPU bottleneck:
+                            <ul>
+                                <li>Increase resolution (shifts load to GPU)</li>
+                                <li>Enable graphics-heavy settings</li>
+                                <li>Cap frame rate to reduce CPU load</li>
+                                <li>Close background apps (especially browsers)</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">6</div>
+                    <div class="solution-title">Background App Interference</div>
+                    <span class="solution-difficulty difficulty-easy">Easy</span>
+                </div>
+                <div class="solution-body">
+                    <p><strong>Common causes of random stutters:</strong></p>
+                    <ul>
+                        <li><strong>Windows Update</strong> - Check if update is downloading</li>
+                        <li><strong>Antivirus scan</strong> - Exclude game folders from scans</li>
+                        <li><strong>Cloud sync</strong> - Pause OneDrive, Dropbox, Google Drive</li>
+                        <li><strong>Discord overlay</strong> - Try disabling it</li>
+                        <li><strong>Browser with many tabs</strong> - Close Chrome/Firefox</li>
+                        <li><strong>Recording software</strong> - OBS, NVIDIA Shadowplay can cause stutters</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Games Crashing -->
+        <div class="solution-section" id="crash">
+            <h2 style="margin-bottom: 24px;">💥 Games Crashing - Fix Guide</h2>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">1</div>
+                    <div class="solution-title">Update GPU Drivers</div>
+                    <span class="solution-difficulty difficulty-easy">Easy</span>
+                </div>
+                <div class="solution-body">
+                    <p>80% of game crashes are caused by outdated or corrupted GPU drivers.</p>
+                    <ol>
+                        <li>Download latest driver from <a href="https://www.nvidia.com/drivers" target="_blank" style="color: var(--accent);">NVIDIA</a> or <a href="https://www.amd.com/support" target="_blank" style="color: var(--accent);">AMD</a></li>
+                        <li>Choose "Custom installation" → Check "Clean install"</li>
+                        <li>Restart PC after installation</li>
+                    </ol>
+                    <div class="warning-box">
+                        <strong>⚠️ If new driver causes issues:</strong> Use DDU (Display Driver Uninstaller) in Safe Mode to completely remove drivers, then install a slightly older version
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">2</div>
+                    <div class="solution-title">Verify Game Files</div>
+                    <span class="solution-difficulty difficulty-easy">Easy</span>
+                </div>
+                <div class="solution-body">
+                    <p><strong>Steam:</strong></p>
+                    <ol>
+                        <li>Right-click game → Properties → Installed Files</li>
+                        <li>Click "Verify integrity of game files"</li>
+                    </ol>
+                    <p><strong>Epic Games:</strong></p>
+                    <ol>
+                        <li>Click three dots on game → Manage → Verify</li>
+                    </ol>
+                    <p><strong>Battle.net:</strong></p>
+                    <ol>
+                        <li>Click gear icon → Scan and Repair</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">3</div>
+                    <div class="solution-title">Disable Overclocks</div>
+                    <span class="solution-difficulty difficulty-easy">Easy</span>
+                </div>
+                <div class="solution-body">
+                    <p>Unstable overclocks are a common crash cause that's often overlooked.</p>
+                    <ul>
+                        <li><strong>GPU:</strong> Open MSI Afterburner → Reset all settings to default</li>
+                        <li><strong>CPU:</strong> Enter BIOS → Load default settings</li>
+                        <li><strong>RAM:</strong> Try disabling XMP/EXPO in BIOS temporarily</li>
+                    </ul>
+                    <div class="success-box">
+                        <strong>✓ If crashes stop:</strong> Your overclock is unstable. Lower the settings or increase voltage slightly.
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">4</div>
+                    <div class="solution-title">Run as Administrator</div>
+                    <span class="solution-difficulty difficulty-easy">Easy</span>
+                </div>
+                <div class="solution-body">
+                    <ol>
+                        <li>Find the game's .exe file</li>
+                        <li>Right-click → Properties → Compatibility</li>
+                        <li>Check "Run this program as administrator"</li>
+                        <li>Also try "Disable fullscreen optimizations"</li>
+                        <li>Click Apply → OK</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">5</div>
+                    <div class="solution-title">Check Windows Event Viewer</div>
+                    <span class="solution-difficulty difficulty-medium">Medium</span>
+                </div>
+                <div class="solution-body">
+                    <ol>
+                        <li>Press <code>Win + X</code> → Event Viewer</li>
+                        <li>Go to Windows Logs → Application</li>
+                        <li>Look for red "Error" entries around the time of crash</li>
+                        <li>Double-click to see details - often shows which module crashed</li>
+                        <li>Google the error message for specific solutions</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">6</div>
+                    <div class="solution-title">Reinstall Visual C++ Redistributables</div>
+                    <span class="solution-difficulty difficulty-medium">Medium</span>
+                </div>
+                <div class="solution-body">
+                    <p>Many games need Visual C++ runtime libraries. Corrupted ones cause crashes.</p>
+                    <ol>
+                        <li>Download the All-in-One installer from <a href="https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/" target="_blank" style="color: var(--accent);">TechPowerUp</a></li>
+                        <li>Extract and run <code>install_all.bat</code> as Administrator</li>
+                        <li>This installs all versions from 2005-2022</li>
+                        <li>Restart PC</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blue Screen -->
+        <div class="solution-section" id="bsod">
+            <h2 style="margin-bottom: 24px;">💀 Blue Screen (BSOD) - Error Codes</h2>
+
+            <div class="search-box">
+                <input type="text" class="search-input" id="bsodSearch" placeholder="Search error code (e.g., WHEA_UNCORRECTABLE_ERROR)...">
+            </div>
+
+            <div class="bsod-grid" id="bsodGrid">
+                <div class="bsod-card">
+                    <div class="bsod-code">WHEA_UNCORRECTABLE_ERROR</div>
+                    <div class="bsod-name">Hardware Error</div>
+                    <div class="bsod-cause">Usually caused by: Unstable overclock, failing hardware, or driver issues</div>
+                    <div class="bsod-fix"><strong>Fix:</strong> Reset overclock, update BIOS, check RAM with MemTest86, check SSD health</div>
+                </div>
+
+                <div class="bsod-card">
+                    <div class="bsod-code">KERNEL_SECURITY_CHECK_FAILURE</div>
+                    <div class="bsod-name">Kernel Security Failure</div>
+                    <div class="bsod-cause">Usually caused by: Corrupted drivers, RAM issues, or malware</div>
+                    <div class="bsod-fix"><strong>Fix:</strong> Run SFC /scannow, update drivers, scan for malware, check RAM</div>
+                </div>
+
+                <div class="bsod-card">
+                    <div class="bsod-code">IRQL_NOT_LESS_OR_EQUAL</div>
+                    <div class="bsod-name">Driver Conflict</div>
+                    <div class="bsod-cause">Usually caused by: Faulty driver or hardware conflict</div>
+                    <div class="bsod-fix"><strong>Fix:</strong> Update/rollback recent drivers, especially GPU and network drivers</div>
+                </div>
+
+                <div class="bsod-card">
+                    <div class="bsod-code">PAGE_FAULT_IN_NONPAGED_AREA</div>
+                    <div class="bsod-name">Memory Error</div>
+                    <div class="bsod-cause">Usually caused by: Bad RAM, corrupted page file, or driver issues</div>
+                    <div class="bsod-fix"><strong>Fix:</strong> Test RAM with MemTest86, reset page file, update drivers</div>
+                </div>
+
+                <div class="bsod-card">
+                    <div class="bsod-code">SYSTEM_SERVICE_EXCEPTION</div>
+                    <div class="bsod-name">System Service Error</div>
+                    <div class="bsod-cause">Usually caused by: Incompatible driver or corrupted system file</div>
+                    <div class="bsod-fix"><strong>Fix:</strong> Run SFC /scannow and DISM, update all drivers, check for Windows updates</div>
+                </div>
+
+                <div class="bsod-card">
+                    <div class="bsod-code">CRITICAL_PROCESS_DIED</div>
+                    <div class="bsod-name">Critical Process Failed</div>
+                    <div class="bsod-cause">Usually caused by: Corrupted system files or failing storage</div>
+                    <div class="bsod-fix"><strong>Fix:</strong> Run SFC /scannow, check drive health, may need Windows repair/reinstall</div>
+                </div>
+
+                <div class="bsod-card">
+                    <div class="bsod-code">VIDEO_TDR_FAILURE</div>
+                    <div class="bsod-name">GPU Driver Crash</div>
+                    <div class="bsod-cause">Usually caused by: GPU driver crash, overheating, or unstable GPU overclock</div>
+                    <div class="bsod-fix"><strong>Fix:</strong> DDU and reinstall GPU drivers, check GPU temps, reset overclock</div>
+                </div>
+
+                <div class="bsod-card">
+                    <div class="bsod-code">MEMORY_MANAGEMENT</div>
+                    <div class="bsod-name">Memory Management Error</div>
+                    <div class="bsod-cause">Usually caused by: Faulty RAM, driver issues, or corrupted system files</div>
+                    <div class="bsod-fix"><strong>Fix:</strong> Run Windows Memory Diagnostic, reseat RAM, try one stick at a time</div>
+                </div>
+            </div>
+
+            <div class="solution-card" style="margin-top: 24px;">
+                <div class="solution-header">
+                    <div class="solution-number">!</div>
+                    <div class="solution-title">General BSOD Troubleshooting Steps</div>
+                </div>
+                <div class="solution-body">
+                    <ol>
+                        <li><strong>Note the error code</strong> - Write it down or take a photo</li>
+                        <li><strong>Check recent changes</strong> - New driver, software, or hardware?</li>
+                        <li><strong>Run System File Checker:</strong> Open CMD as Admin → <code>sfc /scannow</code></li>
+                        <li><strong>Run DISM:</strong> <code>DISM /Online /Cleanup-Image /RestoreHealth</code></li>
+                        <li><strong>Update all drivers</strong> - Especially GPU, chipset, and network</li>
+                        <li><strong>Check for Windows updates</strong></li>
+                        <li><strong>Test RAM</strong> - Use Windows Memory Diagnostic or MemTest86</li>
+                        <li><strong>Check temps</strong> - Overheating can cause BSODs</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Won't Boot -->
+        <div class="solution-section" id="noboot">
+            <h2 style="margin-bottom: 24px;">⚫ PC Won't Boot - Diagnostic Guide</h2>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">1</div>
+                    <div class="solution-title">No Power At All</div>
+                    <span class="solution-difficulty difficulty-easy">Easy</span>
+                </div>
+                <div class="solution-body">
+                    <ul>
+                        <li>Check power cable is plugged in (both ends)</li>
+                        <li>Check PSU switch is ON (back of PC)</li>
+                        <li>Try a different power outlet</li>
+                        <li>Check if PSU fan spins when you press power</li>
+                        <li>If nothing: PSU may be dead - test with PSU tester or different PSU</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">2</div>
+                    <div class="solution-title">Fans Spin But No Display</div>
+                    <span class="solution-difficulty difficulty-medium">Medium</span>
+                </div>
+                <div class="solution-body">
+                    <ol>
+                        <li>Check monitor is plugged into <strong>GPU</strong>, not motherboard</li>
+                        <li>Try a different display cable (HDMI/DP)</li>
+                        <li>Remove and reseat RAM sticks</li>
+                        <li>Remove and reseat GPU</li>
+                        <li>Try booting with one RAM stick at a time</li>
+                        <li>Clear CMOS (check motherboard manual)</li>
+                        <li>Listen for beep codes (if speaker connected)</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">3</div>
+                    <div class="solution-title">Stuck on Logo / Boot Loop</div>
+                    <span class="solution-difficulty difficulty-medium">Medium</span>
+                </div>
+                <div class="solution-body">
+                    <ol>
+                        <li>Try booting into Safe Mode:
+                            <ul>
+                                <li>Force shutdown 3 times during boot to trigger recovery</li>
+                                <li>Or boot from Windows USB → Repair → Safe Mode</li>
+                            </ul>
+                        </li>
+                        <li>In Safe Mode, uninstall recent drivers/software</li>
+                        <li>Run <code>sfc /scannow</code> from Command Prompt</li>
+                        <li>If caused by Windows Update: Roll back in recovery options</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">4</div>
+                    <div class="solution-title">"No Boot Device" Error</div>
+                    <span class="solution-difficulty difficulty-medium">Medium</span>
+                </div>
+                <div class="solution-body">
+                    <ol>
+                        <li>Enter BIOS (Del or F2 during startup)</li>
+                        <li>Check if your drive is detected</li>
+                        <li>If not detected: Check SATA/NVMe cable connections</li>
+                        <li>If detected: Set correct boot order (your drive first)</li>
+                        <li>If still failing: Drive may have failed - try connecting to another PC</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overheating -->
+        <div class="solution-section" id="heat">
+            <h2 style="margin-bottom: 24px;">🔥 PC Overheating - Cooling Guide</h2>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">1</div>
+                    <div class="solution-title">Clean the Dust</div>
+                    <span class="solution-difficulty difficulty-easy">Easy</span>
+                </div>
+                <div class="solution-body">
+                    <ol>
+                        <li>Power off and unplug PC</li>
+                        <li>Take it outside (dust will go everywhere)</li>
+                        <li>Use compressed air to blow out dust from:
+                            <ul>
+                                <li>CPU cooler fins and fan</li>
+                                <li>GPU heatsink and fans</li>
+                                <li>Case fans (front, back, top)</li>
+                                <li>PSU vents (don't open PSU)</li>
+                                <li>Dust filters</li>
+                            </ul>
+                        </li>
+                        <li>Hold fans still while blowing to prevent damage</li>
+                    </ol>
+                    <div class="success-box">
+                        <strong>✓ Expected improvement:</strong> 5-15°C reduction in temps if it was dusty
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">2</div>
+                    <div class="solution-title">Improve Airflow</div>
+                    <span class="solution-difficulty difficulty-easy">Easy</span>
+                </div>
+                <div class="solution-body">
+                    <ul>
+                        <li><strong>Front fans:</strong> Should be intake (pulling air in)</li>
+                        <li><strong>Rear/top fans:</strong> Should be exhaust (pushing air out)</li>
+                        <li>Remove unused drive cages blocking airflow</li>
+                        <li>Manage cables - bundle them away from airflow path</li>
+                        <li>Don't put PC in enclosed cabinet</li>
+                        <li>Keep 6+ inches clearance around all vents</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">3</div>
+                    <div class="solution-title">Replace Thermal Paste</div>
+                    <span class="solution-difficulty difficulty-medium">Medium</span>
+                </div>
+                <div class="solution-body">
+                    <p>Thermal paste degrades over time (2-5 years). Replacing it can significantly reduce temps.</p>
+                    <ol>
+                        <li>Remove CPU cooler (carefully)</li>
+                        <li>Clean old paste with isopropyl alcohol (90%+)</li>
+                        <li>Apply pea-sized amount of new paste to center of CPU</li>
+                        <li>Reinstall cooler (don't over-tighten, use X pattern)</li>
+                        <li>Good paste brands: Noctua NT-H1, Thermal Grizzly Kryonaut, Arctic MX-4</li>
+                    </ol>
+                    <div class="success-box">
+                        <strong>✓ Expected improvement:</strong> 5-20°C depending on how old/dried the paste was
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">4</div>
+                    <div class="solution-title">Set Custom Fan Curves</div>
+                    <span class="solution-difficulty difficulty-easy">Easy</span>
+                </div>
+                <div class="solution-body">
+                    <p>Stock fan curves are often too conservative. More fan speed = lower temps.</p>
+                    <ul>
+                        <li><strong>GPU fans:</strong> Use MSI Afterburner → Fan tab → Custom curve</li>
+                        <li><strong>Case/CPU fans:</strong> Use BIOS or motherboard software (e.g., ASUS AI Suite, MSI Dragon Center)</li>
+                        <li>Aim for fans to ramp up starting around 60°C</li>
+                        <li>Balance noise vs cooling based on preference</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-header">
+                    <div class="solution-number">5</div>
+                    <div class="solution-title">Upgrade Cooling (If Needed)</div>
+                    <span class="solution-difficulty difficulty-hard">Advanced</span>
+                </div>
+                <div class="solution-body">
+                    <p>If cleaning and paste don't help enough:</p>
+                    <ul>
+                        <li><strong>CPU:</strong> Upgrade to larger tower cooler or AIO liquid cooler</li>
+                        <li><strong>GPU:</strong> Repaste, or consider aftermarket cooler (Arctic Accelero)</li>
+                        <li><strong>Case:</strong> Add more fans, or get case with better airflow (mesh front)</li>
+                        <li><strong>Undervolting:</strong> Reduces heat while maintaining performance (see Optimization page)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="software.html">Software</a>
+            <a href="maintenance.html">Maintenance</a>
+            <a href="optimization.html">Optimize</a>
+            <a href="troubleshoot.html">Troubleshoot</a>
+            <a href="upgrade-planner.html">Upgrade</a>
+        </div>
+        <p class="footer-copy">© 2026 PC Essentials. Fix your PC problems.</p>
+    </footer>
+
+    <script>
+        // Problem selector
+        document.querySelectorAll('.problem-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.problem-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.solution-section').forEach(s => s.classList.remove('active'));
+
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.problem).classList.add('active');
+            });
+        });
+
+        // BSOD search
+        const bsodSearch = document.getElementById('bsodSearch');
+        const bsodCards = document.querySelectorAll('.bsod-card');
+
+        bsodSearch?.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            bsodCards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(query) ? 'block' : 'none';
+            });
+        });
+
+        // Mobile menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger?.addEventListener('click', () => mobileMenu.classList.toggle('active'));
+    </script>
+    <script src="effects.js"></script>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+<script>
+    // Back to top button
+    const backToTopBtn = document.getElementById('backToTop');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            backToTopBtn.classList.toggle('visible', window.scrollY > 400);
+        });
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Active nav link
+    (function() {
+        const currentFile = location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && (href === currentFile || (currentFile === '' && href === 'index.html'))) {
+                link.classList.add('active');
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

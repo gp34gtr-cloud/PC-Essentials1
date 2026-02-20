@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071e3'/%3E%3Crect x='5' y='7' width='22' height='14' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cline x1='10' y1='25' x2='22' y2='25' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='16' y1='21' x2='16' y2='25' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+    <meta name="description" content="Step-by-step PC build guides and video tutorials for assembling your first gaming PC.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Building Guide | PC Essentials</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="base-styles.css">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-tertiary: #1f1f1f;
+            --bg-card: #181818;
+            --text-primary: #ffffff;
+            --text-secondary: #aaaaaa;
+            --text-tertiary: #666666;
+            --accent: #ff0000;
+            --accent-hover: #ff3333;
+            --accent-glow: rgba(255, 0, 0, 0.15);
+            --border: rgba(255, 255, 255, 0.1);
+            --card-radius: 12px;
+            --card-padding: 0;
+            --anim-speed: 0.2s;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 52px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        /* MOBILE MENU - HIDDEN ON DESKTOP */
+        .mobile-menu {
+            display: none;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 120px 24px 60px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(255, 0, 0, 0.05) 0%, transparent 100%);
+        }
+
+        .page-header h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff 0%, #ccc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section */
+        .section {
+            padding: 60px 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .video-card {
+            background: var(--bg-card);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            padding-top: 56.25%;
+            background: var(--bg-tertiary);
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+
+        .video-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 64px;
+            height: 64px;
+            background: rgba(255, 0, 0, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-card:hover .video-play {
+            opacity: 1;
+        }
+
+        .video-play svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+            margin-left: 4px;
+        }
+
+        .video-duration {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .video-info {
+            padding: 16px;
+        }
+
+        .video-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .video-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-secondary);
+            font-size: 0.8125rem;
+        }
+
+        .video-channel {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .channel-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--bg-tertiary);
+        }
+
+        .video-views {
+            color: var(--text-tertiary);
+        }
+
+        /* Channel Cards */
+        .channel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .channel-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .channel-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.1);
+        }
+
+        .channel-avatar-large {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            background: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .channel-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .channel-subs {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 12px;
+        }
+
+        .channel-desc {
+            color: var(--text-tertiary);
+            font-size: 0.8125rem;
+            line-height: 1.5;
+        }
+
+        .channel-badge {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 6px 12px;
+            background: rgba(255, 0, 0, 0.1);
+            color: var(--accent);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Tips Section */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .tip-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            transition: border-color 0.2s;
+        }
+
+        .tip-card:hover {
+            border-color: var(--accent);
+        }
+
+        .tip-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .tip-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .tip-desc {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 48px 24px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-copy {
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .channel-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Language toggle */
+        .lang-toggle {
+            display: flex;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <span data-en="PC Essentials" data-mn="PC Зайлшгүй">PC Essentials</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                
+                <li><a href="setup-checklist.html">Setup</a></li>
+                <li><a href="software.html" data-en="Software" data-mn="Програм">Software</a></li>
+                <li><a href="peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a></li>
+                <li><a href="ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a></li>
+                
+                <li><a href="performance.html">Performance</a></li>
+                <li><a href="shortcuts.html">Shortcuts</a></li>
+                
+                <li><a href="maintenance.html" data-en="Tools" data-mn="Хэрэгслүүд">Tools</a>
+            <a href="typing-test.html">Typing Test</a>
+            <a href="pc-name-generator.html">Name Gen</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="mn">MN</button>
+                </div>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" data-en="Home" data-mn="Нүүр">Home</a>
+            <a href="setup-checklist.html">Setup Guide</a>
+            <a href="software.html" data-en="Software" data-mn="Програм">Software</a>
+            <a href="peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a>
+            
+            <a href="ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a>
+            <a href="shortcuts.html">Shortcuts</a>
+            <a href="performance.html" data-en="Performance" data-mn="Гүйцэтгэл">Performance</a>
+            <a href="youtube-guide.html" class="active" data-en="Build Guide" data-mn="Угсрах заавар">Build Guide</a>
+            <a href="maintenance.html" data-en="Tools" data-mn="Хэрэгслүүд">Tools</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1 data-en="PC Building Guide" data-mn="Компьютер угсрах заавар">PC Building Guide</h1>
+        <p data-en="Learn how to build your own PC with the best YouTube tutorials from trusted tech channels." data-mn="Найдвартай техникийн сувгуудын шилдэг YouTube заавруудаар өөрийн компьютерээ хэрхэн угсрахыг сураарай.">Learn how to build your own PC with the best YouTube tutorials from trusted tech channels.</p>
+    </header>
+
+    <!-- Beginner Guides -->
+    <section class="section">
+        <div class="section-header">
+            <div class="section-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">🎓</div>
+            <div>
+                <h2 class="section-title" data-en="Beginner Tutorials" data-mn="Эхлэгчдийн заавар">Beginner Tutorials</h2>
+                <p class="section-subtitle" data-en="Start here if you've never built a PC before" data-mn="Өмнө нь компьютер угсраж байгаагүй бол эндээс эхэл">Start here if you've never built a PC before</p>
+            </div>
+        </div>
+        <div class="video-grid">
+            <a href="https://www.youtube.com/watch?v=BL4DCEp7blY" target="_blank" class="video-card">
+                <div class="video-thumbnail">
+                    <img src="https://i.ytimg.com/vi/BL4DCEp7blY/maxresdefault.jpg" alt="How to Build a PC">
+                    <div class="video-play">
+                        <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    </div>
+                    <span class="video-duration">1:00:57</span>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">How to Build a PC - Step by Step (Full Build Guide)</h3>
+                    <div class="video-meta">
+                        <div class="video-channel">
+                            <div class="channel-avatar" style="background: #ff0000;">L</div>
+                            <span>Linus Tech Tips</span>
+                        </div>
+                        <span class="video-views">15M views</span>
+                    </div>
+                </div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=v7MYOpFONCU" target="_blank" class="video-card">
+                <div class="video-thumbnail">
+                    <img src="https://i.ytimg.com/vi/v7MYOpFONCU/maxresdefault.jpg" alt="PC Building Guide">
+                    <div class="video-play">
+                        <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    </div>
+                    <span class="video-duration">36:14</span>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">How to Build a Gaming PC in 2024 - Easy Guide</h3>
+                    <div class="video-meta">
+                        <div class="video-channel">
+                            <div class="channel-avatar" style="background: #0066ff;">J</div>
+                            <span>JayzTwoCents</span>
+                        </div>
+                        <span class="video-views">2.5M views</span>
+                    </div>
+                </div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=PXaLc9AYIcg" target="_blank" class="video-card">
+                <div class="video-thumbnail">
+                    <img src="https://i.ytimg.com/vi/PXaLc9AYIcg/maxresdefault.jpg" alt="First PC Build">
+                    <div class="video-play">
+                        <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    </div>
+                    <span class="video-duration">28:45</span>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">POV: You're Building Your First Gaming PC</h3>
+                    <div class="video-meta">
+                        <div class="video-channel">
+                            <div class="channel-avatar" style="background: #9933ff;">B</div>
+                            <span>Bitwit</span>
+                        </div>
+                        <span class="video-views">8.2M views</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Part Selection Guides -->
+    <section class="section">
+        <div class="section-header">
+            <div class="section-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">🛒</div>
+            <div>
+                <h2 class="section-title" data-en="Part Selection Guides" data-mn="Эд анги сонгох заавар">Part Selection Guides</h2>
+                <p class="section-subtitle" data-en="Learn how to choose the right components for your budget" data-mn="Төсөвтөө тохирсон эд ангиудыг хэрхэн сонгохыг сураарай">Learn how to choose the right components for your budget</p>
+            </div>
+        </div>
+        <div class="video-grid">
+            <a href="https://www.youtube.com/watch?v=lPSo7FmBxMw" target="_blank" class="video-card">
+                <div class="video-thumbnail">
+                    <img src="https://i.ytimg.com/vi/lPSo7FmBxMw/maxresdefault.jpg" alt="How to Choose Parts">
+                    <div class="video-play">
+                        <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    </div>
+                    <span class="video-duration">18:32</span>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">How to Pick PC Parts - Complete Beginners Guide</h3>
+                    <div class="video-meta">
+                        <div class="video-channel">
+                            <div class="channel-avatar" style="background: #ff6600;">T</div>
+                            <span>Techquickie</span>
+                        </div>
+                        <span class="video-views">3.1M views</span>
+                    </div>
+                </div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=j_DcWgxMZ3k" target="_blank" class="video-card">
+                <div class="video-thumbnail">
+                    <img src="https://i.ytimg.com/vi/j_DcWgxMZ3k/maxresdefault.jpg" alt="Budget Gaming PC">
+                    <div class="video-play">
+                        <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    </div>
+                    <span class="video-duration">22:15</span>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Best Budget Gaming PC Build Guide 2024</h3>
+                    <div class="video-meta">
+                        <div class="video-channel">
+                            <div class="channel-avatar" style="background: #00cc99;">G</div>
+                            <span>GamersNexus</span>
+                        </div>
+                        <span class="video-views">1.8M views</span>
+                    </div>
+                </div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=2joA_S92p64" target="_blank" class="video-card">
+                <div class="video-thumbnail">
+                    <img src="https://i.ytimg.com/vi/2joA_S92p64/maxresdefault.jpg" alt="CPU vs GPU">
+                    <div class="video-play">
+                        <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    </div>
+                    <span class="video-duration">14:28</span>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">GPU vs CPU - Where to Spend Your Money</h3>
+                    <div class="video-meta">
+                        <div class="video-channel">
+                            <div class="channel-avatar" style="background: #ff0066;">H</div>
+                            <span>Hardware Unboxed</span>
+                        </div>
+                        <span class="video-views">2.4M views</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Recommended Channels -->
+    <section class="section">
+        <div class="section-header">
+            <div class="section-icon" style="background: linear-gradient(135deg, #ff0000 0%, #ff6666 100%);">📺</div>
+            <div>
+                <h2 class="section-title" data-en="Recommended Channels" data-mn="Санал болгох сувгууд">Recommended Channels</h2>
+                <p class="section-subtitle" data-en="The best tech YouTube channels to follow" data-mn="Дагах шилдэг техникийн YouTube сувгууд">The best tech YouTube channels to follow</p>
+            </div>
+        </div>
+        <div class="channel-grid">
+            <a href="https://www.youtube.com/@LinusTechTips" target="_blank" class="channel-card">
+                <div class="channel-avatar-large">🔧</div>
+                <h3 class="channel-name">Linus Tech Tips</h3>
+                <p class="channel-subs">16.2M subscribers</p>
+                <p class="channel-desc" data-en="The biggest tech channel. Great for beginners and enthusiasts alike." data-mn="Хамгийн том техникийн суваг. Эхлэгч болон сонирхогчдод маш тохиромжтой.">The biggest tech channel. Great for beginners and enthusiasts alike.</p>
+                <span class="channel-badge" data-en="Best for Beginners" data-mn="Эхлэгчдэд хамгийн тохиромжтой">Best for Beginners</span>
+            </a>
+            <a href="https://www.youtube.com/@GamersNexus" target="_blank" class="channel-card">
+                <div class="channel-avatar-large">📊</div>
+                <h3 class="channel-name">Gamers Nexus</h3>
+                <p class="channel-subs">2.8M subscribers</p>
+                <p class="channel-desc" data-en="In-depth technical analysis and benchmarks. The most detailed reviews." data-mn="Гүнзгий техникийн шинжилгээ. Хамгийн нарийвчилсан тойм.">In-depth technical analysis and benchmarks. The most detailed reviews.</p>
+                <span class="channel-badge" data-en="Most Technical" data-mn="Хамгийн техникийн">Most Technical</span>
+            </a>
+            <a href="https://www.youtube.com/@JayzTwoCents" target="_blank" class="channel-card">
+                <div class="channel-avatar-large">💧</div>
+                <h3 class="channel-name">JayzTwoCents</h3>
+                <p class="channel-subs">4.1M subscribers</p>
+                <p class="channel-desc" data-en="Custom builds, watercooling, and troubleshooting guides." data-mn="Захиалгат угсралт, усан хөргөлт, алдаа засварлах заавар.">Custom builds, watercooling, and troubleshooting guides.</p>
+                <span class="channel-badge" data-en="Watercooling Expert" data-mn="Усан хөргөлтийн мэргэжилтэн">Watercooling Expert</span>
+            </a>
+            <a href="https://www.youtube.com/@HardwareUnboxed" target="_blank" class="channel-card">
+                <div class="channel-avatar-large">📈</div>
+                <h3 class="channel-name">Hardware Unboxed</h3>
+                <p class="channel-subs">1.9M subscribers</p>
+                <p class="channel-desc" data-en="Excellent GPU and monitor benchmarks. Data-driven reviews." data-mn="Гайхалтай GPU болон дэлгэцийн туршилт. Өгөгдөлд суурилсан тойм.">Excellent GPU and monitor benchmarks. Data-driven reviews.</p>
+                <span class="channel-badge" data-en="Best Benchmarks" data-mn="Шилдэг туршилт">Best Benchmarks</span>
+            </a>
+            <a href="https://www.youtube.com/@optimumtech" target="_blank" class="channel-card">
+                <div class="channel-avatar-large">📦</div>
+                <h3 class="channel-name">Optimum Tech</h3>
+                <p class="channel-subs">1.2M subscribers</p>
+                <p class="channel-desc" data-en="Small form factor (SFF) PC builds and compact setups." data-mn="Жижиг хэмжээтэй (SFF) компьютер угсралт.">Small form factor (SFF) PC builds and compact setups.</p>
+                <span class="channel-badge" data-en="SFF Specialist" data-mn="SFF мэргэжилтэн">SFF Specialist</span>
+            </a>
+            <a href="https://www.youtube.com/@paulshardware" target="_blank" class="channel-card">
+                <div class="channel-avatar-large">🎯</div>
+                <h3 class="channel-name">Paul's Hardware</h3>
+                <p class="channel-subs">1.5M subscribers</p>
+                <p class="channel-desc" data-en="Monthly build guides at different price points. Clear explanations." data-mn="Сар бүрийн төсвийн түвшингийн угсралт заавар.">Monthly build guides at different price points. Clear explanations.</p>
+                <span class="channel-badge" data-en="Budget Builds" data-mn="Төсвийн угсралт">Budget Builds</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Common Mistakes -->
+    <section class="section">
+        <div class="section-header">
+            <div class="section-icon" style="background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);">⚠️</div>
+            <div>
+                <h2 class="section-title" data-en="Common Mistakes to Avoid" data-mn="Гаргах нийтлэг алдаанууд">Common Mistakes to Avoid</h2>
+                <p class="section-subtitle" data-en="Learn from others' mistakes before you build" data-mn="Угсрахаасаа өмнө бусдын алдаанаас суралц">Learn from others' mistakes before you build</p>
+            </div>
+        </div>
+        <div class="tips-grid">
+            <div class="tip-card">
+                <div class="tip-icon" style="background: rgba(255, 107, 107, 0.2);">🔌</div>
+                <h3 class="tip-title" data-en="Forgetting I/O Shield" data-mn="I/O хамгаалалтыг мартах">Forgetting I/O Shield</h3>
+                <p class="tip-desc" data-en="Install the I/O shield BEFORE putting the motherboard in the case. You'll have to take everything out if you forget." data-mn="Эх хавтанг хайрцагт хийхээсээ ӨМНӨ I/O хамгаалалтыг суулгаарай.">Install the I/O shield BEFORE putting the motherboard in the case. You'll have to take everything out if you forget.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-icon" style="background: rgba(255, 193, 7, 0.2);">🧲</div>
+                <h3 class="tip-title" data-en="Static Electricity" data-mn="Статик цахилгаан">Static Electricity</h3>
+                <p class="tip-desc" data-en="Touch your case or use an anti-static wristband before handling components." data-mn="Эд ангид хүрэхээсээ өмнө хайрцагтаа хүр эсвэл статик эсэргүүцэх бугуйвч ашигла.">Touch your case or use an anti-static wristband before handling components.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-icon" style="background: rgba(52, 199, 89, 0.2);">💨</div>
+                <h3 class="tip-title" data-en="CPU Cooler Plastic" data-mn="CPU хөргөгчийн хуванцар">CPU Cooler Plastic</h3>
+                <p class="tip-desc" data-en="Remove the protective plastic from the CPU cooler before mounting. This is the #1 beginner mistake." data-mn="Суурилуулахаасаа өмнө CPU хөргөгчийн хамгаалалтын хуванцарыг авна. Энэ бол хамгийн нийтлэг алдаа.">Remove the protective plastic from the CPU cooler before mounting. This is the #1 beginner mistake.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-icon" style="background: rgba(0, 122, 255, 0.2);">🔋</div>
+                <h3 class="tip-title" data-en="PSU Cables" data-mn="PSU кабель">PSU Cables</h3>
+                <p class="tip-desc" data-en="Only use cables that came with YOUR PSU. Mixing cables from different PSUs can fry your components." data-mn="Зөвхөн ӨӨРИЙН PSU-тай ирсэн кабелийг ашигла. Өөр PSU-ийн кабелийг хольвол эд ангиуд шатаж болно.">Only use cables that came with YOUR PSU. Mixing cables from different PSUs can fry your components.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-icon" style="background: rgba(175, 82, 222, 0.2);">🎮</div>
+                <h3 class="tip-title" data-en="Display Cable Location" data-mn="Дэлгэцийн кабелийн байршил">Display Cable Location</h3>
+                <p class="tip-desc" data-en="Connect your monitor to the GPU, not the motherboard. Otherwise you'll use integrated graphics." data-mn="Дэлгэцээ эх хавтан руу биш GPU руу холбоорой.">Connect your monitor to the GPU, not the motherboard. Otherwise you'll use integrated graphics.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-icon" style="background: rgba(255, 149, 0, 0.2);">🌡️</div>
+                <h3 class="tip-title" data-en="Thermal Paste Amount" data-mn="Дулаан тосны хэмжээ">Thermal Paste Amount</h3>
+                <p class="tip-desc" data-en="A pea-sized amount in the center is enough. Too much can actually hurt cooling performance." data-mn="Голд буурцагны хэмжээтэй хангалттай. Хэт их бол хөргөлтийг муутгаж болно.">A pea-sized amount in the center is enough. Too much can actually hurt cooling performance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="index.html" data-en="Home" data-mn="Нүүр">Home</a>
+            <a href="software.html" data-en="Software" data-mn="Програм">Software</a>
+            <a href="peripherals.html" data-en="Peripherals" data-mn="Төхөөрөмж">Peripherals</a>
+            
+            <a href="ai-tools.html" data-en="AI Tools" data-mn="AI Хэрэгсэл">AI Tools</a>
+            <a href="performance.html" data-en="Performance" data-mn="Гүйцэтгэл">Performance</a>
+            <a href="youtube-guide.html" data-en="Build Guide" data-mn="Угсрах Заавар">Build Guide</a>
+            <a href="maintenance.html" data-en="Maintenance" data-mn="Засвар">Maintenance</a>
+            <a href="optimization.html" data-en="Optimize" data-mn="Оновчлол">Optimize</a>
+            <a href="troubleshoot.html" data-en="Troubleshoot" data-mn="Засвар">Troubleshoot</a>
+            <a href="upgrade-planner.html" data-en="Upgrade" data-mn="Шинэчлэл">Upgrade</a>
+            <a href="can-i-run-it.html" data-en="Can I Run It?" data-mn="Ажиллах уу?">Can I Run It?</a>
+        </div>
+        <p class="footer-copy" data-en="© 2026 PC Essentials. Video content belongs to respective creators." data-mn="© 2026 PC Essentials. Видео контент нь тус тусын бүтээгчдэд хамаарна.">© 2026 PC Essentials. Video content belongs to respective creators.</p>
+    </footer>
+
+    <script src="themes.js"></script>
+    <script>
+        // Language Toggle
+        const langBtns = document.querySelectorAll('.lang-btn');
+        let currentLang = 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            langBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            document.querySelectorAll('[data-en]').forEach(el => {
+                const text = el.getAttribute(`data-${lang}`);
+                if (text) el.textContent = text;
+            });
+            document.documentElement.lang = lang;
+        }
+
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (hamburger && mobileMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        }
+    </script>
+    <script src="effects.js"></script>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+<script>
+    // Back to top button
+    const backToTopBtn = document.getElementById('backToTop');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            backToTopBtn.classList.toggle('visible', window.scrollY > 400);
+        });
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Active nav link
+    (function() {
+        const currentFile = location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && (href === currentFile || (currentFile === '' && href === 'index.html'))) {
+                link.classList.add('active');
+            }
+        });
+    })();
+    </script>
+</body>
+</html>
