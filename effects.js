@@ -224,6 +224,9 @@
     // FLOATING PARTICLES
     // ==========================================
     function initParticles() {
+        // Skip on touch/mobile — saves battery, avoids visual clutter on small screens
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+
         const container = document.createElement('div');
         container.id = 'particles-container';
         document.body.appendChild(container);
@@ -475,6 +478,9 @@
     // TILT EFFECT ON CARDS
     // ==========================================
     function initTiltEffect() {
+        // Touch devices have no mouse — skip entirely
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+
         const cards = document.querySelectorAll(
             '.software-card, .maint-card, .game-card, .upgrade-card, .tool-card'
         );
