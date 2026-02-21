@@ -18,7 +18,8 @@
       "WebFetch(domain:liquipedia.net)",
       "Bash(python3:*)",
       "Bash(node -e \":*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "WebFetch(domain:gp34gtr-cloud.github.io)"
     ]
   }
 }
