@@ -19,7 +19,8 @@
       "Bash(python3:*)",
       "Bash(node -e \":*)",
       "Bash(node:*)",
-      "WebFetch(domain:gp34gtr-cloud.github.io)"
+      "WebFetch(domain:gp34gtr-cloud.github.io)",
+      "Bash(cd:*)"
     ]
   }
 }

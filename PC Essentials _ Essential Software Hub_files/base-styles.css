@@ -919,9 +919,9 @@ body[data-page="shortcuts"] {
     gap: var(--sp-2);
   }
 
-  /* Logo: icon only on mobile */
-  .logo span          { display: none; }
-  .logo-text          { display: none; }
+  /* Logo text: keep visible on mobile, but slightly smaller */
+  .logo span          { font-size: 0.875rem; }
+  .logo-text          { font-size: 0.875rem; }
 
   /* Page header spacing */
   .page-header { padding: 96px 20px 48px; }

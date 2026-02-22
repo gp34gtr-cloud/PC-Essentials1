@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="0%" r="70%">
+      <stop offset="0%" stop-color="#0071e3" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="iconGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0071e3" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.7)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#000000"/>
+
+  <!-- Blue ambient glow -->
+  <ellipse cx="600" cy="0" rx="700" ry="320" fill="url(#glow)"/>
+
+  <!-- Icon background glow -->
+  <ellipse cx="600" cy="240" rx="160" ry="160" fill="url(#iconGlow)"/>
+
+  <!-- Monitor icon container -->
+  <rect x="554" y="164" width="92" height="92" rx="22" fill="#0071e3"/>
+
+  <!-- Monitor SVG icon (white) -->
+  <rect x="568" y="176" width="64" height="42" rx="5" fill="none" stroke="white" stroke-width="4.5"/>
+  <line x1="580" y1="226" x2="620" y2="226" stroke="white" stroke-width="4.5" stroke-linecap="round"/>
+  <line x1="600" y1="218" x2="600" y2="226" stroke="white" stroke-width="4.5" stroke-linecap="round"/>
+
+  <!-- "PC Essentials" title -->
+  <text
+    x="600" y="322"
+    text-anchor="middle"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+    font-size="74"
+    font-weight="700"
+    letter-spacing="-2"
+    fill="url(#textGrad)"
+  >PC Essentials</text>
+
+  <!-- Subtitle -->
+  <text
+    x="600" y="380"
+    text-anchor="middle"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+    font-size="26"
+    font-weight="400"
+    letter-spacing="0.5"
+    fill="#8e8ea8"
+  >Essential Software Hub</text>
+
+  <!-- Divider line -->
+  <line x1="480" y1="418" x2="720" y2="418" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+
+  <!-- Tagline -->
+  <text
+    x="600" y="456"
+    text-anchor="middle"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+    font-size="20"
+    fill="#55556a"
+  >Free · Official Sources · Windows PC</text>
+
+  <!-- Decorative dots top-left -->
+  <circle cx="80" cy="80" r="3" fill="rgba(0,113,227,0.3)"/>
+  <circle cx="100" cy="60" r="2" fill="rgba(0,113,227,0.2)"/>
+  <circle cx="120" cy="90" r="2" fill="rgba(0,113,227,0.15)"/>
+  <circle cx="60" cy="110" r="2" fill="rgba(0,113,227,0.2)"/>
+
+  <!-- Decorative dots bottom-right -->
+  <circle cx="1120" cy="550" r="3" fill="rgba(0,113,227,0.3)"/>
+  <circle cx="1100" cy="570" r="2" fill="rgba(0,113,227,0.2)"/>
+  <circle cx="1140" cy="530" r="2" fill="rgba(0,113,227,0.15)"/>
+  <circle cx="1080" cy="560" r="2" fill="rgba(0,113,227,0.2)"/>
+
+  <!-- Bottom border accent -->
+  <rect x="520" y="500" width="160" height="2" rx="1" fill="#0071e3" opacity="0.4"/>
+</svg>

@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071e3'/%3E%3Crect x='5' y='7' width='22' height='14' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cline x1='10' y1='25' x2='22' y2='25' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='16' y1='21' x2='16' y2='25' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
     <meta name="description" content="Keep your PC healthy with maintenance guides, cleaning tools, disk utilities, and system checkup tips.">
+    <meta property="og:title" content="Maintenance | PC Essentials">
+    <meta property="og:description" content="Keep your PC healthy with regular maintenance tasks and tools.">
+    <meta property="og:image" content="https://gp34gtr-cloud.github.io/PC-Essentials1/og-image.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://gp34gtr-cloud.github.io/PC-Essentials1/og-image.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PC Maintenance & Health | PC Essentials</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1011,6 +1017,12 @@
             .hamburger { display: flex; }
         }
     </style>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0071e3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="PC Essentials">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
 </head>
 <body>
     <nav>
@@ -1634,6 +1646,13 @@
             }
         });
     })();
+    </script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js');
+        });
+      }
     </script>
 </body>
 </html>

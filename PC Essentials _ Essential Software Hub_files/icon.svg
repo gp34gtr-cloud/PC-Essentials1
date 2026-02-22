@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background -->
+  <rect width="512" height="512" rx="115" fill="#0071e3"/>
+
+  <!-- Subtle inner glow -->
+  <radialGradient id="g" cx="50%" cy="30%" r="60%">
+    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="512" height="512" rx="115" fill="url(#g)"/>
+
+  <!-- Monitor screen -->
+  <rect x="88" y="130" width="336" height="216" rx="22" fill="none" stroke="white" stroke-width="30"/>
+
+  <!-- Stand neck -->
+  <line x1="256" y1="346" x2="256" y2="396" stroke="white" stroke-width="30" stroke-linecap="round"/>
+
+  <!-- Stand base -->
+  <line x1="168" y1="396" x2="344" y2="396" stroke="white" stroke-width="30" stroke-linecap="round"/>
+
+  <!-- Screen shine lines -->
+  <line x1="130" y1="175" x2="175" y2="175" stroke="white" stroke-width="14" stroke-linecap="round" opacity="0.35"/>
+  <line x1="130" y1="200" x2="160" y2="200" stroke="white" stroke-width="14" stroke-linecap="round" opacity="0.20"/>
+</svg>
