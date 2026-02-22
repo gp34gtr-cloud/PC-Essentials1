@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071e3'/%3E%3Crect x='5' y='7' width='22' height='14' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cline x1='10' y1='25' x2='22' y2='25' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='16' y1='21' x2='16' y2='25' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+    <meta name="description" content="About PC Essentials - a free hub for Windows PC software, setup guides, and tools. All from official sources only.">
+    <meta property="og:title" content="About | PC Essentials">
+    <meta property="og:description" content="Learn about PC Essentials - a free hub for Windows PC software, drivers, and utilities from official sources only.">
+    <meta property="og:image" content="https://gp34gtr-cloud.github.io/PC-Essentials1/og-image.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://gp34gtr-cloud.github.io/PC-Essentials1/og-image.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | PC Essentials</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="base-styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0071e3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="PC Essentials">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <style>
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0f;
+            --bg-tertiary: #111118;
+            --bg-card: #0c0c14;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1a6;
+            --text-tertiary: #6e6e73;
+            --accent: #0071e3;
+            --accent-hover: #0080f5;
+            --accent-glow: rgba(0, 113, 227, 0.18);
+            --accent-subtle: rgba(0, 113, 227, 0.09);
+            --border: rgba(255, 255, 255, 0.07);
+            --border-hover: rgba(255, 255, 255, 0.14);
+            --card-radius: 18px;
+            --card-padding: 28px;
+            --card-shadow: none;
+            --anim-speed: 0.2s;
+            --anim-easing: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        body { background: var(--bg-primary); }
+        /* Hero */
+        .hero { padding: 140px 24px 80px; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 900px; height: 420px; background: radial-gradient(ellipse at 50% 0%, rgba(0,113,227,0.20) 0%, transparent 68%); pointer-events: none; }
+        .hero > * { position: relative; z-index: 1; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,113,227,0.12); border: 1px solid rgba(0,113,227,0.28); border-radius: 9999px; padding: 6px 16px; font-size: 0.75rem; font-weight: 600; color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 28px; }
+        .hero-badge::before { content: ""; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+        .hero h1 { font-size: clamp(2.4rem,8vw,4.5rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1.08; margin-bottom: 24px; background: linear-gradient(180deg,#fff 0%,rgba(255,255,255,.50) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero p { font-size: clamp(1rem,2.5vw,1.125rem); color: var(--text-secondary); max-width: 560px; margin: 0 auto; line-height: 1.65; }
+        /* Layout */
+        .about-section { max-width: 1100px; margin: 0 auto; padding: 72px 24px; }
+        .mission-block { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; margin-bottom: 80px; }
+        .lbl { display: inline-flex; align-items: center; gap: 8px; font-size: 0.6875rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.10em; margin-bottom: 14px; }
+        .lbl::before { content: ""; display: block; width: 16px; height: 1.5px; background: var(--accent); border-radius: 2px; }
+        .mission-text h2 { font-size: clamp(1.75rem,4vw,2.5rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; color: var(--text-primary); margin-bottom: 20px; }
+        .mission-text p { color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.75; margin-bottom: 16px; }
+        .mission-text p:last-child { margin-bottom: 0; }
+        .mission-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .stat-card { background: rgba(255,255,255,0.028); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 16px; padding: 24px 20px; text-align: center; transition: border-color .2s ease,transform .2s ease; }
+        .stat-card:hover { border-color: rgba(0,113,227,.35); transform: translateY(-2px); }
+        .stat-number { font-size: 2rem; font-weight: 700; letter-spacing: -0.04em; color: var(--accent); line-height: 1; margin-bottom: 6px; }
+        .stat-label { font-size: 0.8125rem; color: var(--text-tertiary); font-weight: 500; }
+        /* Offer section */
+        .offer-header { text-align: center; margin-bottom: 48px; }
+        .offer-header h2 { font-size: clamp(1.75rem,4vw,2.5rem); font-weight: 700; letter-spacing: -0.025em; color: var(--text-primary); margin-bottom: 12px; }
+        .offer-header p { color: var(--text-secondary); font-size: 0.9375rem; max-width: 500px; margin: 0 auto; line-height: 1.65; }
+        .offer-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 80px; }
+        .offer-card { background: rgba(255,255,255,.025); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: var(--card-radius); padding: 28px 24px; transition: border-color 200ms ease,transform 200ms ease,box-shadow 200ms ease; position: relative; overflow: hidden; }
+        .offer-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg,transparent,rgba(0,113,227,.35),transparent); opacity: 0; transition: opacity 200ms ease; }
+        .offer-card:hover { border-color: rgba(0,113,227,.40); transform: translateY(-3px); box-shadow: 0 0 0 1px rgba(0,113,227,.10),0 16px 48px rgba(0,0,0,.55),0 0 32px rgba(0,113,227,.07); }
+        .offer-card:hover::before { opacity: 1; }
+        .offer-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(0,113,227,.12); border: 1px solid rgba(0,113,227,.20); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--accent); transition: background 200ms ease,border-color 200ms ease; }
+        .offer-card:hover .offer-icon { background: rgba(0,113,227,.20); border-color: rgba(0,113,227,.35); }
+        .offer-card h3 { font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; letter-spacing: -0.01em; }
+        .offer-card > p { font-size: .875rem; color: var(--text-secondary); line-height: 1.6; }
+        .offer-card a { display: inline-flex; align-items: center; gap: 5px; margin-top: 14px; font-size: .8125rem; font-weight: 600; color: var(--accent); transition: gap 150ms ease,opacity 150ms ease; }
+        .offer-card a:hover { gap: 8px; opacity: .85; }
+        /* Built For */
+        .built-for-section { background: rgba(255,255,255,.018); border: 1px solid var(--border); border-radius: 24px; padding: 56px 48px; margin-bottom: 80px; position: relative; overflow: hidden; }
+        .built-for-section::before { content: ""; position: absolute; top: -80px; right: -80px; width: 300px; height: 300px; background: radial-gradient(circle,rgba(0,113,227,.08) 0%,transparent 70%); pointer-events: none; }
+        .built-for-section h2 { font-size: clamp(1.6rem,3.5vw,2.25rem); font-weight: 700; letter-spacing: -0.025em; color: var(--text-primary); margin-bottom: 36px; }
+        .built-for-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+        .built-for-item { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); border-radius: 14px; padding: 22px 18px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; transition: border-color 200ms ease,background 200ms ease; }
+        .built-for-item:hover { border-color: rgba(0,113,227,.30); background: rgba(0,113,227,.05); }
+        .built-for-emoji { font-size: 1.6rem; line-height: 1; }
+        .built-for-item h3 { font-size: .9375rem; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; }
+        .built-for-item p { font-size: .8125rem; color: var(--text-tertiary); line-height: 1.5; }
+        /* Suggest */
+        .suggest-card { background: linear-gradient(135deg,rgba(0,113,227,.10) 0%,rgba(0,113,227,.04) 100%); border: 1px solid rgba(0,113,227,.28); border-radius: 22px; padding: 48px; text-align: center; position: relative; overflow: hidden; margin-bottom: 32px; }
+        .suggest-card::before { content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 400px; height: 200px; background: radial-gradient(ellipse at 50% 0%,rgba(0,113,227,.15) 0%,transparent 70%); pointer-events: none; }
+        .suggest-card > * { position: relative; z-index: 1; }
+        .suggest-card h2 { font-size: clamp(1.5rem,3vw,2rem); font-weight: 700; letter-spacing: -0.025em; color: var(--text-primary); margin-bottom: 12px; }
+        .suggest-card > p { color: var(--text-secondary); font-size: .9375rem; line-height: 1.65; max-width: 480px; margin: 0 auto 28px; }
+        .suggest-btn { display: inline-flex; align-items: center; gap: 9px; padding: 13px 28px; background: var(--accent); color: #fff; font-family: inherit; font-size: .9375rem; font-weight: 600; border-radius: 10px; border: none; cursor: pointer; text-decoration: none; letter-spacing: -0.01em; transition: background 150ms ease,transform 150ms ease,box-shadow 150ms ease; }
+        .suggest-btn:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,113,227,.30); }
+        .suggest-btn:active { transform: translateY(0); box-shadow: none; }
+        @media(max-width:900px){.mission-block{grid-template-columns:1fr;gap:40px}.offer-grid{grid-template-columns:repeat(2,1fr)}.built-for-grid{grid-template-columns:repeat(2,1fr)}.built-for-section{padding:40px 28px}}
+        @media(max-width:600px){.hero{padding:110px 20px 60px}.about-section{padding:48px 20px}.offer-grid{grid-template-columns:1fr}.mission-stats{grid-template-columns:1fr 1fr}.suggest-card{padding:32px 20px}.built-for-section{padding:32px 20px}.built-for-grid{grid-template-columns:1fr 1fr}}
+        @media(max-width:420px){.built-for-grid{grid-template-columns:1fr}}
+    </style>
+</head>
+<body data-page="about">
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <span>PC Essentials</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="setup-checklist.html">Setup</a></li>
+                <li><a href="software.html">Software</a></li>
+                <li><a href="peripherals.html">Peripherals</a></li>
+                <li><a href="ai-tools.html">AI Tools</a></li>
+                <li><a href="performance.html">Performance</a></li>
+                <li><a href="shortcuts.html">Shortcuts</a></li>
+                <li><a href="maintenance.html">Maintenance</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="theme-toggle active" id="themeToggle" title="Toggle unique page themes">
+                    <div class="theme-toggle-switch"></div>
+                    <span class="theme-toggle-label">Themes</span>
+                </div>
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="mn">MN</button>
+                </div>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html">Home</a>
+            <a href="setup-checklist.html">Setup Guide</a>
+            <a href="software.html">Software</a>
+            <a href="peripherals.html">Peripherals</a>
+            <a href="ai-tools.html">AI Tools</a>
+            <a href="shortcuts.html">Shortcuts</a>
+            <a href="performance.html">Performance</a>
+            <a href="youtube-guide.html">Build Guide</a>
+            <a href="maintenance.html">Maintenance</a>
+            <a href="typing-test.html">Typing Test</a>
+            <a href="pc-name-generator.html">Name Gen</a>
+            <a href="about.html" class="active">About</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-badge">Est. 2024</div>
+        <h1>About PC Essentials</h1>
+        <p>A free, community-driven hub built to help anyone get their Windows PC set up right &mdash; with software, guides, and tools sourced exclusively from official channels.</p>
+    </div>
+
+    <div class="about-section">
+
+        <div class="mission-block">
+            <div class="mission-text">
+                <div class="lbl">Our Mission</div>
+                <h2>One hub. Everything you need. Nothing sketchy.</h2>
+                <p>PC Essentials started with a simple frustration: too many download sites are cluttered with ads, bundled bloatware, or outright malware. We built this as the resource we wished existed &mdash; clean, fast, and fully trustworthy.</p>
+                <p>Every single link on this site points to the official source. No mirrors. No third-party wrappers. No popups. Just the software, the guide, or the tool you need, exactly where it should come from.</p>
+                <p>It&rsquo;s free, it always will be, and it&rsquo;s maintained by people who actually use PCs every day.</p>
+            </div>
+            <div class="mission-stats">
+                <div class="stat-card"><div class="stat-number">100%</div><div class="stat-label">Official sources</div></div>
+                <div class="stat-card"><div class="stat-number">16+</div><div class="stat-label">Pages &amp; tools</div></div>
+                <div class="stat-card"><div class="stat-number">Free</div><div class="stat-label">Always, forever</div></div>
+                <div class="stat-card"><div class="stat-number">0</div><div class="stat-label">Ads or bloatware</div></div>
+            </div>
+        </div>
+
+        <div class="offer-header">
+            <div class="lbl">What We Offer</div>
+            <h2>Everything in one place</h2>
+            <p>Six core areas covering everything a Windows user needs, from a fresh install to a fully tuned rig.</p>
+        </div>
+
+        <div class="offer-grid">
+
+            <div class="offer-card">
+                <div class="offer-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 17 12 21 16 17"></polyline><line x1="12" y1="12" x2="12" y2="21"></line><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"></path></svg></div>
+                <h3>Software Library</h3>
+                <p>Essential Windows apps &mdash; browsers, media players, utilities, and gaming clients &mdash; all linking to official download pages.</p>
+                <a href="software.html">Browse software <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+            </div>
+
+            <div class="offer-card">
+                <div class="offer-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg></div>
+                <h3>Setup Guides</h3>
+                <p>Step-by-step checklists for setting up a fresh Windows install, complete with what to do first and what to skip.</p>
+                <a href="setup-checklist.html">View checklist <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+            </div>
+
+            <div class="offer-card">
+                <div class="offer-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
+                <h3>Performance Tools</h3>
+                <p>Benchmarks, monitoring software, optimization tweaks, and game-specific FPS boost guides to squeeze the most from your hardware.</p>
+                <a href="performance.html">Boost performance <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+            </div>
+
+            <div class="offer-card">
+                <div class="offer-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"></path></svg></div>
+                <h3>AI Tools</h3>
+                <p>Curated roundup of the best AI tools for productivity, creativity, coding, and everyday PC use &mdash; with plain-English descriptions.</p>
+                <a href="ai-tools.html">Explore AI tools <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+            </div>
+
+            <div class="offer-card">
+                <div class="offer-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
+                <h3>Troubleshooting</h3>
+                <p>Clear, no-jargon fixes for common PC problems &mdash; blue screens, slow boots, driver conflicts, and more, all in one searchable page.</p>
+                <a href="troubleshoot.html">Fix issues <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+            </div>
+
+            <div class="offer-card">
+                <div class="offer-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></div>
+                <h3>Mini Tools</h3>
+                <p>Built-in browser tools: typing speed test, PC name generator, upgrade planner, and &ldquo;Can I Run It&rdquo; checker &mdash; no installs needed.</p>
+                <a href="typing-test.html">Try a tool <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+            </div>
+
+        </div>
+        <div class="built-for-section">
+            <div class="lbl">Built For</div>
+            <h2>Made for real people, not IT departments</h2>
+            <div class="built-for-grid">
+                <div class="built-for-item"><div class="built-for-emoji">&#x1F527;</div><h3>PC Builders</h3><p>Just finished your first build? Start here for every driver, utility, and tweak you need out of the box.</p></div>
+                <div class="built-for-item"><div class="built-for-emoji">&#x1FA9F;</div><h3>New Windows Users</h3><p>Switched from Mac or coming from an older version? Our setup checklist walks you through every step.</p></div>
+                <div class="built-for-item"><div class="built-for-emoji">&#x1F3AE;</div><h3>Gamers</h3><p>From FPS optimization to peripheral recommendations, we&rsquo;ve got guides that actually make a difference in-game.</p></div>
+                <div class="built-for-item"><div class="built-for-emoji">&#x26A1;</div><h3>Tech Enthusiasts</h3><p>Power users who want to benchmark, overclock, tweak Windows settings, and stay on top of the latest AI tools.</p></div>
+            </div>
+        </div>
+
+        <div class="suggest-card">
+            <h2>Suggest Something</h2>
+            <p>Missing a tool, guide, or software recommendation? We review every suggestion. Open a GitHub issue and we&rsquo;ll take a look &mdash; seriously, it takes 60 seconds.</p>
+            <a href="https://github.com/gp34gtr-cloud/PC-Essentials1/issues/new" class="suggest-btn" target="_blank" rel="noopener noreferrer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                Open an issue on GitHub
+            </a>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="setup-checklist.html">Setup Guide</a>
+                <a href="software.html">Software</a>
+                <a href="peripherals.html">Peripherals</a>
+                <a href="ai-tools.html">AI Tools</a>
+                <a href="performance.html">Performance</a>
+                <a href="maintenance.html">Maintenance</a>
+                <a href="optimization.html">Optimize</a>
+                <a href="troubleshoot.html">Troubleshoot</a>
+            </div>
+            <p class="footer-copy">&copy; 2026 PC Essentials. All software trademarks belong to their respective owners.</p>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
+
+    <script>
+        const hamburger = document.getElementById("hamburger");
+        const mobileMenu = document.getElementById("mobileMenu");
+        if (hamburger && mobileMenu) {
+            hamburger.addEventListener("click", () => { hamburger.classList.toggle("active"); mobileMenu.classList.toggle("active"); });
+            mobileMenu.querySelectorAll("a").forEach(l => l.addEventListener("click", () => { hamburger.classList.remove("active"); mobileMenu.classList.remove("active"); }));
+            document.addEventListener("click", e => { if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) { hamburger.classList.remove("active"); mobileMenu.classList.remove("active"); } });
+        }
+        const btt = document.getElementById("backToTop");
+        if (btt) {
+            window.addEventListener("scroll", () => btt.classList.toggle("visible", window.scrollY > 400));
+            btt.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+        }
+        const revealEls = document.querySelectorAll(".offer-card, .stat-card, .built-for-item");
+        revealEls.forEach(el => { el.style.opacity = "0"; el.style.transform = "translateY(16px)"; el.style.transition = "opacity 0.4s ease, transform 0.4s ease"; });
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) { setTimeout(() => { entry.target.style.opacity = "1"; entry.target.style.transform = "translateY(0)"; }, i * 55); obs.unobserve(entry.target); }
+            });
+        }, { threshold: 0.08 });
+        revealEls.forEach(el => obs.observe(el));
+    </script>
+    <script src="themes.js"></script>
+    <script src="effects.js"></script>
+    <script>
+        autoApplyPageTheme("about");
+        const themeToggle = document.getElementById("themeToggle");
+        themeToggle.classList.toggle("active", getThemeState());
+        themeToggle.addEventListener("click", () => { const s = toggleUniqueThemes(!getThemeState()); themeToggle.classList.toggle("active", s); });
+        const langBtns = document.querySelectorAll(".lang-btn");
+        langBtns.forEach(btn => btn.addEventListener("click", () => langBtns.forEach(b => b.classList.toggle("active", b === btn))));
+    </script>
+    <script>
+        if ("serviceWorker" in navigator) { window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js")); }
+    </script>
+</body>
+</html>
