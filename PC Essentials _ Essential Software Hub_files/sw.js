@@ -22,8 +22,7 @@ const PRECACHE = [
   './effects.js',
   './themes.js',
   './data.js',
-  './icon-192.png',
-  './icon-512.png'
+  './icon.svg'
 ];
 
 self.addEventListener('install', e => {

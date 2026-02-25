@@ -20,7 +20,12 @@
       "Bash(node -e \":*)",
       "Bash(node:*)",
       "WebFetch(domain:gp34gtr-cloud.github.io)",
-      "Bash(cd:*)"
+      "Bash(cd:*)",
+      "Bash(powershell.exe:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(echo === Checking for page inclusion of $page ===:*)",
+      "Bash(echo Checking which pages don't link to about.html::*)"
     ]
   }
 }

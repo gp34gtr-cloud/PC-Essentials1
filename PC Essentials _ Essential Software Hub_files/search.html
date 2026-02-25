@@ -224,7 +224,7 @@
             if (desc.includes(ql)) return 40;
             if (tags.includes(ql)) return 30;
             // word-level matching across all fields
-            const words = ql.split(/s+/).filter(Boolean);
+            const words = ql.split(/\s+/).filter(Boolean);
             const combined = title + " " + desc + " " + tags;
             const hits = words.filter(w => combined.includes(w)).length;
             if (hits === words.length) return 20;

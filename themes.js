@@ -359,9 +359,56 @@ function celebrateAddToCart(itemName = 'Item') {
     }, 3000);
 }
 
-// Add to cart button handler
-function addToCart(itemName) {
-    celebrateAddToCart(itemName);
-    // Add your cart logic here
-    console.log(`${itemName} added to cart!`);
+// ── Cart System ──────────────────────────────────────────────────────────────
+
+const CART_KEY = 'pce_cart';
+
+function getCart() {
+    try {
+        return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    } catch {
+        return [];
+    }
 }
+
+function saveCart(cart) {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    updateCartBadge();
+}
+
+function addToCart(itemName, price) {
+    const cart = getCart();
+    const existing = cart.find(i => i.name === itemName);
+    if (existing) {
+        existing.qty += 1;
+    } else {
+        cart.push({ name: itemName, price: price || null, qty: 1 });
+    }
+    saveCart(cart);
+    celebrateAddToCart(itemName);
+}
+
+function removeFromCart(itemName) {
+    const cart = getCart().filter(i => i.name !== itemName);
+    saveCart(cart);
+}
+
+function clearCart() {
+    localStorage.removeItem(CART_KEY);
+    updateCartBadge();
+}
+
+function getCartCount() {
+    return getCart().reduce((sum, i) => sum + i.qty, 0);
+}
+
+function updateCartBadge() {
+    const count = getCartCount();
+    document.querySelectorAll('.cart-badge').forEach(el => {
+        el.textContent = count;
+        el.style.display = count > 0 ? 'inline-flex' : 'none';
+    });
+}
+
+// Initialise badge on page load
+document.addEventListener('DOMContentLoaded', updateCartBadge);

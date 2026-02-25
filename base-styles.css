@@ -996,3 +996,41 @@ body[data-page="shortcuts"] {
 
   .back-to-top  { bottom: var(--sp-4); right: 14px; width: 38px; height: 38px; }
 }
+
+
+/* ── CREATIVE ENHANCEMENTS ───────────────────────────────────── */
+
+/* Custom scrollbar — thin accent line instead of Windows default */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 113, 227, 0.35);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(0, 113, 227, 0.6); }
+
+/* Text selection — accent color instead of ugly system blue */
+::selection {
+  background: rgba(0, 113, 227, 0.38);
+  color: #fff;
+}
+
+/* Card spotlight effect — radial light follows cursor */
+.category-card, .software-card, .maint-card, .game-card,
+.tip-card, .upgrade-card, .solution-card, .tool-card, .path-card {
+  --sx: -999px;
+  --sy: -999px;
+}
+.has-spotlight::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    260px circle at var(--sx) var(--sy),
+    rgba(255, 255, 255, 0.055) 0%,
+    transparent 68%
+  );
+  pointer-events: none;
+  z-index: 10;
+}

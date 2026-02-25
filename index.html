@@ -347,6 +347,61 @@
             50% { transform: translateX(-50%) translateY(8px); }
         }
 
+        /* ── Aurora hero background ── */
+        .hero-aurora {
+            position: absolute !important;
+            inset: 0;
+            z-index: 0 !important;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            will-change: transform;
+        }
+        .aurora-blob-1 {
+            width: 620px; height: 420px;
+            background: radial-gradient(ellipse, rgba(0,113,227,0.55) 0%, transparent 70%);
+            top: -120px; left: 18%;
+            animation: aura1 14s ease-in-out infinite alternate;
+        }
+        .aurora-blob-2 {
+            width: 480px; height: 360px;
+            background: radial-gradient(ellipse, rgba(90,200,250,0.38) 0%, transparent 70%);
+            top: 40px; right: 12%;
+            animation: aura2 18s ease-in-out infinite alternate;
+        }
+        .aurora-blob-3 {
+            width: 380px; height: 280px;
+            background: radial-gradient(ellipse, rgba(118,75,162,0.32) 0%, transparent 70%);
+            bottom: 60px; left: 38%;
+            animation: aura3 11s ease-in-out infinite alternate;
+        }
+        @keyframes aura1 {
+            from { transform: translate(0,   0)   scale(1);    }
+            to   { transform: translate(-55px, 50px) scale(1.18); }
+        }
+        @keyframes aura2 {
+            from { transform: translate(0,   0)   scale(1);    }
+            to   { transform: translate(45px, -35px) scale(0.88); }
+        }
+        @keyframes aura3 {
+            from { transform: translate(0,   0)   scale(1.08); }
+            to   { transform: translate(-35px, -25px) scale(1); }
+        }
+
+        /* ── Rotating hero word ── */
+        #hero-rotating-word {
+            display: inline-block;
+            background: linear-gradient(135deg, #5ac8fa 0%, #007aff 50%, #5856d6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1);
+        }
+
         /* Stats Section */
         .stats {
             padding: 72px 24px;
@@ -1326,11 +1381,17 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <!-- Animated aurora blobs -->
+        <div class="hero-aurora" aria-hidden="true">
+            <div class="aurora-blob aurora-blob-1"></div>
+            <div class="aurora-blob aurora-blob-2"></div>
+            <div class="aurora-blob aurora-blob-3"></div>
+        </div>
         <div class="hero-badge">
             <span class="hero-badge-dot"></span>
             <span data-en="Updated for 2026" data-mn="2026 онд шинэчлэгдсэн">Updated for 2026</span>
         </div>
-        <h1 data-en="Essential Software for Your New PC" data-mn="Шинэ компьютерийн зайлшгүй програмууд">Essential Software for Your New PC</h1>
+        <h1 data-en="Essential Software for Your New PC" data-mn="Шинэ компьютерийн зайлшгүй програмууд">Essential Software for Your <span id="hero-rotating-word">New PC</span></h1>
         <p data-en="Everything you need to get started. Curated collection of drivers, utilities, and applications — all from official sources, completely free." data-mn="Эхлэхэд хэрэгтэй бүх зүйл. Драйвер, хэрэгслүүд болон програмуудын сонголт — бүгд албан ёсны эх сурвалжаас, бүрэн үнэгүй.">Everything you need to get started. Curated collection of drivers, utilities, and applications — all from official sources, completely free.</p>
         <p class="hero-tagline" data-en="Your one-stop hub for setting up a fresh Windows PC." data-mn="Шинэ Windows компьютер тохируулах нэг цэгийн төв.">Your one-stop hub for setting up a fresh Windows PC.</p>
         <div class="hero-cta">

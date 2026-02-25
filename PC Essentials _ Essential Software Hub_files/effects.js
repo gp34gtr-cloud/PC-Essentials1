@@ -18,8 +18,7 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('revealed');
-                    // Optional: unobserve after reveal for performance
-                    // observer.unobserve(entry.target);
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
@@ -507,6 +506,95 @@
     }
 
     // ==========================================
+    // CARD SPOTLIGHT EFFECT
+    // ==========================================
+    function initCardSpotlight() {
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+
+        const cards = document.querySelectorAll(
+            '.category-card, .software-card, .maint-card, .game-card, ' +
+            '.tip-card, .upgrade-card, .solution-card, .tool-card, .path-card'
+        );
+
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--sx', (e.clientX - rect.left) + 'px');
+                card.style.setProperty('--sy', (e.clientY - rect.top) + 'px');
+                card.classList.add('has-spotlight');
+            });
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('has-spotlight');
+            });
+        });
+    }
+
+    // ==========================================
+    // MAGNETIC BUTTONS
+    // ==========================================
+    function initMagneticButtons() {
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+
+        document.querySelectorAll('.btn-primary').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const dx = (e.clientX - rect.left - rect.width  / 2) * 0.28;
+                const dy = (e.clientY - rect.top  - rect.height / 2) * 0.28;
+                btn.style.transition = 'transform 0.08s ease';
+                btn.style.transform  = `translate(${dx}px, ${dy}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transition = 'transform 0.5s cubic-bezier(0.16,1,0.3,1)';
+                btn.style.transform  = 'translate(0, 0)';
+            });
+        });
+    }
+
+    // ==========================================
+    // HERO PARALLAX ON SCROLL
+    // ==========================================
+    function initHeroParallax() {
+        const hero = document.querySelector('.hero');
+        if (!hero || 'ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+
+        // Exclude .scroll-indicator — it uses translateX(-50%) centering via CSS animation
+        // and inline transform would break that.
+        const items = hero.querySelectorAll('.hero-badge, h1, p, .hero-cta');
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            const fade = Math.max(0, 1 - y / (hero.offsetHeight * 0.55));
+            items.forEach(el => {
+                el.style.transform = `translateY(${y * 0.12}px)`;
+                el.style.opacity   = fade;
+            });
+        }, { passive: true });
+    }
+
+    // ==========================================
+    // ROTATING HERO WORD
+    // ==========================================
+    function initRotatingText() {
+        const target = document.getElementById('hero-rotating-word');
+        if (!target) return;
+
+        const words = ['Gaming PC', 'Work PC', 'New Build', 'Fresh Install'];
+        let idx = 0;
+
+        function rotate() {
+            target.style.opacity   = '0';
+            target.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+                idx = (idx + 1) % words.length;
+                target.textContent   = words[idx];
+                target.style.opacity = '1';
+                target.style.transform = 'translateY(0)';
+            }, 320);
+        }
+
+        setInterval(rotate, 2800);
+    }
+
+    // ==========================================
     // INITIALIZE ALL EFFECTS
     // ==========================================
     function init() {
@@ -524,6 +612,10 @@
         initCursorGlow();
         initCounters();
         initTiltEffect();
+        initCardSpotlight();
+        initMagneticButtons();
+        initHeroParallax();
+        initRotatingText();
 
         console.log('PC Essentials effects loaded');
     }

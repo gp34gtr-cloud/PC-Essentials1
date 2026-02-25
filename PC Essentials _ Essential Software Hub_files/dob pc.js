@@ -45,7 +45,7 @@ const PAGE_THEMES = {
             bgCard: '#0f0f18',
             textPrimary: '#ffffff',
             textSecondary: '#8888aa',
-            textTertiary: '#5555777',
+            textTertiary: '#555577',
             accent: '#00ff88',
             accentHover: '#00ffaa',
             accentGlow: 'rgba(0, 255, 136, 0.2)',
